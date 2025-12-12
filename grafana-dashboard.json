@@ -123,6 +123,16 @@
               {
                 "id": "custom.align",
                 "value": "left"
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -389,6 +399,16 @@
               {
                 "id": "custom.width",
                 "value": 200
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -799,6 +819,16 @@
               {
                 "id": "custom.width",
                 "value": 200
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -1222,6 +1252,16 @@
               {
                 "id": "custom.width",
                 "value": 200
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -1696,6 +1736,16 @@
               {
                 "id": "custom.width",
                 "value": 200
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -2053,6 +2103,16 @@
               {
                 "id": "custom.width",
                 "value": 200
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -2260,6 +2320,16 @@
               {
                 "id": "custom.width",
                 "value": 200
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -2758,6 +2828,16 @@
               {
                 "id": "custom.width",
                 "value": 200
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -3144,6 +3224,16 @@
               {
                 "id": "custom.width",
                 "value": 200
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -3454,6 +3544,16 @@
               {
                 "id": "custom.width",
                 "value": 150
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -4083,6 +4183,16 @@
               {
                 "id": "custom.width",
                 "value": 150
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -4726,6 +4836,16 @@
               {
                 "id": "custom.width",
                 "value": 200
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -5202,6 +5322,16 @@
               {
                 "id": "custom.width",
                 "value": 200
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -5594,6 +5724,16 @@
               {
                 "id": "custom.width",
                 "value": 200
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -5872,6 +6012,16 @@
               {
                 "id": "custom.width",
                 "value": 150
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -6484,6 +6634,16 @@
               {
                 "id": "custom.width",
                 "value": 150
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View Workload Details",
+                    "url": "/d/workload-resource-workload/resource-consumption-analysis-workload-details?var-datasource=$datasource&var-namespace=$namespace&var-workload=${__value.text}",
+                    "targetBlank": true
+                  }
+                ]
               }
             ]
           },
@@ -7187,6 +7347,6 @@
   "timezone": "browser",
   "title": "Resource Consumption Analysis - Namespace Overview",
   "uid": "workload-resource-analysis",
-  "version": 72,
+  "version": 74,
   "weekStart": ""
 }
