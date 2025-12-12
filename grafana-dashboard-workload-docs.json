@@ -1,0 +1,536 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Documentation for the Workload Details dashboard - detailed panel descriptions with thresholds and color definitions",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": false,
+      "title": "\u2190 Back to Workload Details",
+      "tooltip": "Return to Workload Details Dashboard",
+      "type": "link",
+      "url": "/d/workload-resource-workload"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": false,
+      "title": "\u2190 Back to Namespace Documentation",
+      "tooltip": "Return to Namespace Overview Documentation",
+      "type": "link",
+      "url": "/d/workload-resource-analysis-docs"
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1000,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "# \ud83d\udcd6 Resource Consumption Analysis - Workload Details Documentation\n\nThis dashboard provides detailed documentation for each panel in the Workload Details dashboard. Use the navigation links to return to the workload dashboard or the main namespace documentation.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 1106,
+      "panels": [],
+      "title": "\ud83d\udcc8 Workload Usage Section",
+      "type": "row"
+    },
+    {
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 1002,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83d\udd25 CPU Usage: $workload\n\n### Purpose\nTime series visualization showing CPU consumption for the selected workload over time, compared against configured request/limit and advised values.\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual CPU consumption over time |\n| Request | Dashed | \ud83d\udfe0 Orange | CPU request from manifest - guaranteed allocation |\n| Limit | Dashed | \ud83d\udd34 Red | CPU limit from manifest - maximum before throttling |\n| Avg+90%\u0394 | Dashed | \ud83d\udd35 Blue | Advised limit based on observed usage |\n\n### Formula for Avg+90%\u0394\n```\nAdvised Limit = Avg + 90% \u00d7 (Max - Avg)\n             = 0.1 \u00d7 Avg + 0.9 \u00d7 Max\n```\n\n### Interpretation\n- **Usage below Request**: Under-utilizing allocated resources\n- **Usage between Request and Limit**: Using burst capacity (normal for bursty workloads)\n- **Usage at/near Limit**: Throttling occurring - consider increasing limit\n- **Usage above Avg+90%\u0394**: Spike exceeding typical maximum\n\n### Legend Statistics\n- **min**: Minimum CPU usage during the period\n- **max**: Maximum CPU usage during the period\n- **mean**: Average CPU usage during the period",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83d\udd25 CPU Usage: $workload",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 1003,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83d\udcbe Memory Usage: $workload\n\n### Purpose\nTime series visualization showing memory consumption for the selected workload over time, compared against configured request/limit and advised values.\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual memory working set over time |\n| Request | Dashed | \ud83d\udfe0 Orange | Memory request from manifest - guaranteed allocation |\n| Limit | Dashed | \ud83d\udd34 Red | Memory limit from manifest - OOM kill threshold |\n| Avg+90%\u0394 | Dashed | \ud83d\udd35 Blue | Advised limit based on observed usage |\n\n### Formula for Avg+90%\u0394\n```\nAdvised Limit = Avg + 90% \u00d7 (Max - Avg)\n             = 0.1 \u00d7 Avg + 0.9 \u00d7 Max\n```\n\n### Interpretation\n- **Usage below Request**: Under-utilizing allocated resources\n- **Usage between Request and Limit**: Using burst capacity\n- **Usage approaching Limit**: \u26a0\ufe0f OOM kill risk - consider increasing limit immediately\n- **Sudden drops to zero**: May indicate OOM kills and container restarts\n\n### Memory Behavior Notes\n- Memory usage typically grows over time (caching, heap growth)\n- Look for sawtooth patterns indicating memory pressure\n- Sudden drops may indicate OOM events\n\n### Legend Statistics\n- **min**: Minimum memory usage during the period\n- **max**: Maximum memory usage during the period  \n- **mean**: Average memory usage during the period",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83d\udcbe Memory Usage: $workload",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 28
+      },
+      "id": 1101,
+      "panels": [],
+      "title": "\ud83d\udcc8 Workload Details Section",
+      "type": "row"
+    },
+    {
+      "gridPos": {
+        "h": 16,
+        "w": 12,
+        "x": 0,
+        "y": 29
+      },
+      "id": 1004,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## CPU % of Request\n\n### Purpose\nGauge showing current CPU usage as a percentage of the configured request.\n\n### Formula\n```\nCPU % of Request = (Current CPU Usage / CPU Request) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd35 Blue | Under-utilized - request may be too high |\n| 50-80% | \ud83d\udfe2 Green | Optimal utilization |\n| 80-100% | \ud83d\udfe1 Yellow | High utilization - monitor closely |\n| 100-150% | \ud83d\udfe0 Orange | Exceeding request - using burst capacity |\n| > 150% | \ud83d\udd34 Red | Severely exceeding request |\n\n### Notes\n- Values over 100% are possible and expected for bursty workloads\n- Consistently low values indicate over-provisioning\n- Consistently high values suggest request increase needed",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "CPU % of Request",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 16,
+        "w": 12,
+        "x": 12,
+        "y": 29
+      },
+      "id": 1005,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## CPU % of Limit\n\n### Purpose\nGauge showing current CPU usage as a percentage of the configured limit. This indicates throttling risk.\n\n### Formula\n```\nCPU % of Limit = (Current CPU Usage / CPU Limit) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom available |\n| 70-85% | \ud83d\udfe1 Yellow | Approaching limit |\n| 85-95% | \ud83d\udfe0 Orange | High risk of throttling |\n| > 95% | \ud83d\udd34 Red | Critical - throttling likely occurring |\n\n### What is CPU Throttling?\n- When CPU usage hits the limit, the kernel restricts CPU time\n- Process continues running but slower\n- Causes increased latency and response times\n- Does NOT cause container restarts\n\n### Recommended Actions\n| Color | Action |\n|-------|--------|\n| \ud83d\udfe2 Green | No action needed |\n| \ud83d\udfe1 Yellow | Monitor during peak times |\n| \ud83d\udfe0 Orange | Consider increasing limit |\n| \ud83d\udd34 Red | Increase limit immediately |",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "CPU % of Limit",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 16,
+        "w": 12,
+        "x": 0,
+        "y": 45
+      },
+      "id": 1006,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Memory % of Request\n\n### Purpose\nGauge showing current memory usage as a percentage of the configured request.\n\n### Formula\n```\nMemory % of Request = (Current Memory Usage / Memory Request) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd35 Blue | Under-utilized - request may be too high |\n| 50-80% | \ud83d\udfe2 Green | Optimal utilization |\n| 80-100% | \ud83d\udfe1 Yellow | High utilization |\n| 100-150% | \ud83d\udfe0 Orange | Exceeding request - using burst capacity |\n| > 150% | \ud83d\udd34 Red | Severely exceeding request |\n\n### Notes\n- Values over 100% are possible if limit > request\n- Memory usage often grows over time (caching)\n- Consider both current value and trend",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "Memory % of Request",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 16,
+        "w": 12,
+        "x": 12,
+        "y": 45
+      },
+      "id": 1007,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Memory % of Limit\n\n### Purpose\nGauge showing current memory usage as a percentage of the configured limit. This indicates OOM kill risk.\n\n### Formula\n```\nMemory % of Limit = (Current Memory Usage / Memory Limit) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom available |\n| 70-85% | \ud83d\udfe1 Yellow | Approaching limit |\n| 85-95% | \ud83d\udfe0 Orange | High OOM risk |\n| > 95% | \ud83d\udd34 Red | Critical - OOM kill imminent |\n\n### What is OOM Kill?\n- When memory usage hits the limit, the kernel kills the process\n- Container restarts (if restart policy allows)\n- Causes service interruption and potential data loss\n- Much more severe than CPU throttling\n\n### Recommended Actions\n| Color | Action |\n|-------|--------|\n| \ud83d\udfe2 Green | No action needed |\n| \ud83d\udfe1 Yellow | Monitor and prepare to scale |\n| \ud83d\udfe0 Orange | Increase limit soon |\n| \ud83d\udd34 Red | **Increase limit immediately** |",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "Memory % of Limit",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 61
+      },
+      "id": 1103,
+      "panels": [],
+      "title": "\ud83d\udccb Workload Detailed Statistics Section",
+      "type": "row"
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 62
+      },
+      "id": 1008,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## CPU Min (m)\n\n### Purpose\nMinimum CPU usage observed for the selected workload over the time range.\n\n### Use Cases\n- Identify baseline/idle consumption\n- Size requests for always-on workloads\n- Detect if workload ever goes truly idle\n\n### Color\n\ud83d\udfe2 **Green** - Standard value indicator",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "CPU Min (m)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 62
+      },
+      "id": 1009,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## CPU Max (m)\n\n### Purpose\nMaximum CPU usage observed for the selected workload over the time range.\n\n### Use Cases\n- Critical for sizing limits\n- Identify peak demand\n- Detect spikes and anomalies\n\n### Color\n\ud83d\udfe2 **Green** - Standard value indicator",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "CPU Max (m)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 62
+      },
+      "id": 1010,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## CPU Avg (m)\n\n### Purpose\nAverage CPU usage for the selected workload over the time range.\n\n### Use Cases\n- Best indicator for sizing requests\n- Understand typical consumption\n- Calculate utilization efficiency\n\n### Color\n\ud83d\udd35 **Blue** - Key metric indicator",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "CPU Avg (m)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 70
+      },
+      "id": 1011,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Memory Min (MiB)\n\n### Purpose\nMinimum memory usage observed for the selected workload over the time range.\n\n### Use Cases\n- Identify baseline/startup memory\n- Detect memory leaks (if min keeps growing)\n- Size requests for steady-state workloads\n\n### Color\n\ud83d\udfe2 **Green** - Standard value indicator",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "Memory Min (MiB)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 70
+      },
+      "id": 1012,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Memory Max (MiB)\n\n### Purpose\nMaximum memory usage observed for the selected workload over the time range.\n\n### Use Cases\n- **Critical for sizing limits** (OOM prevention)\n- Identify peak demand\n- Ensure limit is above max + safety margin\n\n### Color\n\ud83d\udfe2 **Green** - Standard value indicator",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "Memory Max (MiB)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 70
+      },
+      "id": 1013,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Memory Avg (MiB)\n\n### Purpose\nAverage memory usage for the selected workload over the time range.\n\n### Use Cases\n- Best indicator for sizing requests\n- Understand typical consumption\n- Calculate utilization efficiency\n\n### Color\n\ud83d\udd35 **Blue** - Key metric indicator",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "Memory Avg (MiB)",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 78
+      },
+      "id": 1104,
+      "panels": [],
+      "title": "\ud83c\udfaf Workload Recommended Values Section",
+      "type": "row"
+    },
+    {
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 79
+      },
+      "id": 1014,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## CPU Avg+90%\u0394 (m) - Advised CPU Limit\n\n### Purpose\nShows the advised CPU limit for the selected workload based on observed usage patterns.\n\n### Formula\n```\nAdvised Limit = Avg + 90% \u00d7 (Max - Avg)\n             = 0.1 \u00d7 Avg + 0.9 \u00d7 Max\n```\n\n### Interpretation\nThis formula:\n- Weights heavily toward the maximum observed usage (90%)\n- Provides some smoothing from the average (10%)\n- Gives headroom for peak usage without excessive over-provisioning\n\n### Color\n\ud83d\udfe0 **Orange** - Indicates this is an advised/calculated value\n\n### How to Use\nCompare with the current CPU limit to identify optimization opportunities.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "CPU Avg+90%\u0394 (m)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 79
+      },
+      "id": 1015,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Current CPU Request (m)\n\n### Purpose\nShows the current CPU request configured in the workload manifest.\n\n### What is CPU Request?\n- Guaranteed CPU allocation for the workload\n- Used by Kubernetes scheduler for pod placement\n- Pod won't be scheduled if nodes can't satisfy requests\n\n### Color\n\ud83d\udfe1 **Yellow** - Indicates this is a manifest-configured value\n\n### How to Use\nCompare with:\n- **Avg+90%\u0394**: If significantly different, consider adjusting\n- **Avg usage**: If much higher than average, may be over-provisioned",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "Current CPU Request (m)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 89
+      },
+      "id": 1016,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Memory Avg+90%\u0394 (MiB) - Advised Memory Limit\n\n### Purpose\nShows the advised memory limit for the selected workload based on observed usage patterns.\n\n### Formula\n```\nAdvised Limit = Avg + 90% \u00d7 (Max - Avg)\n             = 0.1 \u00d7 Avg + 0.9 \u00d7 Max\n```\n\n### Why Memory Needs Extra Margin\n- Memory over-limit causes OOM kills (not just throttling)\n- The main table uses Avg+110%\u0394 for even more headroom\n- This value should be treated as a minimum\n\n### Color\n\ud83d\udfe0 **Orange** - Indicates this is an advised/calculated value\n\n### How to Use\nCompare with the current memory limit - ensure actual limit is **above** this value for safety.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "Memory Avg+90%\u0394 (MiB)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 89
+      },
+      "id": 1017,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Current Memory Request (MiB)\n\n### Purpose\nShows the current memory request configured in the workload manifest.\n\n### What is Memory Request?\n- Guaranteed memory allocation for the workload\n- Used by Kubernetes scheduler for pod placement\n- Affects Quality of Service (QoS) class\n\n### Color\n\ud83d\udfe1 **Yellow** - Indicates this is a manifest-configured value\n\n### How to Use\nCompare with:\n- **Avg+90%\u0394**: If significantly different, consider adjusting\n- **Avg usage**: If much higher than average, may be over-provisioned",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "Current Memory Request (MiB)",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 99
+      },
+      "id": 1105,
+      "panels": [],
+      "title": "\ud83d\udcca Per-Pod Breakdown Section",
+      "type": "row"
+    },
+    {
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 100
+      },
+      "id": 1018,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## CPU Usage per Pod\n\n### Purpose\nTime series showing CPU consumption broken down by individual pod for the selected workload.\n\n### Use Cases\n- **Load Distribution**: Identify if load is evenly distributed across replicas\n- **Anomaly Detection**: Spot individual pods with unusual behavior\n- **Startup/Shutdown**: Visualize pod lifecycle patterns\n- **Troubleshooting**: Isolate problematic pods\n\n### Legend Statistics\n- **mean**: Average CPU for each pod\n- **max**: Maximum CPU for each pod\n\n### What to Look For\n- **Even lines**: Good load balancing\n- **One pod higher than others**: Possible hot-spotting or session affinity issues\n- **Spikes in individual pods**: Application-level issues\n- **Gaps in lines**: Pod restarts or replacements",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "CPU Usage per Pod",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 100
+      },
+      "id": 1019,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Memory Usage per Pod\n\n### Purpose\nTime series showing memory consumption broken down by individual pod for the selected workload.\n\n### Use Cases\n- **Memory Leaks**: Identify pods with continuously growing memory\n- **Uneven Distribution**: Spot pods with different memory profiles\n- **Startup/Shutdown**: Visualize pod lifecycle and memory behavior\n- **OOM Investigation**: Correlate memory growth with OOM events\n\n### Legend Statistics\n- **mean**: Average memory for each pod\n- **max**: Maximum memory for each pod\n\n### What to Look For\n- **Steady lines**: Healthy, stable memory usage\n- **Upward trend**: Possible memory leak\n- **Sawtooth pattern**: GC pressure or memory recycling\n- **Sudden drops**: OOM kills and restarts\n- **One pod higher**: Uneven caching or data distribution",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "Memory Usage per Pod",
+      "type": "text"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 39,
+  "tags": [
+    "kubernetes",
+    "documentation",
+    "resource-analysis",
+    "workload"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Resource Consumption Analysis - Workload Details Documentation",
+  "uid": "workload-resource-workload-docs",
+  "version": 2,
+  "weekStart": ""
+}

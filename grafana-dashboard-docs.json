@@ -1,0 +1,439 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Documentation for the Namespace Overview dashboard - detailed panel descriptions with thresholds and color definitions",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 683,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": false,
+      "title": "\u2190 Back to Namespace Overview",
+      "tooltip": "Return to Namespace Overview Dashboard",
+      "type": "link",
+      "url": "/d/workload-resource-analysis"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": false,
+      "title": "\ud83d\udcd6 Workload Details Documentation \u2192",
+      "tooltip": "Open documentation for Workload Details dashboard",
+      "type": "link",
+      "url": "/d/workload-resource-workload-docs"
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1000,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "# \ud83d\udcd6 Resource Consumption Analysis - Namespace Overview Documentation\n\nThis dashboard provides detailed documentation for each panel in the Namespace Overview dashboard. Use the navigation links to jump to specific panel descriptions or click the back link to return to the main dashboard.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 1001,
+      "panels": [],
+      "title": "\ud83d\udcca Namespace Resource Consumption Section",
+      "type": "row"
+    },
+    {
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 1025,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83d\udd27 Resource Configuration Status\n\n### Purpose\nShows whether CPU/Memory requests and limits are configured for each workload in the selected namespace. This is a quick health check to identify workloads with missing resource specifications.\n\n### Why It Matters\n- **Requests** define guaranteed resource allocation for scheduling\n- **Limits** define maximum resource usage before throttling (CPU) or OOM kills (Memory)\n- Missing configurations can lead to unpredictable behavior and cluster instability\n\n### Columns\n| Column | Description |\n|--------|-------------|\n| Workload | Name of the deployment/statefulset/daemonset |\n| CPU Req | CPU Request configuration status |\n| CPU Lim | CPU Limit configuration status |\n| Mem Req | Memory Request configuration status |\n| Mem Lim | Memory Limit configuration status |\n\n### Cell Colors & Values\n| Value | Background | Meaning |\n|-------|------------|----------|\n| **SET** | \ud83d\udfe2 Green | Resource is properly configured |\n| **UNSET** | \ud83d\udd34 Red | Resource is NOT configured - action required |\n| **UNSET** (CPU Lim only) | \ud83d\udfe1 Yellow | CPU Limit not set - less critical since CPU is throttled rather than causing OOM kills |\n\n### Recommended Actions\n- \ud83d\udd34 **Red cells**: Immediately add the missing resource specification\n- \ud83d\udfe1 **Yellow cells**: Consider adding CPU limits for better resource isolation\n- \ud83d\udfe2 **All green**: Good configuration - proceed to analyze actual usage",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83d\udd27 Resource Configuration Status",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 1107,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83d\udccb CPU Resource Usage (millicores)\n\n### Purpose\nDisplays CPU consumption statistics for all workloads in the namespace, including percentile-based usage analysis for capacity planning.\n\n### Units\nAll values are in **millicores (m)** where 1000m = 1 CPU core.\n\n### Columns\n| Column | Description |\n|--------|-------------|\n| Workload | Name of the deployment/statefulset |\n| Min (m) | Minimum CPU usage observed over the time range |\n| Max (m) | Maximum CPU usage observed over the time range |\n| Avg (m) | Average CPU usage over the time range |\n| **P90 (m)** | \ud83d\udfe0 90th percentile - 90% of samples are below this value |\n| **P95 (m)** | \ud83d\udfe0 95th percentile - 95% of samples are below this value |\n| **P99 (m)** | \ud83d\udfe0 99th percentile - 99% of samples are below this value |\n| Req (m) | Current CPU request (total for all replicas) |\n| **Req/Pod (m)** | \ud83d\udfe3 CPU request per replica/pod |\n| Lim (m) | Current CPU limit (total for all replicas) |\n| **Lim/Pod (m)** | \ud83d\udfe3 CPU limit per replica/pod |\n\n### Percentile Columns Explained\nPercentiles help understand the distribution of CPU usage over time:\n- **P90**: The value below which 90% of observations fall - good baseline for requests\n- **P95**: The value below which 95% of observations fall - conservative request value\n- **P99**: The value below which 99% of observations fall - good baseline for limits\n\n### Color Coding\n- \ud83d\udfe0 **Orange columns**: Percentile values (P90, P95, P99) - use for sizing decisions\n- \ud83d\udfe3 **Purple columns**: Per-replica values (Req/Pod, Lim/Pod) - shows individual pod configuration\n\n### How to Use for Capacity Planning\n1. **Setting Requests**: Compare **Req** with **P90** or **P95**\n   - If Req < P90: Request may be too low, risk of throttling other pods\n   - If Req > P95: Request may be over-provisioned\n2. **Setting Limits**: Compare **Lim** with **P99** or **Max**\n   - If Lim < P99: Risk of frequent throttling\n   - If Lim >> Max: Limit may be over-provisioned\n3. **Per-Replica Analysis**: Use **Req/Pod** and **Lim/Pod** to understand individual pod settings\n   - Useful when scaling replicas to verify per-pod resource allocation",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83d\udccb CPU Resource Usage (millicores)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 30
+      },
+      "id": 1021,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83d\udccb Memory Resource Usage (MiB)\n\n### Purpose\nDisplays memory consumption statistics for all workloads in the namespace, including percentile-based usage analysis for capacity planning.\n\n### Units\nAll values are in **Mebibytes (MiB)** where 1 MiB = 1,048,576 bytes.\n\n### Columns\n| Column | Description |\n|--------|-------------|\n| Workload | Name of the deployment/statefulset |\n| Min (MiB) | Minimum memory usage observed over the time range |\n| Max (MiB) | Maximum memory usage observed over the time range |\n| Avg (MiB) | Average memory usage over the time range |\n| **P90 (MiB)** | \ud83d\udfe0 90th percentile - 90% of samples are below this value |\n| **P95 (MiB)** | \ud83d\udfe0 95th percentile - 95% of samples are below this value |\n| **P99 (MiB)** | \ud83d\udfe0 99th percentile - 99% of samples are below this value |\n| Req (MiB) | Current memory request (total for all replicas) |\n| **Req/Pod (MiB)** | \ud83d\udfe3 Memory request per replica/pod |\n| Lim (MiB) | Current memory limit (total for all replicas) |\n| **Lim/Pod (MiB)** | \ud83d\udfe3 Memory limit per replica/pod |\n\n### Percentile Columns Explained\nPercentiles help understand the distribution of memory usage over time:\n- **P90**: The value below which 90% of observations fall - good baseline for requests\n- **P95**: The value below which 95% of observations fall - conservative request value\n- **P99**: The value below which 99% of observations fall - good baseline for limits\n\n### Color Coding\n- \ud83d\udfe0 **Orange columns**: Percentile values (P90, P95, P99) - use for sizing decisions\n- \ud83d\udfe3 **Purple columns**: Per-replica values (Req/Pod, Lim/Pod) - shows individual pod configuration\n\n### Why Memory Needs Extra Margin\n- CPU over-limit: Process is throttled but continues running\n- Memory over-limit: Process is **killed** (OOM) - causes restarts and potential data loss\n\n### How to Use for Capacity Planning\n1. **Setting Requests**: Compare **Req** with **P90** or **P95**\n   - If Req < P90: Request may be too low\n   - If Req > P95: Request may be over-provisioned\n2. **Setting Limits**: Compare **Lim** with **P99** or **Max**\n   - Memory limits should have more headroom than CPU\n   - Recommended: Lim \u2265 P99 \u00d7 1.1 (10% safety margin)\n   - If Lim < P99: High OOM risk\n3. **Per-Replica Analysis**: Use **Req/Pod** and **Lim/Pod** to understand individual pod settings\n   - Useful when scaling replicas to verify per-pod resource allocation",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83d\udccb Memory Resource Usage (MiB)",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 44
+      },
+      "id": 1108,
+      "panels": [],
+      "title": "\ud83d\udd0d Namespace Resource Consumption Analysis Section",
+      "type": "row"
+    },
+    {
+      "gridPos": {
+        "h": 20,
+        "w": 24,
+        "x": 0,
+        "y": 45
+      },
+      "id": 1020,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83d\udcca Resource Utilization & Risk Analysis\n\n### Purpose\nAnalyzes resource efficiency (Utilization %) and throttling/OOM risk (Risk %) for each workload in the namespace. This panel helps identify both over-provisioned workloads (waste) and under-provisioned workloads (risk).\n\n### Formulas\n- **Utilization %** = `(Average Usage / Request) \u00d7 100`\n  - Measures how efficiently you use the resources you've requested\n- **Risk %** = `(Maximum Usage / Limit) \u00d7 100`\n  - Measures how close you are to hitting limits (throttling/OOM)\n\n### Columns\n| Column | Description |\n|--------|-------------|\n| Workload | Name of the deployment/statefulset |\n| CPU Util % | CPU utilization efficiency |\n| CPU Risk % | CPU throttling risk |\n| Mem Util % | Memory utilization efficiency |\n| Mem Risk % | Memory OOM risk |\n\n### Utilization % Thresholds (Efficiency)\n| Range | Color | Interpretation | Action |\n|-------|-------|----------------|--------|\n| < 50% | \ud83d\udd35 Blue | Over-provisioned | Consider reducing requests |\n| 50-80% | \ud83d\udfe2 Green | Optimal utilization | Good balance |\n| 80-100% | \ud83d\udfe1 Yellow | High utilization | Monitor closely |\n| > 100% | \ud83d\udd34 Red | Exceeding request | May affect other workloads |\n\n### Risk % Thresholds (Safety)\n| Range | Color | Interpretation | Action |\n|-------|-------|----------------|--------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom | Good safety margin |\n| 70-90% | \ud83d\udfe1 Yellow | Elevated risk | Review limits |\n| > 90% | \ud83d\udd34 Red | Critical | Throttling/OOM imminent - urgent action |\n\n### Interpretation Guide\n- **Low Util% + Low Risk%**: Over-provisioned but safe \u2192 Reduce requests/limits\n- **High Util% + Low Risk%**: Efficient and safe \u2192 Optimal configuration\n- **High Util% + High Risk%**: Efficient but risky \u2192 Increase limits\n- **Low Util% + High Risk%**: Unusual pattern \u2192 Check for spiky workloads",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83d\udcca Resource Utilization & Risk Analysis",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 22,
+        "w": 24,
+        "x": 0,
+        "y": 65
+      },
+      "id": 1022,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \u23f1\ufe0f Time Distribution by Resource Zone\n\n### Purpose\nShows the percentage of time each workload spends in different resource zones over the selected time range. This helps understand workload behavior patterns and identify optimization opportunities.\n\n### Resource Zones Explained\n```\n                    \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n     > Limit        \u2502  \ud83d\udd34 DANGER ZONE (Throttling/OOM)    \u2502\n                    \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2190 Limit\n     Req \u2192 Limit    \u2502  \ud83d\udfe2 OPTIMAL ZONE (Using burst)      \u2502\n                    \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2190 Request  \n     < Request      \u2502  \ud83d\udfe1 WASTE ZONE (Over-provisioned)   \u2502\n                    \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n```\n\n### Columns\n| Column | Description |\n|--------|-------------|\n| Workload | Name of the deployment/statefulset |\n| CPU % < Req | % of time CPU is below request |\n| CPU % Req-Lim | % of time CPU is between request and limit |\n| CPU % > Lim | % of time CPU exceeds limit |\n| Mem % < Req | % of time Memory is below request |\n| Mem % Req-Lim | % of time Memory is between request and limit |\n| Mem % > Lim | % of time Memory exceeds limit |\n\n### % < Request Thresholds (Over-provisioning indicator)\n| Range | Color | Interpretation | Action |\n|-------|-------|----------------|--------|\n| < 50% | \ud83d\udfe2 Green | Good - efficiently using allocated resources | Optimal |\n| 50-80% | \ud83d\udfe1 Yellow | Moderate over-provisioning | Consider reducing requests |\n| > 80% | \ud83d\udd34 Red | Severe waste - rarely using requests | Reduce requests significantly |\n\n### % Req-Lim Thresholds (Burst usage - higher is better)\n| Range | Color | Interpretation | Action |\n|-------|-------|----------------|--------|\n| < 20% | \ud83d\udd34 Red | Rarely using burst capacity - over-provisioned | Reduce requests |\n| 20-50% | \ud83d\udfe1 Yellow | Occasionally bursting | Monitor and optimize |\n| > 50% | \ud83d\udfe2 Green | Good burst utilization | Consider increasing requests |\n\n### % > Limit Thresholds (Risk indicator)\n| Range | Color | Interpretation | Action |\n|-------|-------|----------------|--------|\n| 0% | \ud83d\udfe2 Green | Never exceeding limits - safe | No action needed |\n| 1-10% | \ud83d\udfe1 Yellow | Occasional throttling/pressure | Monitor closely |\n| > 10% | \ud83d\udd34 Red | Frequent throttling/OOM risk | Increase limits urgently |\n\n### Ideal Patterns\n- **Efficient workloads**: Low % < Req, High % Req-Lim, 0% > Lim\n- **Bursty workloads**: Moderate % < Req, Moderate % Req-Lim, 0% > Lim\n- **Problematic - Over-provisioned**: High % < Req (red), Low % Req-Lim (red)\n- **Problematic - Under-provisioned**: Any significant % > Lim (yellow/red)",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\u23f1\ufe0f Time Distribution by Resource Zone",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 16,
+        "w": 24,
+        "x": 0,
+        "y": 87
+      },
+      "id": 1023,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \u2696\ufe0f Limit/Request Ratio Analysis\n\n### Purpose\nShows the Limit/Request ratio for CPU and Memory to identify potentially problematic configurations. This ratio indicates the burst capacity available to each workload - how much more resources it can use beyond its guaranteed request.\n\n### Formula\n```\nLim/Req Ratio = Total Limit / Total Request\n```\n\n### Columns\n| Column | Description |\n|--------|-------------|\n| Workload | Name of the deployment/statefulset |\n| CPU Lim/Req | CPU Limit divided by CPU Request |\n| Mem Lim/Req | Memory Limit divided by Memory Request |\n\n### Thresholds\n| Range | Color | Interpretation | Action |\n|-------|-------|----------------|--------|\n| < 1.5 | \ud83d\udd34 Red | Too restrictive - high throttling/OOM risk | Increase limits or reduce requests |\n| 1.5 - 3.5 | \ud83d\udfe2 Green | Optimal - good balance of efficiency and burst | No action needed |\n| > 3.5 | \ud83d\udfe1 Yellow | Excessive burst capacity | Review configuration |\n\n### Why This Matters\n\n**Ratio too low (< 1.5) - \ud83d\udd34 RED:**\n- Very restrictive configuration\n- High risk of throttling (CPU) or OOM kills (Memory)\n- Workload has almost no burst capacity\n- May cause performance issues during traffic spikes\n- **Action**: Increase limits or reduce requests\n\n**Ratio optimal (1.5 - 3.5) - \ud83d\udfe2 GREEN:**\n- Good balance between efficiency and burst capacity\n- Workload can handle temporary spikes\n- Cluster resources are used efficiently\n- **Action**: No changes needed\n\n**Ratio too high (> 3.5) - \ud83d\udfe1 YELLOW:**\n- Workload can burst significantly beyond its guaranteed resources\n- May indicate uncertainty about actual requirements\n- Could starve other workloads during burst\n- **Action**: Consider reducing limits or increasing requests\n\n### Best Practices\n- **CPU**: Ratio of 1.5-3x is common (throttling is recoverable)\n- **Memory**: Ratio of 1.5-2.5x is safer (OOM kills are more disruptive)\n- Review workloads with very high ratios to understand actual needs\n- Use together with Time Distribution panel to see actual burst patterns",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\u2696\ufe0f Limit/Request Ratio Analysis",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 92
+      },
+      "id": 1108,
+      "panels": [],
+      "title": "\ud83e\uddea Normal Profile Simulation Section",
+      "type": "row"
+    },
+    {
+      "gridPos": {
+        "h": 16,
+        "w": 24,
+        "x": 0,
+        "y": 93
+      },
+      "id": 1109,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83e\uddea Resource Utilization & Risk Analysis (Normal Profile)\n\n### Purpose\nSimulates resource efficiency (Util%) and risk (Risk%) using hypothetical request/limit values based on the **NORMAL** profile. This helps predict what utilization and risk would look like if you applied the recommended configuration.\n\n### Normal Profile Rules\n| Resource | Request Formula | Limit Formula |\n|----------|-----------------|---------------|\n| **CPU** | P90 \u00d7 1.5 | P99 \u00d7 1.5 |\n| **Memory** | P95 | MAX \u00d7 1.2 |\n\n### Why These Values?\n- **CPU Request (P90\u00d71.5)**: Covers 90% of usage with 50% headroom for scheduling safety\n- **CPU Limit (P99\u00d71.5)**: Allows burst to 99th percentile with buffer\n- **Memory Request (P95)**: Conservative baseline covering 95% of usage\n- **Memory Limit (MAX\u00d71.2)**: 20% headroom above observed maximum prevents OOM\n\n### Formulas\n- **Simulated Util %** = `(Average Usage / Simulated Request) \u00d7 100`\n- **Simulated Risk %** = `(Maximum Usage / Simulated Limit) \u00d7 100`\n\n### Thresholds\nSame as the main Resource Utilization & Risk Analysis panel:\n\n**Utilization %:**\n| Range | Color | Meaning |\n|-------|-------|---------|\n| < 50% | \ud83d\udd35 Blue | Over-provisioned |\n| 50-80% | \ud83d\udfe2 Green | Optimal |\n| 80-100% | \ud83d\udfe1 Yellow | High utilization |\n| > 100% | \ud83d\udd34 Red | Exceeding request |\n\n**Risk %:**\n| Range | Color | Meaning |\n|-------|-------|---------|\n| < 70% | \ud83d\udfe2 Green | Safe |\n| 70-90% | \ud83d\udfe1 Yellow | Elevated risk |\n| > 90% | \ud83d\udd34 Red | Critical |\n\n### How to Use\nCompare simulated values with actual values in the Analysis row to understand the impact of applying Normal profile recommendations.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83e\uddea Resource Utilization & Risk Analysis (Normal)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 16,
+        "w": 24,
+        "x": 0,
+        "y": 109
+      },
+      "id": 1111,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83e\uddea Time Distribution by Resource Zone (Normal Profile)\n\n### Purpose\nShows how time distribution across resource zones would change if the **NORMAL** profile request/limit values were applied.\n\n### Normal Profile Rules\n| Resource | Request | Limit |\n|----------|---------|-------|\n| **CPU** | P90 \u00d7 1.5 | P99 \u00d7 1.5 |\n| **Memory** | P95 | MAX \u00d7 1.2 |\n\n### Zones with Simulated Values\n```\n                    \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n     > Sim Limit    \u2502  \ud83d\udd34 DANGER (would be throttled/OOMed)   \u2502\n                    \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2190 Simulated Limit\n     Req \u2192 Lim      \u2502  \ud83d\udfe2 BURST (healthy burst capacity)      \u2502\n                    \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2190 Simulated Request\n     < Sim Request  \u2502  \ud83d\udfe1 WASTE (under-utilizing)             \u2502\n                    \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n```\n\n### Thresholds\nSame as main Time Distribution panel.\n\n### How to Interpret\n- **High % < Sim Request**: Normal profile may be too conservative\n- **High % Req-Lim**: Good burst utilization expected\n- **Any % > Sim Limit**: Normal profile limits may be too tight",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83e\uddea Time Distribution by Resource Zone (Normal)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 125
+      },
+      "id": 1110,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83e\uddea Limit/Request Ratio Analysis (Normal Profile)\n\n### Purpose\nShows the Limit/Request ratio that would result from applying the **NORMAL** profile recommendations.\n\n### Normal Profile Resulting Ratios\n| Resource | Request | Limit | Expected Ratio |\n|----------|---------|-------|----------------|\n| **CPU** | P90 \u00d7 1.5 | P99 \u00d7 1.5 | P99/P90 (typically 1.0-1.5) |\n| **Memory** | P95 | MAX \u00d7 1.2 | (MAX\u00d71.2)/P95 (typically 1.2-1.8) |\n\n### Thresholds\n| Range | Color | Meaning |\n|-------|-------|---------|\n| < 1.5 | \ud83d\udd34 Red | Too restrictive |\n| 1.5 - 3.5 | \ud83d\udfe2 Green | Optimal balance |\n| > 3.5 | \ud83d\udfe1 Yellow | Excessive burst capacity |\n\n### Key Insight\nThe Normal profile is designed to produce ratios in the **green zone** (1.5-3.5) for most workloads. If you see:\n- **Red values**: The workload has very consistent usage (P90 \u2248 P99)\n- **Yellow values**: The workload has high variance (MAX >> P95)",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83e\uddea Limit/Request Ratio Analysis (Normal)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 18,
+        "w": 24,
+        "x": 0,
+        "y": 139
+      },
+      "id": 1115,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83e\uddea Simulated Values Summary (Normal Profile)\n\n### Purpose\nProvides a detailed breakdown of the **NORMAL** profile simulated values, including:\n- Calculated request/limit values\n- Per-pod values (divided by replica count)\n- Difference (\u0394) from current configuration\n\n### Normal Profile Formulas\n| Resource | Request Formula | Limit Formula |\n|----------|-----------------|---------------|\n| **CPU** | P90 \u00d7 1.5 | P99 \u00d7 1.5 |\n| **Memory** | P95 | MAX \u00d7 1.2 |\n\n### Column Order\n| Column | Description | Color |\n|--------|-------------|-------|\n| Workload | Workload name | - |\n| Pods | Number of replicas | - |\n| **CPU Req** | Simulated total CPU request | \ud83d\udfe0 Orange |\n| **CPU Req \u0394** | Difference from current | \ud83d\udfe2/\ud83d\udd34 Background |\n| **CPU Req/Pod** | Per-replica CPU request | \ud83d\udfe3 Purple |\n| **CPU Req \u0394/Pod** | Per-pod difference | \ud83d\udfe2/\ud83d\udd34 Background |\n| **CPU Lim** | Simulated total CPU limit | \ud83d\udfe0 Orange |\n| **CPU Lim \u0394** | Difference from current | \ud83d\udfe2/\ud83d\udd34 Background |\n| **CPU Lim/Pod** | Per-replica CPU limit | \ud83d\udfe3 Purple |\n| **CPU Lim \u0394/Pod** | Per-pod difference | \ud83d\udfe2/\ud83d\udd34 Background |\n| **Mem Req** | Simulated total memory request | \ud83d\udfe0 Orange |\n| **Mem Req \u0394** | Difference from current | \ud83d\udfe2/\ud83d\udd34 Background |\n| **Mem Req/Pod** | Per-replica memory request | \ud83d\udfe3 Purple |\n| **Mem Req \u0394/Pod** | Per-pod difference | \ud83d\udfe2/\ud83d\udd34 Background |\n| **Mem Lim** | Simulated total memory limit | \ud83d\udfe0 Orange |\n| **Mem Lim \u0394** | Difference from current | \ud83d\udfe2/\ud83d\udd34 Background |\n| **Mem Lim/Pod** | Per-replica memory limit | \ud83d\udfe3 Purple |\n| **Mem Lim \u0394/Pod** | Per-pod difference | \ud83d\udfe2/\ud83d\udd34 Background |\n\n### Delta (\u0394) Column Colors\n| Background | Meaning |\n|------------|---------|\n| \ud83d\udfe2 Green | Negative value - **Resource savings** |\n| Transparent | Zero - No change |\n| \ud83d\udd34 Red | Positive value - **More resource consumption** |\n\n### How to Use\n1. Review simulated values (\ud83d\udfe0 orange) to understand Normal profile recommendations\n2. Check \u0394 columns to see if changes **save** (\ud83d\udfe2) or **increase** (\ud83d\udd34) resources\n3. Use per-pod values (\ud83d\udfe3 purple) when updating manifests",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83e\uddea Simulated Values Summary (Normal)",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 157
+      },
+      "id": 1117,
+      "panels": [],
+      "title": "\ud83e\uddea Aggressive Profile Simulation Section",
+      "type": "row"
+    },
+    {
+      "gridPos": {
+        "h": 16,
+        "w": 24,
+        "x": 0,
+        "y": 158
+      },
+      "id": 1112,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83e\uddea Resource Utilization & Risk Analysis (Aggressive Profile)\n\n### Purpose\nSimulates resource efficiency (Util%) and risk (Risk%) using hypothetical request/limit values based on the **AGGRESSIVE** profile. This shows a more cost-optimized but higher-risk configuration.\n\n### Aggressive Profile Rules\n| Resource | Request Formula | Limit Formula |\n|----------|-----------------|---------------|\n| **CPU** | P95 \u00d7 1.1 | MAX \u00d7 1.25 |\n| **Memory** | MAX | MAX \u00d7 1.25 |\n\n### Why These Values?\n- **CPU Request (P95\u00d71.1)**: Tighter fit to 95th percentile with minimal headroom\n- **CPU Limit (MAX\u00d71.25)**: Only 25% above observed maximum\n- **Memory Request (MAX)**: Uses maximum observed as baseline (no waste)\n- **Memory Limit (MAX\u00d71.25)**: Tight 25% buffer above maximum\n\n### \u26a0\ufe0f Risk Warning\nThe Aggressive profile prioritizes cost efficiency over safety:\n- Higher likelihood of throttling during traffic spikes\n- Reduced headroom for unexpected usage increases\n- Best suited for well-understood, stable workloads\n\n### Thresholds\nSame as Normal profile (Utilization and Risk % thresholds).\n\n### Comparison with Normal\n| Metric | Normal | Aggressive |\n|--------|--------|------------|\n| Cost | Higher | Lower |\n| Safety | Higher | Lower |\n| Headroom | More | Less |\n| Best for | Critical workloads | Cost-sensitive, stable workloads |",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83e\uddea Resource Utilization & Risk Analysis (Aggressive)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 16,
+        "w": 24,
+        "x": 0,
+        "y": 174
+      },
+      "id": 1113,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83e\uddea Time Distribution by Resource Zone (Aggressive Profile)\n\n### Purpose\nShows how time distribution across resource zones would change if the **AGGRESSIVE** profile request/limit values were applied.\n\n### Aggressive Profile Rules\n| Resource | Request | Limit |\n|----------|---------|-------|\n| **CPU** | P95 \u00d7 1.1 | MAX \u00d7 1.25 |\n| **Memory** | MAX | MAX \u00d7 1.25 |\n\n### Key Differences from Normal\n- **Less time in \"waste\" zone**: Tighter requests mean more time above request\n- **More time near limits**: Higher utilization expected\n- **Higher risk of limit breaches**: Less headroom in limits\n\n### What to Expect\nWith Aggressive profile:\n- **% < Request**: Should be lower (less over-provisioning)\n- **% Req-Lim**: Should be higher (more burst utilization)\n- **% > Limit**: May be higher (less safety margin)\n\n### \u26a0\ufe0f Warning Signs\nIf Aggressive simulation shows significant % > Limit:\n- The profile may be too aggressive for this workload\n- Consider using Normal profile instead\n- Review actual usage patterns for spikes",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83e\uddea Time Distribution by Resource Zone (Aggressive)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 190
+      },
+      "id": 1114,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83e\uddea Limit/Request Ratio Analysis (Aggressive Profile)\n\n### Purpose\nShows the Limit/Request ratio that would result from applying the **AGGRESSIVE** profile recommendations.\n\n### Aggressive Profile Resulting Ratios\n| Resource | Request | Limit | Expected Ratio |\n|----------|---------|-------|----------------|\n| **CPU** | P95 \u00d7 1.1 | MAX \u00d7 1.25 | (MAX\u00d71.25)/(P95\u00d71.1) \u2248 MAX/P95 \u00d7 1.14 |\n| **Memory** | MAX | MAX \u00d7 1.25 | 1.25 (fixed) |\n\n### Key Insight\nMemory ratio is always **1.25** with Aggressive profile (both based on MAX).\n\n### Thresholds\n| Range | Color | Meaning |\n|-------|-------|---------|\n| < 1.5 | \ud83d\udd34 Red | Too restrictive (expected for memory!) |\n| 1.5 - 3.5 | \ud83d\udfe2 Green | Optimal balance |\n| > 3.5 | \ud83d\udfe1 Yellow | Excessive burst capacity |\n\n### \u26a0\ufe0f Note on Memory Ratio\nThe Aggressive profile **intentionally** produces a memory ratio of 1.25 (in red zone).\nThis is by design - it prioritizes cost savings over burst capacity.\n\nFor memory-sensitive workloads, consider Normal profile instead.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83e\uddea Limit/Request Ratio Analysis (Aggressive)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 18,
+        "w": 24,
+        "x": 0,
+        "y": 204
+      },
+      "id": 1116,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83e\uddea Simulated Values Summary (Aggressive Profile)\n\n### Purpose\nProvides a detailed breakdown of the **AGGRESSIVE** profile simulated values, including:\n- Calculated request/limit values\n- Per-pod values (divided by replica count)\n- Difference (\u0394) from current configuration\n\n### Aggressive Profile Formulas\n| Resource | Request Formula | Limit Formula |\n|----------|-----------------|---------------|\n| **CPU** | P95 \u00d7 1.1 | MAX \u00d7 1.25 |\n| **Memory** | MAX | MAX \u00d7 1.25 |\n\n### Column Order\n| Column | Description | Color |\n|--------|-------------|-------|\n| Workload | Workload name | - |\n| Pods | Number of replicas | - |\n| **CPU Req** | Simulated total CPU request | \ud83d\udfe0 Orange |\n| **CPU Req \u0394** | Difference from current | \ud83d\udfe2/\ud83d\udd34 Background |\n| **CPU Req/Pod** | Per-replica CPU request | \ud83d\udfe3 Purple |\n| **CPU Req \u0394/Pod** | Per-pod difference | \ud83d\udfe2/\ud83d\udd34 Background |\n| **CPU Lim** | Simulated total CPU limit | \ud83d\udfe0 Orange |\n| **CPU Lim \u0394** | Difference from current | \ud83d\udfe2/\ud83d\udd34 Background |\n| **CPU Lim/Pod** | Per-replica CPU limit | \ud83d\udfe3 Purple |\n| **CPU Lim \u0394/Pod** | Per-pod difference | \ud83d\udfe2/\ud83d\udd34 Background |\n| **Mem Req** | Simulated total memory request | \ud83d\udfe0 Orange |\n| **Mem Req \u0394** | Difference from current | \ud83d\udfe2/\ud83d\udd34 Background |\n| **Mem Req/Pod** | Per-replica memory request | \ud83d\udfe3 Purple |\n| **Mem Req \u0394/Pod** | Per-pod difference | \ud83d\udfe2/\ud83d\udd34 Background |\n| **Mem Lim** | Simulated total memory limit | \ud83d\udfe0 Orange |\n| **Mem Lim \u0394** | Difference from current | \ud83d\udfe2/\ud83d\udd34 Background |\n| **Mem Lim/Pod** | Per-replica memory limit | \ud83d\udfe3 Purple |\n| **Mem Lim \u0394/Pod** | Per-pod difference | \ud83d\udfe2/\ud83d\udd34 Background |\n\n### Delta (\u0394) Column Colors\n| Background | Meaning |\n|------------|---------|\n| \ud83d\udfe2 Green | Negative value - **Resource savings** |\n| Transparent | Zero - No change |\n| \ud83d\udd34 Red | Positive value - **More resource consumption** |\n\n### Expected with Aggressive Profile\nThe Aggressive profile typically shows:\n- **More \ud83d\udfe2 green \u0394 cells**: Greater cost savings potential\n- **Tighter per-pod values**: Less headroom per replica\n\n### Decision Guide\n| Observation | Recommendation |\n|-------------|----------------|\n| Large green \u0394 values | Aggressive may offer significant savings |\n| Small \u0394 values | Current config is close to Aggressive |\n| Risk panels show > 90% | Aggressive may be too tight for this workload |\n\n### When to Use Aggressive\n\u2705 Stable, predictable workloads\n\u2705 Development/staging environments\n\u2705 Cost optimization is primary goal\n\u274c Production critical workloads\n\u274c Workloads with unpredictable spikes",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83e\uddea Simulated Values Summary (Aggressive)",
+      "type": "text"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 39,
+  "tags": [
+    "kubernetes",
+    "documentation",
+    "resource-analysis"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Resource Consumption Analysis - Namespace Overview Documentation",
+  "uid": "workload-resource-analysis-docs",
+  "version": 13,
+  "weekStart": ""
+}
