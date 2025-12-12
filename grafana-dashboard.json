@@ -449,6 +449,18 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Pods"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 0
+              }
+            ]
           }
         ]
       },
@@ -486,6 +498,19 @@
       },
       "pluginVersion": "10.4.3",
       "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "expr": "count by (workload) (\n  label_replace(\n    kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"},\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n)",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "pod_count",
+          "format": "table"
+        },
         {
           "datasource": {
             "type": "prometheus",
@@ -659,53 +684,60 @@
               "Time 7": true,
               "Time 8": true,
               "Time 9": true,
-              "Time 10": true
+              "Time 10": true,
+              "Time 11": true,
+              "Time #pod_count": true
             },
-            "includeByName": {},
             "indexByName": {
-              "Value #cpu_avg": 3,
-              "Value #cpu_limit": 9,
-              "Value #cpu_lim_pod": 11,
-              "Value #cpu_max": 2,
-              "Value #cpu_min": 1,
-              "Value #cpu_p90": 4,
-              "Value #cpu_p95": 5,
-              "Value #cpu_p99": 6,
-              "Value #cpu_request": 7,
-              "Value #cpu_req_pod": 10,
-              "workload": 0
+              "workload": 0,
+              "Value #pod_count": 1,
+              "Value #cpu_min": 2,
+              "Value #cpu_max": 3,
+              "Value #cpu_avg": 4,
+              "Value #cpu_p90": 5,
+              "Value #cpu_p95": 6,
+              "Value #cpu_p99": 7,
+              "Value #cpu_request": 8,
+              "Value #cpu_req_pod": 9,
+              "Value #cpu_limit": 10,
+              "Value #cpu_lim_pod": 11
             },
             "renameByName": {
-              "Value #cpu_avg": "Avg (m)",
-              "Value #cpu_limit": "Lim (m)",
-              "Value #cpu_lim_pod": "Lim/Pod (m)",
-              "Value #cpu_max": "Max (m)",
+              "workload": "Workload",
+              "Value #pod_count": "Pods",
               "Value #cpu_min": "Min (m)",
+              "Value #cpu_max": "Max (m)",
+              "Value #cpu_avg": "Avg (m)",
               "Value #cpu_p90": "P90 (m)",
               "Value #cpu_p95": "P95 (m)",
               "Value #cpu_p99": "P99 (m)",
               "Value #cpu_request": "Req (m)",
               "Value #cpu_req_pod": "Req/Pod (m)",
-              "workload": "Workload"
+              "Value #cpu_limit": "Lim (m)",
+              "Value #cpu_lim_pod": "Lim/Pod (m)"
             }
           }
         },
         {
           "id": "organize",
           "options": {
-            "excludeByName": {},
+            "excludeByName": {
+              "Time 11": true,
+              "Time #pod_count": true
+            },
             "indexByName": {
-              "Avg (m)": 3,
-              "Lim (m)": 9,
-              "Lim/Pod (m)": 10,
-              "Max (m)": 2,
-              "Min (m)": 1,
-              "P90 (m)": 4,
-              "P95 (m)": 5,
-              "P99 (m)": 6,
-              "Req (m)": 7,
-              "Req/Pod (m)": 8,
-              "Workload": 0
+              "Workload": 0,
+              "Pods": 1,
+              "Min (m)": 2,
+              "Max (m)": 3,
+              "Avg (m)": 4,
+              "P90 (m)": 5,
+              "P95 (m)": 6,
+              "P99 (m)": 7,
+              "Req (m)": 8,
+              "Req/Pod (m)": 9,
+              "Lim (m)": 10,
+              "Lim/Pod (m)": 11
             },
             "renameByName": {}
           }
@@ -827,6 +859,18 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Pods"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 0
+              }
+            ]
           }
         ]
       },
@@ -864,6 +908,19 @@
       },
       "pluginVersion": "10.4.3",
       "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "expr": "count by (workload) (\n  label_replace(\n    kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"},\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n)",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "pod_count",
+          "format": "table"
+        },
         {
           "datasource": {
             "type": "prometheus",
@@ -1037,52 +1094,60 @@
               "Time 7": true,
               "Time 8": true,
               "Time 9": true,
-              "Time 10": true
+              "Time 10": true,
+              "Time 11": true,
+              "Time #pod_count": true
             },
             "indexByName": {
-              "Value #mem_avg": 3,
-              "Value #mem_limit": 9,
-              "Value #mem_lim_pod": 11,
-              "Value #mem_max": 2,
-              "Value #mem_min": 1,
-              "Value #mem_p90": 4,
-              "Value #mem_p95": 5,
-              "Value #mem_p99": 6,
-              "Value #mem_request": 7,
-              "Value #mem_req_pod": 10,
-              "workload": 0
+              "workload": 0,
+              "Value #pod_count": 1,
+              "Value #mem_min": 2,
+              "Value #mem_max": 3,
+              "Value #mem_avg": 4,
+              "Value #mem_p90": 5,
+              "Value #mem_p95": 6,
+              "Value #mem_p99": 7,
+              "Value #mem_request": 8,
+              "Value #mem_req_pod": 9,
+              "Value #mem_limit": 10,
+              "Value #mem_lim_pod": 11
             },
             "renameByName": {
-              "Value #mem_avg": "Avg (MiB)",
-              "Value #mem_limit": "Lim (MiB)",
-              "Value #mem_lim_pod": "Lim/Pod (MiB)",
-              "Value #mem_max": "Max (MiB)",
+              "workload": "Workload",
+              "Value #pod_count": "Pods",
               "Value #mem_min": "Min (MiB)",
+              "Value #mem_max": "Max (MiB)",
+              "Value #mem_avg": "Avg (MiB)",
               "Value #mem_p90": "P90 (MiB)",
               "Value #mem_p95": "P95 (MiB)",
               "Value #mem_p99": "P99 (MiB)",
               "Value #mem_request": "Req (MiB)",
               "Value #mem_req_pod": "Req/Pod (MiB)",
-              "workload": "Workload"
+              "Value #mem_limit": "Lim (MiB)",
+              "Value #mem_lim_pod": "Lim/Pod (MiB)"
             }
           }
         },
         {
           "id": "organize",
           "options": {
-            "excludeByName": {},
+            "excludeByName": {
+              "Time 11": true,
+              "Time #pod_count": true
+            },
             "indexByName": {
-              "Avg (MiB)": 3,
-              "Lim (MiB)": 9,
-              "Lim/Pod (MiB)": 10,
-              "Max (MiB)": 2,
-              "Min (MiB)": 1,
-              "P90 (MiB)": 4,
-              "P95 (MiB)": 5,
-              "P99 (MiB)": 6,
-              "Req (MiB)": 7,
-              "Req/Pod (MiB)": 8,
-              "Workload": 0
+              "Workload": 0,
+              "Pods": 1,
+              "Min (MiB)": 2,
+              "Max (MiB)": 3,
+              "Avg (MiB)": 4,
+              "P90 (MiB)": 5,
+              "P95 (MiB)": 6,
+              "P99 (MiB)": 7,
+              "Req (MiB)": 8,
+              "Req/Pod (MiB)": 9,
+              "Lim (MiB)": 10,
+              "Lim/Pod (MiB)": 11
             },
             "renameByName": {}
           }
@@ -3401,6 +3466,10 @@
               {
                 "id": "custom.width",
                 "value": 50
+              },
+              {
+                "id": "decimals",
+                "value": 0
               }
             ]
           },
@@ -4026,6 +4095,10 @@
               {
                 "id": "custom.width",
                 "value": 50
+              },
+              {
+                "id": "decimals",
+                "value": 0
               }
             ]
           },
@@ -5811,6 +5884,10 @@
               {
                 "id": "custom.width",
                 "value": 50
+              },
+              {
+                "id": "decimals",
+                "value": 0
               }
             ]
           },
@@ -6419,6 +6496,10 @@
               {
                 "id": "custom.width",
                 "value": 50
+              },
+              {
+                "id": "decimals",
+                "value": 0
               }
             ]
           },
@@ -7106,6 +7187,6 @@
   "timezone": "browser",
   "title": "Resource Consumption Analysis - Namespace Overview",
   "uid": "workload-resource-analysis",
-  "version": 68,
+  "version": 72,
   "weekStart": ""
 }
