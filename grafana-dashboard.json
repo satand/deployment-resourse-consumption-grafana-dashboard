@@ -27,7 +27,7 @@
       "includeVars": true,
       "keepTime": true,
       "tags": [],
-      "targetBlank": false,
+      "targetBlank": true,
       "title": "\ud83d\udcca View Workload Details \u2192",
       "tooltip": "Open detailed analysis for selected workload",
       "type": "link",
@@ -2785,7 +2785,7 @@
         {
           "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1109",
-          "targetBlank": false
+          "targetBlank": true
         }
       ]
     },
@@ -3180,7 +3180,7 @@
         {
           "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1111",
-          "targetBlank": false
+          "targetBlank": true
         }
       ]
     },
@@ -3500,7 +3500,7 @@
         {
           "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1110",
-          "targetBlank": false
+          "targetBlank": true
         }
       ]
     },
@@ -4139,7 +4139,7 @@
         {
           "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1115",
-          "targetBlank": false
+          "targetBlank": true
         }
       ]
     },
@@ -4780,7 +4780,7 @@
         {
           "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1118",
-          "targetBlank": false
+          "targetBlank": true
         }
       ]
     },
@@ -5279,7 +5279,7 @@
         {
           "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1112",
-          "targetBlank": false
+          "targetBlank": true
         }
       ]
     },
@@ -5680,7 +5680,7 @@
         {
           "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1113",
-          "targetBlank": false
+          "targetBlank": true
         }
       ]
     },
@@ -5968,7 +5968,7 @@
         {
           "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1114",
-          "targetBlank": false
+          "targetBlank": true
         }
       ]
     },
@@ -6590,7 +6590,7 @@
         {
           "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1116",
-          "targetBlank": false
+          "targetBlank": true
         }
       ]
     },
@@ -7213,7 +7213,7 @@
         {
           "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1119",
-          "targetBlank": false
+          "targetBlank": true
         }
       ]
     }
