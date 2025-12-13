@@ -506,7 +506,8 @@
           "reducer": [
             "sum"
           ],
-          "show": false
+          "show": true,
+          "enablePagination": false
         },
         "showHeader": true,
         "sortBy": [
@@ -926,7 +927,8 @@
           "reducer": [
             "sum"
           ],
-          "show": false
+          "show": true,
+          "enablePagination": false
         },
         "showHeader": true,
         "sortBy": [
@@ -3672,7 +3674,8 @@
           "reducer": [
             "sum"
           ],
-          "show": false
+          "show": true,
+          "enablePagination": false
         },
         "showHeader": true,
         "sortBy": [
@@ -4251,7 +4254,8 @@
           "reducer": [
             "sum"
           ],
-          "show": false
+          "show": true,
+          "enablePagination": false
         },
         "showHeader": true,
         "sortBy": [
@@ -6020,7 +6024,8 @@
           "reducer": [
             "sum"
           ],
-          "show": false
+          "show": true,
+          "enablePagination": false
         },
         "showHeader": true,
         "sortBy": [
@@ -6597,7 +6602,8 @@
           "reducer": [
             "sum"
           ],
-          "show": false
+          "show": true,
+          "enablePagination": false
         },
         "showHeader": true,
         "sortBy": [
