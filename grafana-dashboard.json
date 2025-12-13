@@ -28,10 +28,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "\ud83d\udcca View Workload Details \u2192",
-      "tooltip": "Open detailed analysis for selected workload",
+      "title": "\ud83d\udcd6 View Documentation \u2192",
+      "tooltip": "Open documentation for this dashboard",
       "type": "link",
-      "url": "/d/workload-resource-workload"
+      "url": "/d/workload-resource-analysis-docs"
     }
   ],
   "liveNow": false,

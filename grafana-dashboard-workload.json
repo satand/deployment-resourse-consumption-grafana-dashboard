@@ -27,10 +27,10 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "\u2190 Back to Namespace Overview",
-      "tooltip": "Return to Namespace Overview Dashboard",
+      "title": "\ud83d\udcd6 View Documentation \u2192",
+      "tooltip": "Open documentation for this dashboard",
       "type": "link",
-      "url": "/d/workload-resource-analysis"
+      "url": "/d/workload-resource-workload-docs"
     }
   ],
   "liveNow": false,
