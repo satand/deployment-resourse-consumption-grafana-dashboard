@@ -41,7 +41,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 13
       },
       "id": 106,
       "panels": [],
@@ -161,35 +161,6 @@
                 "value": 0
               }
             ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Avg+90%\u0394"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "blue",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.lineStyle",
-                "value": {
-                  "dash": [
-                    5,
-                    5
-                  ],
-                  "fill": "dash"
-                }
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 0
-              }
-            ]
           }
         ]
       },
@@ -197,7 +168,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 1
+        "y": 14
       },
       "id": 2,
       "links": [
@@ -256,17 +227,6 @@
           "legendFormat": "Limit",
           "range": true,
           "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "(\n  avg_over_time(\n    (sum(\n      rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n      * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n    ))[$__range:$__rate_interval]\n  ) +\n  0.9 * (\n    max_over_time(\n      (sum(\n        rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n        * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n      ))[$__range:$__rate_interval]\n    ) -\n    avg_over_time(\n      (sum(\n        rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n        * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n      ))[$__range:$__rate_interval]\n    )\n  )\n) * 1000",
-          "legendFormat": "Avg+90%\u0394",
-          "range": true,
-          "refId": "D"
         }
       ],
       "title": "\ud83d\udd25 CPU Usage: $workload",
@@ -385,35 +345,6 @@
                 "value": 0
               }
             ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Avg+90%\u0394"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "blue",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.lineStyle",
-                "value": {
-                  "dash": [
-                    5,
-                    5
-                  ],
-                  "fill": "dash"
-                }
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 0
-              }
-            ]
           }
         ]
       },
@@ -421,7 +352,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 1
+        "y": 14
       },
       "id": 3,
       "links": [
@@ -480,17 +411,6 @@
           "legendFormat": "Limit",
           "range": true,
           "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "(\n  avg_over_time(\n    (sum(\n      container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n      * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n    ))[$__range:$__rate_interval]\n  ) +\n  0.9 * (\n    max_over_time(\n      (sum(\n        container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n        * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n      ))[$__range:$__rate_interval]\n    ) -\n    avg_over_time(\n      (sum(\n        container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n        * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n      ))[$__range:$__rate_interval]\n    )\n  )\n) / 1024 / 1024",
-          "legendFormat": "Avg+90%\u0394",
-          "range": true,
-          "refId": "D"
         }
       ],
       "title": "\ud83d\udcbe Memory Usage: $workload",
@@ -502,7 +422,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 24
       },
       "id": 101,
       "panels": [],
@@ -556,7 +476,7 @@
         "h": 5,
         "w": 6,
         "x": 0,
-        "y": 12
+        "y": 25
       },
       "id": 4,
       "links": [
@@ -639,7 +559,7 @@
         "h": 5,
         "w": 6,
         "x": 6,
-        "y": 12
+        "y": 25
       },
       "id": 5,
       "links": [
@@ -726,7 +646,7 @@
         "h": 5,
         "w": 6,
         "x": 12,
-        "y": 12
+        "y": 25
       },
       "id": 6,
       "links": [
@@ -809,7 +729,7 @@
         "h": 5,
         "w": 6,
         "x": 18,
-        "y": 12
+        "y": 25
       },
       "id": 7,
       "links": [
@@ -855,11 +775,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 0
       },
       "id": 103,
       "panels": [],
-      "title": "\ud83d\udccb Workload Detailed Statistics: $workload",
+      "title": "\ud83d\udccb Workload Statistics & Configuration: $workload",
       "type": "row"
     },
     {
@@ -889,9 +809,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
+        "w": 5,
         "x": 0,
-        "y": 18
+        "y": 5
       },
       "id": 8,
       "options": {
@@ -952,9 +872,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 4,
-        "y": 18
+        "w": 5,
+        "x": 5,
+        "y": 5
       },
       "id": 9,
       "options": {
@@ -1016,8 +936,8 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 8,
-        "y": 18
+        "x": 10,
+        "y": 5
       },
       "id": 10,
       "options": {
@@ -1078,9 +998,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 12,
-        "y": 18
+        "w": 5,
+        "x": 0,
+        "y": 9
       },
       "id": 11,
       "options": {
@@ -1141,9 +1061,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 16,
-        "y": 18
+        "w": 5,
+        "x": 5,
+        "y": 9
       },
       "id": 12,
       "options": {
@@ -1205,8 +1125,8 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 20,
-        "y": 18
+        "x": 10,
+        "y": 9
       },
       "id": 13,
       "options": {
@@ -1241,82 +1161,6 @@
       "type": "stat"
     },
     {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 22
-      },
-      "id": 104,
-      "panels": [],
-      "title": "\ud83c\udfaf Workload Recommended Values: $workload",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "Advised CPU limit based on observed usage.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "orange",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 0,
-        "y": 23
-      },
-      "id": 14,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "10.4.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "(\n  avg_over_time(\n    (sum(\n      rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n      * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n    ))[$__range:$__rate_interval]\n  ) +\n  0.9 * (\n    max_over_time(\n      (sum(\n        rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n        * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n      ))[$__range:$__rate_interval]\n    ) -\n    avg_over_time(\n      (sum(\n        rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n        * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n      ))[$__range:$__rate_interval]\n    )\n  )\n) * 1000",
-          "legendFormat": "CPU Avg+90%\u0394",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "CPU Avg+90%\u0394 (m)",
-      "type": "stat"
-    },
-    {
       "datasource": {
         "type": "prometheus",
         "uid": "${datasource}"
@@ -1343,9 +1187,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 6,
-        "x": 6,
-        "y": 23
+        "w": 5,
+        "x": 14,
+        "y": 5
       },
       "id": 15,
       "options": {
@@ -1376,70 +1220,7 @@
           "refId": "A"
         }
       ],
-      "title": "Current CPU Request (m)",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "Advised memory limit based on observed usage.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "orange",
-                "value": null
-              }
-            ]
-          },
-          "unit": "decmbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 12,
-        "y": 23
-      },
-      "id": 16,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "10.4.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "(\n  avg_over_time(\n    (sum(\n      container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n      * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n    ))[$__range:$__rate_interval]\n  ) +\n  0.9 * (\n    max_over_time(\n      (sum(\n        container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n        * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n      ))[$__range:$__rate_interval]\n    ) -\n    avg_over_time(\n      (sum(\n        container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n        * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n      ))[$__range:$__rate_interval]\n    )\n  )\n) / 1024 / 1024",
-          "legendFormat": "Mem Avg+90%\u0394",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Memory Avg+90%\u0394 (MiB)",
+      "title": "CPU Request (m)",
       "type": "stat"
     },
     {
@@ -1469,9 +1250,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 6,
-        "x": 18,
-        "y": 23
+        "w": 5,
+        "x": 14,
+        "y": 9
       },
       "id": 17,
       "options": {
@@ -1502,7 +1283,7 @@
           "refId": "A"
         }
       ],
-      "title": "Current Memory Request (MiB)",
+      "title": "Mem Request (MiB)",
       "type": "stat"
     },
     {
@@ -1511,7 +1292,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 30
       },
       "id": 105,
       "panels": [],
@@ -1579,7 +1360,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 28
+        "y": 31
       },
       "id": 18,
       "links": [
@@ -1681,7 +1462,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 28
+        "y": 31
       },
       "id": 19,
       "links": [
@@ -1721,6 +1502,615 @@
       ],
       "title": "Memory Usage per Pod",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Number of running pods for this workload.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short",
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 120,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "View Documentation",
+          "url": "/d/workload-resource-workload-docs?viewPanel=1120"
+        }
+      ],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "count(\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n)",
+          "legendFormat": "Pods",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Pod Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Whether CPU request is configured for this workload.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "from": 1e-06,
+                "result": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "SET"
+                },
+                "to": 1000000000000000.0
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": -1,
+                "result": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "UNSET"
+                },
+                "to": 9e-07
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1e-06
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 4,
+        "y": 1
+      },
+      "id": 121,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "View Documentation",
+          "url": "/d/workload-resource-workload-docs?viewPanel=1121"
+        }
+      ],
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "sum(\n  kube_pod_container_resource_requests{namespace=\"$namespace\", resource=\"cpu\"}\n  * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n) or vector(0)",
+          "legendFormat": "CPU Request",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "CPU Request",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Whether CPU limit is configured for this workload.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "from": 1e-06,
+                "result": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "SET"
+                },
+                "to": 1000000000000000.0
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": -1,
+                "result": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "UNSET"
+                },
+                "to": 9e-07
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1e-06
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 9,
+        "y": 1
+      },
+      "id": 122,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "View Documentation",
+          "url": "/d/workload-resource-workload-docs?viewPanel=1122"
+        }
+      ],
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "sum(\n  kube_pod_container_resource_limits{namespace=\"$namespace\", resource=\"cpu\"}\n  * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n) or vector(0)",
+          "legendFormat": "CPU Limit",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "CPU Limit",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Whether memory request is configured for this workload.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "from": 1e-06,
+                "result": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "SET"
+                },
+                "to": 1000000000000000.0
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": -1,
+                "result": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "UNSET"
+                },
+                "to": 9e-07
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1e-06
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 14,
+        "y": 1
+      },
+      "id": 123,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "View Documentation",
+          "url": "/d/workload-resource-workload-docs?viewPanel=1123"
+        }
+      ],
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "sum(\n  kube_pod_container_resource_requests{namespace=\"$namespace\", resource=\"memory\"}\n  * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n) or vector(0)",
+          "legendFormat": "Mem Request",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Mem Request",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Whether memory limit is configured for this workload.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "from": 1e-06,
+                "result": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "SET"
+                },
+                "to": 1000000000000000.0
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": -1,
+                "result": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "UNSET"
+                },
+                "to": 9e-07
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1e-06
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 19,
+        "y": 1
+      },
+      "id": 124,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "View Documentation",
+          "url": "/d/workload-resource-workload-docs?viewPanel=1124"
+        }
+      ],
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "sum(\n  kube_pod_container_resource_limits{namespace=\"$namespace\", resource=\"memory\"}\n  * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n) or vector(0)",
+          "legendFormat": "Mem Limit",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Mem Limit",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Current CPU limit configured in the workload manifest.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short",
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 19,
+        "y": 5
+      },
+      "id": 125,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "View Documentation",
+          "url": "/d/workload-resource-workload-docs?viewPanel=1125"
+        }
+      ],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "sum(\n  kube_pod_container_resource_limits{namespace=\"$namespace\", resource=\"cpu\"}\n  * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n) * 1000",
+          "legendFormat": "CPU Limit",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "CPU Limit (m)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Current memory limit configured in the workload manifest.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decmbytes",
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 19,
+        "y": 9
+      },
+      "id": 126,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "View Documentation",
+          "url": "/d/workload-resource-workload-docs?viewPanel=1126"
+        }
+      ],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "sum(\n  kube_pod_container_resource_limits{namespace=\"$namespace\", resource=\"memory\"}\n  * on(pod, namespace) group_left()\n  (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n) / 1024 / 1024",
+          "legendFormat": "Mem Limit",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Mem Limit (MiB)",
+      "type": "stat"
     }
   ],
   "refresh": "",
