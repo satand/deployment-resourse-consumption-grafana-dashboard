@@ -3736,36 +3736,6 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg by (workload) (\n  label_replace(\n    quantile_over_time(0.95,\n      sum by (created_by_name) (\n        container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n        * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) / 1024 / 1024",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "mem_p95"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "max by (workload) (\n  label_replace(\n    max_over_time(\n      sum by (created_by_name) (\n        container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n        * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) / 1024 / 1024",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "mem_max"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
           "expr": "sum by (workload) (\n  label_replace(\n    sum by (created_by_name) (\n      kube_pod_container_resource_requests{namespace=\"$namespace\", resource=\"cpu\", container!=\"\"}\n      * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 1000",
           "format": "table",
           "hide": false,
@@ -3788,36 +3758,6 @@
           "legendFormat": "__auto",
           "range": false,
           "refId": "cpu_lim_real"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (workload) (\n  label_replace(\n    sum by (created_by_name) (\n      kube_pod_container_resource_requests{namespace=\"$namespace\", resource=\"memory\", container!=\"\"}\n      * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) / 1024 / 1024",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "mem_req_real"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (workload) (\n  label_replace(\n    sum by (created_by_name) (\n      kube_pod_container_resource_limits{namespace=\"$namespace\", resource=\"memory\", container!=\"\"}\n      * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) / 1024 / 1024",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "mem_lim_real"
         }
       ],
       "title": "\ud83e\uddea Simulated CPU Values (Normal)",
@@ -4345,36 +4285,6 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg by (workload) (\n  label_replace(\n    quantile_over_time(0.90,\n      sum by (created_by_name) (\n        rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n        * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 1000",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "cpu_p90"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "avg by (workload) (\n  label_replace(\n    quantile_over_time(0.99,\n      sum by (created_by_name) (\n        rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n        * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 1000",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "cpu_p99"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
           "expr": "avg by (workload) (\n  label_replace(\n    quantile_over_time(0.95,\n      sum by (created_by_name) (\n        container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n        * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) / 1024 / 1024",
           "format": "table",
           "hide": false,
@@ -4397,36 +4307,6 @@
           "legendFormat": "__auto",
           "range": false,
           "refId": "mem_max"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (workload) (\n  label_replace(\n    sum by (created_by_name) (\n      kube_pod_container_resource_requests{namespace=\"$namespace\", resource=\"cpu\", container!=\"\"}\n      * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 1000",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "cpu_req_real"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (workload) (\n  label_replace(\n    sum by (created_by_name) (\n      kube_pod_container_resource_limits{namespace=\"$namespace\", resource=\"cpu\", container!=\"\"}\n      * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 1000",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "cpu_lim_real"
         },
         {
           "datasource": {
@@ -6204,21 +6084,6 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "max by (workload) (\n  label_replace(\n    max_over_time(\n      sum by (created_by_name) (\n        container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n        * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) / 1024 / 1024",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "mem_max"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
           "expr": "sum by (workload) (\n  label_replace(\n    sum by (created_by_name) (\n      kube_pod_container_resource_requests{namespace=\"$namespace\", resource=\"cpu\", container!=\"\"}\n      * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 1000",
           "format": "table",
           "hide": false,
@@ -6241,36 +6106,6 @@
           "legendFormat": "__auto",
           "range": false,
           "refId": "cpu_lim_real"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (workload) (\n  label_replace(\n    sum by (created_by_name) (\n      kube_pod_container_resource_requests{namespace=\"$namespace\", resource=\"memory\", container!=\"\"}\n      * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) / 1024 / 1024",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "mem_req_real"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (workload) (\n  label_replace(\n    sum by (created_by_name) (\n      kube_pod_container_resource_limits{namespace=\"$namespace\", resource=\"memory\", container!=\"\"}\n      * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) / 1024 / 1024",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "mem_lim_real"
         }
       ],
       "title": "\ud83e\uddea Simulated CPU Values (Aggressive)",
@@ -6796,36 +6631,6 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg by (workload) (\n  label_replace(\n    quantile_over_time(0.95,\n      sum by (created_by_name) (\n        rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n        * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 1000",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "cpu_p95"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "max by (workload) (\n  label_replace(\n    max_over_time(\n      sum by (created_by_name) (\n        rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n        * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 1000",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "cpu_max"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
           "expr": "max by (workload) (\n  label_replace(\n    max_over_time(\n      sum by (created_by_name) (\n        container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n        * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) / 1024 / 1024",
           "format": "table",
           "hide": false,
@@ -6833,36 +6638,6 @@
           "legendFormat": "__auto",
           "range": false,
           "refId": "mem_max"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (workload) (\n  label_replace(\n    sum by (created_by_name) (\n      kube_pod_container_resource_requests{namespace=\"$namespace\", resource=\"cpu\", container!=\"\"}\n      * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 1000",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "cpu_req_real"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (workload) (\n  label_replace(\n    sum by (created_by_name) (\n      kube_pod_container_resource_limits{namespace=\"$namespace\", resource=\"cpu\", container!=\"\"}\n      * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 1000",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "cpu_lim_real"
         },
         {
           "datasource": {
