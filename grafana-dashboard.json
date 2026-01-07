@@ -7030,6 +7030,29 @@
       },
       {
         "current": {
+          "selected": true,
+          "text": "",
+          "value": ""
+        },
+        "description": "Regex pattern to filter namespace dropdown (e.g., '^1510-.*' or 'prod|staging'). Leave empty to show all namespaces.",
+        "hide": 2,
+        "includeAll": false,
+        "label": "Namespace Filter",
+        "multi": false,
+        "name": "namespace_filter",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "skipUrlSync": true,
+        "type": "custom"
+      },
+      {
+        "current": {
           "selected": false,
           "text": "1510-p-telediagnostica",
           "value": "1510-p-telediagnostica"
@@ -7050,7 +7073,7 @@
           "refId": "StandardVariableQuery"
         },
         "refresh": 2,
-        "regex": "",
+        "regex": "/${namespace_filter}/",
         "skipUrlSync": false,
         "sort": 1,
         "type": "query"

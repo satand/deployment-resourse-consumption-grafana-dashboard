@@ -21,6 +21,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FOLDER_TITLE="Resource Consumption Analysis"
 AUTH_METHOD=""  # "apikey" or "basic"
 INSECURE=false  # Skip TLS certificate verification
+NAMESPACE_FILTER=""  # Optional namespace filter regex for imported dashboards
 
 # Dashboard files
 DASHBOARDS=(
@@ -94,6 +95,9 @@ Options:
                             (default: script directory)
     -o, --overwrite         Overwrite existing dashboards (default for import)
     -n, --no-overwrite      Don't overwrite existing dashboards
+    --namespace-filter REGEX Set default namespace filter regex in imported dashboards
+                            (e.g., "^prod-" or "staging|production")
+                            Only affects namespace overview and workload dashboards
     --insecure              Skip TLS certificate verification (for self-signed certs)
     -h, --help              Show this help message
 
@@ -126,6 +130,9 @@ Examples:
 
     # Use custom folder name
     $(basename "$0") --user myuser --password mypass -f "My Dashboards" import
+
+    # Import with namespace filter preset (only show namespaces starting with "prod-")
+    $(basename "$0") --user myuser --password mypass --namespace-filter "^prod-" import
 
 EOF
     exit 1
@@ -284,6 +291,7 @@ import_dashboard() {
     local dashboard_file="$1"
     local folder_uid="$2"
     local overwrite="$3"
+    local namespace_filter="$4"
     
     if [ ! -f "$dashboard_file" ]; then
         print_error "Dashboard file not found: $dashboard_file"
@@ -295,10 +303,36 @@ import_dashboard() {
     
     print_info "Importing: $dashboard_title"
     
+    # Read dashboard content
+    local dashboard_content
+    dashboard_content=$(cat "$dashboard_file")
+    
+    # Apply namespace filter if provided and dashboard has namespace_filter variable
+    if [ -n "$namespace_filter" ]; then
+        local has_ns_filter
+        has_ns_filter=$(echo "$dashboard_content" | jq '.templating.list[] | select(.name == "namespace_filter") | .name' 2>/dev/null)
+        
+        if [ -n "$has_ns_filter" ]; then
+            print_info "  Setting namespace_filter to: $namespace_filter"
+            dashboard_content=$(echo "$dashboard_content" | jq --arg filter "$namespace_filter" '
+                .templating.list = [.templating.list[] | 
+                    if .name == "namespace_filter" then
+                        .current.text = $filter |
+                        .current.value = $filter |
+                        .query = $filter |
+                        .options = [{"selected": true, "text": $filter, "value": $filter}]
+                    else
+                        .
+                    end
+                ]
+            ')
+        fi
+    fi
+    
     # Prepare the import payload
     local payload
     payload=$(jq -n \
-        --argjson dashboard "$(cat "$dashboard_file")" \
+        --argjson dashboard "$dashboard_content" \
         --arg folderUid "$folder_uid" \
         --argjson overwrite "$overwrite" \
         '{
@@ -437,6 +471,9 @@ cmd_import() {
     
     echo ""
     print_info "Importing dashboards to folder: $FOLDER_TITLE"
+    if [ -n "$NAMESPACE_FILTER" ]; then
+        print_info "Namespace filter will be set to: $NAMESPACE_FILTER"
+    fi
     echo ""
     
     local success=0
@@ -445,7 +482,7 @@ cmd_import() {
     for dashboard_file in "${DASHBOARDS[@]}"; do
         local full_path="${DASHBOARD_DIR}/${dashboard_file}"
         
-        if import_dashboard "$full_path" "$folder_uid" "$OVERWRITE"; then
+        if import_dashboard "$full_path" "$folder_uid" "$OVERWRITE" "$NAMESPACE_FILTER"; then
             ((success++))
         else
             ((failed++))
@@ -551,6 +588,10 @@ main() {
             --insecure)
                 INSECURE=true
                 shift
+                ;;
+            --namespace-filter)
+                NAMESPACE_FILTER="$2"
+                shift 2
                 ;;
             -h|--help)
                 usage
