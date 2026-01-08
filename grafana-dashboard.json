@@ -2327,7 +2327,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated resource efficiency (Util%) and risk (Risk%) using NORMAL profile. CPU: Req=P90\u00d71.5, Lim=P99\u00d71.5. Memory: Req=P95, Lim=MAX\u00d71.2",
+      "description": "Simulated resource efficiency (Util%) and risk (Risk%) using NORMAL profile. CPU: Req=P90, Lim=P99\u00d71.5. Memory: Req=P95, Lim=MAX\u00d71.2",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2640,7 +2640,7 @@
             "binary": {
               "left": "CPU P90",
               "operator": "*",
-              "right": "1.5"
+              "right": "1"
             },
             "mode": "binary",
             "replaceFields": false
@@ -2835,7 +2835,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated time distribution using NORMAL profile. CPU: Req=P90\u00d71.5, Lim=P99\u00d71.5. Memory: Req=P95, Lim=MAX\u00d71.2",
+      "description": "Simulated time distribution using NORMAL profile. CPU: Req=P90, Lim=P99\u00d71.5. Memory: Req=P95, Lim=MAX\u00d71.2",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3047,7 +3047,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg by (workload) (\n  label_replace(\n    avg_over_time(\n      (\n        sum by (created_by_name) (\n          rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )\n        < bool\n        (quantile_over_time(0.90, sum by (created_by_name) (\n          rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )[$__range:$__rate_interval]) * 1.5)\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 100",
+          "expr": "avg by (workload) (\n  label_replace(\n    avg_over_time(\n      (\n        sum by (created_by_name) (\n          rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )\n        < bool\n        (quantile_over_time(0.90, sum by (created_by_name) (\n          rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )[$__range:$__rate_interval]))\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 100",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -3230,7 +3230,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated Limit/Request ratio using NORMAL profile. CPU: Req=P90\u00d71.5, Lim=P99\u00d71.5. Memory: Req=P95, Lim=MAX\u00d71.2",
+      "description": "Simulated Limit/Request ratio using NORMAL profile. CPU: Req=P90, Lim=P99\u00d71.5. Memory: Req=P95, Lim=MAX\u00d71.2",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3481,7 +3481,7 @@
             "binary": {
               "left": "CPU P90",
               "operator": "*",
-              "right": "1.5"
+              "right": "1"
             },
             "mode": "binary",
             "replaceFields": false
@@ -3589,7 +3589,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated CPU/Memory request/limit values using NORMAL profile, per-replica values, and differences from actual configuration.",
+      "description": "Simulated CPU request/limit values using NORMAL profile, per-replica values, and differences from actual configuration. CPU: Req=P90, Lim=P99×1.5",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3858,12 +3858,8 @@
               "Value #pod_count": "Pods",
               "Value #cpu_p90": "CPU P90",
               "Value #cpu_p99": "CPU P99",
-              "Value #mem_p95": "Mem P95",
-              "Value #mem_max": "Mem Max",
               "Value #cpu_req_real": "Real CPU Req",
               "Value #cpu_lim_real": "Real CPU Lim",
-              "Value #mem_req_real": "Real Mem Req",
-              "Value #mem_lim_real": "Real Mem Lim",
               "workload": "Workload"
             }
           }
@@ -3875,7 +3871,7 @@
             "binary": {
               "left": "CPU P90",
               "operator": "*",
-              "right": "1.5"
+              "right": "1"
             },
             "mode": "binary",
             "replaceFields": false
@@ -3889,32 +3885,6 @@
               "left": "CPU P99",
               "operator": "*",
               "right": "1.5"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "Mem Req",
-            "binary": {
-              "left": "Mem P95",
-              "operator": "*",
-              "right": "1"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "Mem Lim",
-            "binary": {
-              "left": "Mem Max",
-              "operator": "*",
-              "right": "1.2"
             },
             "mode": "binary",
             "replaceFields": false
@@ -3939,32 +3909,6 @@
             "alias": "CPU Lim/Pod",
             "binary": {
               "left": "CPU Lim",
-              "operator": "/",
-              "right": "Pods"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "Mem Req/Pod",
-            "binary": {
-              "left": "Mem Req",
-              "operator": "/",
-              "right": "Pods"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "Mem Lim/Pod",
-            "binary": {
-              "left": "Mem Lim",
               "operator": "/",
               "right": "Pods"
             },
@@ -4001,32 +3945,6 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "Mem Req \u0394",
-            "binary": {
-              "left": "Mem Req",
-              "operator": "-",
-              "right": "Real Mem Req"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "Mem Lim \u0394",
-            "binary": {
-              "left": "Mem Lim",
-              "operator": "-",
-              "right": "Real Mem Lim"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
             "alias": "CPU Req \u0394/Pod",
             "binary": {
               "left": "CPU Req \u0394",
@@ -4051,43 +3969,13 @@
           }
         },
         {
-          "id": "calculateField",
-          "options": {
-            "alias": "Mem Req \u0394/Pod",
-            "binary": {
-              "left": "Mem Req \u0394",
-              "operator": "/",
-              "right": "Pods"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "Mem Lim \u0394/Pod",
-            "binary": {
-              "left": "Mem Lim \u0394",
-              "operator": "/",
-              "right": "Pods"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
           "id": "organize",
           "options": {
             "excludeByName": {
               "CPU P90": true,
               "CPU P99": true,
-              "Mem P95": true,
-              "Mem Max": true,
               "Real CPU Req": true,
               "Real CPU Lim": true,
-              "Real Mem Req": true,
-              "Real Mem Lim": true,
               "Time": true,
               "Time 1": true,
               "Time 2": true,
@@ -4097,23 +3985,7 @@
               "Time 6": true,
               "Time 7": true,
               "Time 8": true,
-              "Time 9": true,
-              "Mem Req": true,
-              "Mem Req \u0394": true,
-              "Mem Req/Pod": true,
-              "Mem Req \u0394/Pod": true,
-              "Mem Lim": true,
-              "Mem Lim \u0394": true,
-              "Mem Lim/Pod": true,
-              "Mem Lim \u0394/Pod": true,
-              "Mem Req (MiB)": true,
-              "Mem Req \u0394 (MiB)": true,
-              "Mem Req/Pod (MiB)": true,
-              "Mem Req \u0394/Pod (MiB)": true,
-              "Mem Lim (MiB)": true,
-              "Mem Lim \u0394 (MiB)": true,
-              "Mem Lim/Pod (MiB)": true,
-              "Mem Lim \u0394/Pod (MiB)": true
+              "Time 9": true
             },
             "indexByName": {
               "Workload": 0,
@@ -4169,7 +4041,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated CPU/Memory request/limit values using NORMAL profile, per-replica values, and differences from actual configuration.",
+      "description": "Simulated Memory request/limit values using NORMAL profile, per-replica values, and differences from actual configuration. Memory: Req=P95, Lim=MAX×1.2",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -4436,42 +4308,12 @@
             "indexByName": {},
             "renameByName": {
               "Value #pod_count": "Pods",
-              "Value #cpu_p90": "CPU P90",
-              "Value #cpu_p99": "CPU P99",
               "Value #mem_p95": "Mem P95",
               "Value #mem_max": "Mem Max",
-              "Value #cpu_req_real": "Real CPU Req",
-              "Value #cpu_lim_real": "Real CPU Lim",
               "Value #mem_req_real": "Real Mem Req",
               "Value #mem_lim_real": "Real Mem Lim",
               "workload": "Workload"
             }
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "CPU Req",
-            "binary": {
-              "left": "CPU P90",
-              "operator": "*",
-              "right": "1.5"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "CPU Lim",
-            "binary": {
-              "left": "CPU P99",
-              "operator": "*",
-              "right": "1.5"
-            },
-            "mode": "binary",
-            "replaceFields": false
           }
         },
         {
@@ -4495,32 +4337,6 @@
               "left": "Mem Max",
               "operator": "*",
               "right": "1.2"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "CPU Req/Pod",
-            "binary": {
-              "left": "CPU Req",
-              "operator": "/",
-              "right": "Pods"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "CPU Lim/Pod",
-            "binary": {
-              "left": "CPU Lim",
-              "operator": "/",
-              "right": "Pods"
             },
             "mode": "binary",
             "replaceFields": false
@@ -4555,32 +4371,6 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "CPU Req \u0394",
-            "binary": {
-              "left": "CPU Req",
-              "operator": "-",
-              "right": "Real CPU Req"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "CPU Lim \u0394",
-            "binary": {
-              "left": "CPU Lim",
-              "operator": "-",
-              "right": "Real CPU Lim"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
             "alias": "Mem Req \u0394",
             "binary": {
               "left": "Mem Req",
@@ -4599,32 +4389,6 @@
               "left": "Mem Lim",
               "operator": "-",
               "right": "Real Mem Lim"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "CPU Req \u0394/Pod",
-            "binary": {
-              "left": "CPU Req \u0394",
-              "operator": "/",
-              "right": "Pods"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "CPU Lim \u0394/Pod",
-            "binary": {
-              "left": "CPU Lim \u0394",
-              "operator": "/",
-              "right": "Pods"
             },
             "mode": "binary",
             "replaceFields": false
@@ -4660,12 +4424,8 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "CPU P90": true,
-              "CPU P99": true,
               "Mem P95": true,
               "Mem Max": true,
-              "Real CPU Req": true,
-              "Real CPU Lim": true,
               "Real Mem Req": true,
               "Real Mem Lim": true,
               "Time": true,
@@ -4677,25 +4437,7 @@
               "Time 6": true,
               "Time 7": true,
               "Time 8": true,
-              "Time 9": true,
-              "CPU Req": true,
-              "CPU Req \u0394": true,
-              "CPU Req/Pod": true,
-              "CPU Req \u0394/Pod": true,
-              "CPU Lim": true,
-              "CPU Lim \u0394": true,
-              "CPU Lim/Pod": true,
-              "CPU Lim \u0394/Pod": true,
-              "CPU Req (m)": true,
-              "CPU Req \u0394 (m)": true,
-              "CPU Req/Pod (m)": true,
-              "CPU Req \u0394/Pod (m)": true,
-              "CPU Lim (m)": true,
-              "CPU Lim \u0394 (m)": true,
-              "CPU Lim/Pod (m)": true,
-              "CPU Lim \u0394/Pod (m)": true,
-              "CPU P95": true,
-              "CPU Max": true
+              "Time 9": true
             },
             "indexByName": {
               "Workload": 0,
@@ -5978,7 +5720,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated CPU/Memory request/limit values using AGGRESSIVE profile, per-replica values, and differences from actual configuration.",
+      "description": "Simulated CPU request/limit values using AGGRESSIVE profile, per-replica values, and differences from actual configuration. CPU: Req=P95×1.1, Lim=MAX×1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -6247,11 +5989,8 @@
               "Value #pod_count": "Pods",
               "Value #cpu_p95": "CPU P95",
               "Value #cpu_max": "CPU Max",
-              "Value #mem_max": "Mem Max",
               "Value #cpu_req_real": "Real CPU Req",
               "Value #cpu_lim_real": "Real CPU Lim",
-              "Value #mem_req_real": "Real Mem Req",
-              "Value #mem_lim_real": "Real Mem Lim",
               "workload": "Workload"
             }
           }
@@ -6275,32 +6014,6 @@
             "alias": "CPU Lim",
             "binary": {
               "left": "CPU Max",
-              "operator": "*",
-              "right": "1.25"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "Mem Req",
-            "binary": {
-              "left": "Mem Max",
-              "operator": "*",
-              "right": "1"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "Mem Lim",
-            "binary": {
-              "left": "Mem Max",
               "operator": "*",
               "right": "1.25"
             },
@@ -6337,32 +6050,6 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "Mem Req/Pod",
-            "binary": {
-              "left": "Mem Req",
-              "operator": "/",
-              "right": "Pods"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "Mem Lim/Pod",
-            "binary": {
-              "left": "Mem Lim",
-              "operator": "/",
-              "right": "Pods"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
             "alias": "CPU Req \u0394",
             "binary": {
               "left": "CPU Req",
@@ -6381,32 +6068,6 @@
               "left": "CPU Lim",
               "operator": "-",
               "right": "Real CPU Lim"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "Mem Req \u0394",
-            "binary": {
-              "left": "Mem Req",
-              "operator": "-",
-              "right": "Real Mem Req"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "Mem Lim \u0394",
-            "binary": {
-              "left": "Mem Lim",
-              "operator": "-",
-              "right": "Real Mem Lim"
             },
             "mode": "binary",
             "replaceFields": false
@@ -6439,42 +6100,13 @@
           }
         },
         {
-          "id": "calculateField",
-          "options": {
-            "alias": "Mem Req \u0394/Pod",
-            "binary": {
-              "left": "Mem Req \u0394",
-              "operator": "/",
-              "right": "Pods"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "Mem Lim \u0394/Pod",
-            "binary": {
-              "left": "Mem Lim \u0394",
-              "operator": "/",
-              "right": "Pods"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
           "id": "organize",
           "options": {
             "excludeByName": {
               "CPU P95": true,
               "CPU Max": true,
-              "Mem Max": true,
               "Real CPU Req": true,
               "Real CPU Lim": true,
-              "Real Mem Req": true,
-              "Real Mem Lim": true,
               "Time": true,
               "Time 1": true,
               "Time 2": true,
@@ -6483,24 +6115,7 @@
               "Time 5": true,
               "Time 6": true,
               "Time 7": true,
-              "Time 8": true,
-              "Mem Req": true,
-              "Mem Req \u0394": true,
-              "Mem Req/Pod": true,
-              "Mem Req \u0394/Pod": true,
-              "Mem Lim": true,
-              "Mem Lim \u0394": true,
-              "Mem Lim/Pod": true,
-              "Mem Lim \u0394/Pod": true,
-              "Mem Req (MiB)": true,
-              "Mem Req \u0394 (MiB)": true,
-              "Mem Req/Pod (MiB)": true,
-              "Mem Req \u0394/Pod (MiB)": true,
-              "Mem Lim (MiB)": true,
-              "Mem Lim \u0394 (MiB)": true,
-              "Mem Lim/Pod (MiB)": true,
-              "Mem Lim \u0394/Pod (MiB)": true,
-              "Mem P95": true
+              "Time 8": true
             },
             "indexByName": {
               "Workload": 0,
@@ -6556,7 +6171,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated CPU/Memory request/limit values using AGGRESSIVE profile, per-replica values, and differences from actual configuration.",
+      "description": "Simulated Memory request/limit values using AGGRESSIVE profile, per-replica values, and differences from actual configuration. Memory: Req=MAX, Lim=MAX×1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -6808,41 +6423,11 @@
             "indexByName": {},
             "renameByName": {
               "Value #pod_count": "Pods",
-              "Value #cpu_p95": "CPU P95",
-              "Value #cpu_max": "CPU Max",
               "Value #mem_max": "Mem Max",
-              "Value #cpu_req_real": "Real CPU Req",
-              "Value #cpu_lim_real": "Real CPU Lim",
               "Value #mem_req_real": "Real Mem Req",
               "Value #mem_lim_real": "Real Mem Lim",
               "workload": "Workload"
             }
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "CPU Req",
-            "binary": {
-              "left": "CPU P95",
-              "operator": "*",
-              "right": "1.1"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "CPU Lim",
-            "binary": {
-              "left": "CPU Max",
-              "operator": "*",
-              "right": "1.25"
-            },
-            "mode": "binary",
-            "replaceFields": false
           }
         },
         {
@@ -6866,32 +6451,6 @@
               "left": "Mem Max",
               "operator": "*",
               "right": "1.25"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "CPU Req/Pod",
-            "binary": {
-              "left": "CPU Req",
-              "operator": "/",
-              "right": "Pods"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "CPU Lim/Pod",
-            "binary": {
-              "left": "CPU Lim",
-              "operator": "/",
-              "right": "Pods"
             },
             "mode": "binary",
             "replaceFields": false
@@ -6926,32 +6485,6 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "CPU Req \u0394",
-            "binary": {
-              "left": "CPU Req",
-              "operator": "-",
-              "right": "Real CPU Req"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "CPU Lim \u0394",
-            "binary": {
-              "left": "CPU Lim",
-              "operator": "-",
-              "right": "Real CPU Lim"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
             "alias": "Mem Req \u0394",
             "binary": {
               "left": "Mem Req",
@@ -6970,32 +6503,6 @@
               "left": "Mem Lim",
               "operator": "-",
               "right": "Real Mem Lim"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "CPU Req \u0394/Pod",
-            "binary": {
-              "left": "CPU Req \u0394",
-              "operator": "/",
-              "right": "Pods"
-            },
-            "mode": "binary",
-            "replaceFields": false
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "CPU Lim \u0394/Pod",
-            "binary": {
-              "left": "CPU Lim \u0394",
-              "operator": "/",
-              "right": "Pods"
             },
             "mode": "binary",
             "replaceFields": false
@@ -7031,11 +6538,7 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "CPU P95": true,
-              "CPU Max": true,
               "Mem Max": true,
-              "Real CPU Req": true,
-              "Real CPU Lim": true,
               "Real Mem Req": true,
               "Real Mem Lim": true,
               "Time": true,
@@ -7046,25 +6549,7 @@
               "Time 5": true,
               "Time 6": true,
               "Time 7": true,
-              "Time 8": true,
-              "CPU Req": true,
-              "CPU Req \u0394": true,
-              "CPU Req/Pod": true,
-              "CPU Req \u0394/Pod": true,
-              "CPU Lim": true,
-              "CPU Lim \u0394": true,
-              "CPU Lim/Pod": true,
-              "CPU Lim \u0394/Pod": true,
-              "CPU Req (m)": true,
-              "CPU Req \u0394 (m)": true,
-              "CPU Req/Pod (m)": true,
-              "CPU Req \u0394/Pod (m)": true,
-              "CPU Lim (m)": true,
-              "CPU Lim \u0394 (m)": true,
-              "CPU Lim/Pod (m)": true,
-              "CPU Lim \u0394/Pod (m)": true,
-              "CPU P90": true,
-              "CPU P99": true
+              "Time 8": true
             },
             "indexByName": {
               "Workload": 0,
