@@ -1839,8 +1839,8 @@
           },
           {
             "matcher": {
-              "id": "byRegexp",
-              "options": ".*> Lim.*"
+              "id": "byName",
+              "options": "CPU % > Lim"
             },
             "properties": [
               {
@@ -1867,6 +1867,45 @@
                     {
                       "color": "red",
                       "value": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mem % > Lim"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 0.01
                     }
                   ]
                 }
@@ -2970,8 +3009,8 @@
           },
           {
             "matcher": {
-              "id": "byRegexp",
-              "options": ".*> Lim.*"
+              "id": "byName",
+              "options": "CPU % > Lim"
             },
             "properties": [
               {
@@ -2998,6 +3037,45 @@
                     {
                       "color": "red",
                       "value": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mem % > Lim"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 0.01
                     }
                   ]
                 }
@@ -5127,8 +5205,8 @@
           },
           {
             "matcher": {
-              "id": "byRegexp",
-              "options": ".*> Lim.*"
+              "id": "byName",
+              "options": "CPU % > Lim"
             },
             "properties": [
               {
@@ -5155,6 +5233,45 @@
                     {
                       "color": "red",
                       "value": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mem % > Lim"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 0.01
                     }
                   ]
                 }
