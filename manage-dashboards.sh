@@ -22,6 +22,7 @@ FOLDER_TITLE="Resource Consumption Analysis"
 AUTH_METHOD=""  # "apikey" or "basic"
 INSECURE=false  # Skip TLS certificate verification
 NAMESPACE_FILTER=""  # Optional namespace filter regex for imported dashboards
+WORKLOAD_KINDS=""  # Optional workload kinds override (default in dashboards: ReplicaSet|ReplicationController|StatefulSet)
 
 # Dashboard files
 DASHBOARDS=(
@@ -98,6 +99,10 @@ Options:
     --namespace-filter REGEX Set default namespace filter regex in imported dashboards
                             (e.g., "^prod-" or "staging|production")
                             Only affects namespace overview and workload dashboards
+    --workload-kinds KINDS  Override workload kinds filter in imported dashboards
+                            (e.g., "ReplicaSet|StatefulSet|DaemonSet")
+                            Default in dashboards: ReplicaSet|ReplicationController|StatefulSet
+                            Only affects namespace overview and workload dashboards
     --insecure              Skip TLS certificate verification (for self-signed certs)
     -h, --help              Show this help message
 
@@ -133,6 +138,9 @@ Examples:
 
     # Import with namespace filter preset (only show namespaces starting with "prod-")
     $(basename "$0") --user myuser --password mypass --namespace-filter "^prod-" import
+
+    # Import with custom workload kinds (include DaemonSet)
+    $(basename "$0") --user myuser --password mypass --workload-kinds "ReplicaSet|ReplicationController|StatefulSet|DaemonSet" import
 
 EOF
     exit 1
@@ -292,6 +300,7 @@ import_dashboard() {
     local folder_uid="$2"
     local overwrite="$3"
     local namespace_filter="$4"
+    local workload_kinds="$5"
     
     if [ ! -f "$dashboard_file" ]; then
         print_error "Dashboard file not found: $dashboard_file"
@@ -321,6 +330,28 @@ import_dashboard() {
                         .current.value = $filter |
                         .query = $filter |
                         .options = [{"selected": true, "text": $filter, "value": $filter}]
+                    else
+                        .
+                    end
+                ]
+            ')
+        fi
+    fi
+    
+    # Apply workload kinds if provided and dashboard has workload_kinds variable
+    if [ -n "$workload_kinds" ]; then
+        local has_wk_var
+        has_wk_var=$(echo "$dashboard_content" | jq '.templating.list[] | select(.name == "workload_kinds") | .name' 2>/dev/null)
+        
+        if [ -n "$has_wk_var" ]; then
+            print_info "  Setting workload_kinds to: $workload_kinds"
+            dashboard_content=$(echo "$dashboard_content" | jq --arg kinds "$workload_kinds" '
+                .templating.list = [.templating.list[] | 
+                    if .name == "workload_kinds" then
+                        .current.text = $kinds |
+                        .current.value = $kinds |
+                        .query = $kinds |
+                        .options = [{"selected": true, "text": $kinds, "value": $kinds}]
                     else
                         .
                     end
@@ -474,6 +505,9 @@ cmd_import() {
     if [ -n "$NAMESPACE_FILTER" ]; then
         print_info "Namespace filter will be set to: $NAMESPACE_FILTER"
     fi
+    if [ -n "$WORKLOAD_KINDS" ]; then
+        print_info "Workload kinds will be set to: $WORKLOAD_KINDS"
+    fi
     echo ""
     
     local success=0
@@ -482,7 +516,7 @@ cmd_import() {
     for dashboard_file in "${DASHBOARDS[@]}"; do
         local full_path="${DASHBOARD_DIR}/${dashboard_file}"
         
-        if import_dashboard "$full_path" "$folder_uid" "$OVERWRITE" "$NAMESPACE_FILTER"; then
+        if import_dashboard "$full_path" "$folder_uid" "$OVERWRITE" "$NAMESPACE_FILTER" "$WORKLOAD_KINDS"; then
             ((success++))
         else
             ((failed++))
@@ -591,6 +625,10 @@ main() {
                 ;;
             --namespace-filter)
                 NAMESPACE_FILTER="$2"
+                shift 2
+                ;;
+            --workload-kinds)
+                WORKLOAD_KINDS="$2"
                 shift 2
                 ;;
             -h|--help)
