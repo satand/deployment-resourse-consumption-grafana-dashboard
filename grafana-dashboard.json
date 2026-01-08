@@ -2120,8 +2120,47 @@
           },
           {
             "matcher": {
-              "id": "byRegexp",
-              "options": ".*Lim/Req"
+              "id": "byName",
+              "options": "CPU Lim/Req"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 1.2
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mem Lim/Req"
             },
             "properties": [
               {
@@ -3241,8 +3280,47 @@
           },
           {
             "matcher": {
-              "id": "byRegexp",
-              "options": ".*Lim/Req"
+              "id": "byName",
+              "options": "CPU Lim/Req"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 1.2
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mem Lim/Req"
             },
             "properties": [
               {
@@ -5623,8 +5701,47 @@
           },
           {
             "matcher": {
-              "id": "byRegexp",
-              "options": ".*Lim/Req"
+              "id": "byName",
+              "options": "CPU Lim/Req"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 1.2
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mem Lim/Req"
             },
             "properties": [
               {
