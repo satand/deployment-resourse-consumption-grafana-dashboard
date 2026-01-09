@@ -255,7 +255,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU % of Request\n\n### Purpose\nGauge showing current CPU usage as a percentage of the configured request.\n\n### Formula\n```\n(Current CPU Usage / CPU Request) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔵 Blue | Under-utilized |\n| 50-90% | 🟢 Green | Optimal utilization |\n| 90-100% | 🟡 Yellow | High utilization |\n| > 100% | 🔴 Red | Exceeding request |",
+        "content": "## CPU % of Request\n\n### Purpose\nGauge showing current CPU usage as a percentage of the configured request.\n\n### Formula\n```\n(Current CPU Usage / CPU Request) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔴 Red | Over-provisioned |\n| 50-110% | 🟢 Green | Optimal utilization |\n| > 110% | 🟡 Yellow | High utilization |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -297,7 +297,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Memory % of Request\n\n### Purpose\nGauge showing current memory usage as a percentage of the configured request.\n\n### Formula\n```\n(Current Memory Usage / Memory Request) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔵 Blue | Under-utilized |\n| 50-90% | 🟢 Green | Optimal utilization |\n| 90-100% | 🟡 Yellow | High utilization |\n| > 100% | 🔴 Red | Exceeding request |",
+        "content": "## Memory % of Request\n\n### Purpose\nGauge showing current memory usage as a percentage of the configured request.\n\n### Formula\n```\n(Current Memory Usage / Memory Request) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔴 Red | Over-provisioned |\n| 50-110% | 🟢 Green | Optimal utilization |\n| > 110% | 🟡 Yellow | High utilization |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -436,7 +436,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU % of Sim Request (Normal)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** request (P90).\n\n### Formula\n```\n(Current CPU / P90) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔵 Blue | Well below simulated request |\n| 50-90% | 🟢 Green | Optimal for this profile |\n| 90-100% | 🟡 Yellow | Near simulated request |\n| > 100% | 🔴 Red | Exceeding simulated request |",
+        "content": "## CPU % of Sim Request (Normal)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** request (P90).\n\n### Formula\n```\n(Current CPU / P90) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔴 Red | Over-provisioned for this profile |\n| 50-110% | 🟢 Green | Optimal for this profile |\n| > 110% | 🟡 Yellow | High utilization for this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -478,7 +478,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Mem % of Sim Request (Normal)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** request (P95).\n\n### Formula\n```\n(Current Memory / P95) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔵 Blue | Well below simulated request |\n| 50-90% | 🟢 Green | Optimal for this profile |\n| 90-100% | 🟡 Yellow | Near simulated request |\n| > 100% | 🔴 Red | Exceeding simulated request |",
+        "content": "## Mem % of Sim Request (Normal)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** request (P95).\n\n### Formula\n```\n(Current Memory / P95) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔴 Red | Over-provisioned for this profile |\n| 50-110% | 🟢 Green | Optimal for this profile |\n| > 110% | 🟡 Yellow | High utilization for this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -617,7 +617,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU % of Sim Request (Aggressive)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** request (P95×1.1).\n\n### Formula\n```\n(Current CPU / (P95 × 1.1)) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔵 Blue | Well below simulated request |\n| 50-90% | 🟢 Green | Optimal for this profile |\n| 90-100% | 🟡 Yellow | Near simulated request |\n| > 100% | 🔴 Red | Exceeding simulated request |",
+        "content": "## CPU % of Sim Request (Aggressive)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** request (P95×1.1).\n\n### Formula\n```\n(Current CPU / (P95 × 1.1)) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔴 Red | Over-provisioned for this profile |\n| 50-110% | 🟢 Green | Optimal for this profile |\n| > 110% | 🟡 Yellow | High utilization for this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -659,7 +659,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Mem % of Sim Request (Aggressive)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** request (Max).\n\n### Formula\n```\n(Current Memory / Max) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔵 Blue | Well below simulated request |\n| 50-90% | 🟢 Green | Optimal for this profile |\n| 90-100% | 🟡 Yellow | Near simulated request |\n| > 100% | 🔴 Red | Exceeding max observed |",
+        "content": "## Mem % of Sim Request (Aggressive)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** request (Max).\n\n### Formula\n```\n(Current Memory / Max) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔴 Red | Over-provisioned for this profile |\n| 50-110% | 🟢 Green | Optimal for this profile |\n| > 110% | 🟡 Yellow | High utilization for this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
