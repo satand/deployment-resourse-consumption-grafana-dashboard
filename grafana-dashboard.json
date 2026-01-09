@@ -28,7 +28,7 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "\ud83d\udcd6 View Documentation \u2192",
+      "title": "📖 View Documentation →",
       "tooltip": "Open documentation for this dashboard",
       "type": "link",
       "url": "/d/workload-resource-analysis-docs"
@@ -46,7 +46,7 @@
       },
       "id": 100,
       "panels": [],
-      "title": "\ud83d\udcca Namespace Resource Consumption: $namespace",
+      "title": "📊 Namespace Resource Consumption: $namespace",
       "type": "row"
     },
     {
@@ -223,7 +223,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1025"
         }
       ],
@@ -308,7 +308,7 @@
           "refId": "mem_lim"
         }
       ],
-      "title": "\ud83d\udd27 Resource Configuration Status",
+      "title": "🔧 Resource Configuration Status",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -494,7 +494,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1107"
         }
       ],
@@ -683,7 +683,7 @@
           "refId": "cpu_lim_pod"
         }
       ],
-      "title": "\ud83d\udccb CPU Resource Usage (millicores)",
+      "title": "📋 CPU Resource Usage (millicores)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -915,7 +915,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1021"
         }
       ],
@@ -1104,7 +1104,7 @@
           "refId": "mem_lim_pod"
         }
       ],
-      "title": "\ud83d\udccb Memory Resource Usage (MiB)",
+      "title": "📋 Memory Resource Usage (MiB)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -1212,7 +1212,7 @@
       },
       "id": 107,
       "panels": [],
-      "title": "\ud83d\udd0d Namespace Resource Consumption Analysis: $namespace",
+      "title": "🔍 Namespace Resource Consumption Analysis: $namespace",
       "type": "row"
     },
     {
@@ -1369,7 +1369,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1020"
         }
       ],
@@ -1514,7 +1514,7 @@
           "refId": "mem_limit"
         }
       ],
-      "title": "\ud83d\udcca Resource Utilization & Risk Analysis",
+      "title": "📊 Resource Utilization & Risk Analysis",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -1931,7 +1931,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1022"
         }
       ],
@@ -2046,7 +2046,7 @@
           "refId": "mem_above_lim"
         }
       ],
-      "title": "\u23f1\ufe0f Time Distribution by Resource Zone",
+      "title": "⏱️ Time Distribution by Resource Zone",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -2247,7 +2247,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1023"
         }
       ],
@@ -2302,7 +2302,7 @@
           "refId": "mem_lim_req"
         }
       ],
-      "title": "\u2696\ufe0f Limit/Request Ratio Analysis",
+      "title": "⚖️ Limit/Request Ratio Analysis",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -2358,7 +2358,7 @@
       },
       "id": 108,
       "panels": [],
-      "title": "\ud83e\uddea Normal Profile Simulation: $namespace",
+      "title": "🧪 Normal Profile Simulation: $namespace",
       "type": "row"
     },
     {
@@ -2366,7 +2366,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated resource efficiency (Util%) and risk (Risk%) using NORMAL profile. CPU: Req=P90, Lim=P99\u00d71.5. Memory: Req=P95, Lim=MAX\u00d71.2",
+      "description": "Simulated resource efficiency (Util%) and risk (Risk%) using NORMAL profile. CPU: Req=P90, Lim=P99×1.5. Memory: Req=P95, Lim=MAX×1.2",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2638,7 +2638,7 @@
           "refId": "mem_p95"
         }
       ],
-      "title": "\ud83e\uddea Resource Utilization & Risk Analysis (Normal)",
+      "title": "🧪 Resource Utilization & Risk Analysis (Normal)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -2863,7 +2863,7 @@
       "type": "table",
       "links": [
         {
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1109",
           "targetBlank": true
         }
@@ -2874,7 +2874,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated time distribution using NORMAL profile. CPU: Req=P90, Lim=P99\u00d71.5. Memory: Req=P95, Lim=MAX\u00d71.2",
+      "description": "Simulated time distribution using NORMAL profile. CPU: Req=P90, Lim=P99×1.5. Memory: Req=P95, Lim=MAX×1.2",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3179,7 +3179,7 @@
           "refId": "mem_above_lim"
         }
       ],
-      "title": "\ud83e\uddea Time Distribution by Resource Zone (Normal)",
+      "title": "🧪 Time Distribution by Resource Zone (Normal)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -3297,7 +3297,7 @@
       "type": "table",
       "links": [
         {
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1111",
           "targetBlank": true
         }
@@ -3308,7 +3308,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated Limit/Request ratio using NORMAL profile. CPU: Req=P90, Lim=P99\u00d71.5. Memory: Req=P95, Lim=MAX\u00d71.2",
+      "description": "Simulated Limit/Request ratio using NORMAL profile. CPU: Req=P90, Lim=P99×1.5. Memory: Req=P95, Lim=MAX×1.2",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3524,7 +3524,7 @@
           "refId": "mem_p95"
         }
       ],
-      "title": "\ud83e\uddea Limit/Request Ratio Analysis (Normal)",
+      "title": "🧪 Limit/Request Ratio Analysis (Normal)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -3656,7 +3656,7 @@
       "type": "table",
       "links": [
         {
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1110",
           "targetBlank": true
         }
@@ -3734,7 +3734,7 @@
           {
             "matcher": {
               "id": "byRegexp",
-              "options": ".*\u0394.*"
+              "options": ".*Δ.*"
             },
             "properties": [
               {
@@ -3919,7 +3919,7 @@
           "refId": "cpu_lim_real"
         }
       ],
-      "title": "\ud83e\uddea Simulated CPU Values (Normal)",
+      "title": "🧪 Simulated CPU Values (Normal)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -3997,7 +3997,7 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "CPU Req \u0394",
+            "alias": "CPU Req Δ",
             "binary": {
               "left": "CPU Req",
               "operator": "-",
@@ -4010,7 +4010,7 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "CPU Lim \u0394",
+            "alias": "CPU Lim Δ",
             "binary": {
               "left": "CPU Lim",
               "operator": "-",
@@ -4023,9 +4023,9 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "CPU Req \u0394/Pod",
+            "alias": "CPU Req Δ/Pod",
             "binary": {
-              "left": "CPU Req \u0394",
+              "left": "CPU Req Δ",
               "operator": "/",
               "right": "Pods"
             },
@@ -4036,9 +4036,9 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "CPU Lim \u0394/Pod",
+            "alias": "CPU Lim Δ/Pod",
             "binary": {
-              "left": "CPU Lim \u0394",
+              "left": "CPU Lim Δ",
               "operator": "/",
               "right": "Pods"
             },
@@ -4069,23 +4069,23 @@
               "Workload": 0,
               "Pods": 1,
               "CPU Req (m)": 2,
-              "CPU Req \u0394 (m)": 3,
+              "CPU Req Δ (m)": 3,
               "CPU Req/Pod (m)": 4,
-              "CPU Req \u0394/Pod (m)": 5,
+              "CPU Req Δ/Pod (m)": 5,
               "CPU Lim (m)": 6,
-              "CPU Lim \u0394 (m)": 7,
+              "CPU Lim Δ (m)": 7,
               "CPU Lim/Pod (m)": 8,
-              "CPU Lim \u0394/Pod (m)": 9
+              "CPU Lim Δ/Pod (m)": 9
             },
             "renameByName": {
               "CPU Req": "CPU Req (m)",
-              "CPU Req \u0394": "CPU Req \u0394 (m)",
+              "CPU Req Δ": "CPU Req Δ (m)",
               "CPU Req/Pod": "CPU Req/Pod (m)",
-              "CPU Req \u0394/Pod": "CPU Req \u0394/Pod (m)",
+              "CPU Req Δ/Pod": "CPU Req Δ/Pod (m)",
               "CPU Lim": "CPU Lim (m)",
-              "CPU Lim \u0394": "CPU Lim \u0394 (m)",
+              "CPU Lim Δ": "CPU Lim Δ (m)",
               "CPU Lim/Pod": "CPU Lim/Pod (m)",
-              "CPU Lim \u0394/Pod": "CPU Lim \u0394/Pod (m)"
+              "CPU Lim Δ/Pod": "CPU Lim Δ/Pod (m)"
             }
           }
         },
@@ -4108,7 +4108,7 @@
       "type": "table",
       "links": [
         {
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1115",
           "targetBlank": true
         }
@@ -4186,7 +4186,7 @@
           {
             "matcher": {
               "id": "byRegexp",
-              "options": ".*\u0394.*"
+              "options": ".*Δ.*"
             },
             "properties": [
               {
@@ -4371,7 +4371,7 @@
           "refId": "mem_lim_real"
         }
       ],
-      "title": "\ud83e\uddea Simulated Memory Values (Normal)",
+      "title": "🧪 Simulated Memory Values (Normal)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -4449,7 +4449,7 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "Mem Req \u0394",
+            "alias": "Mem Req Δ",
             "binary": {
               "left": "Mem Req",
               "operator": "-",
@@ -4462,7 +4462,7 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "Mem Lim \u0394",
+            "alias": "Mem Lim Δ",
             "binary": {
               "left": "Mem Lim",
               "operator": "-",
@@ -4475,9 +4475,9 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "Mem Req \u0394/Pod",
+            "alias": "Mem Req Δ/Pod",
             "binary": {
-              "left": "Mem Req \u0394",
+              "left": "Mem Req Δ",
               "operator": "/",
               "right": "Pods"
             },
@@ -4488,9 +4488,9 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "Mem Lim \u0394/Pod",
+            "alias": "Mem Lim Δ/Pod",
             "binary": {
-              "left": "Mem Lim \u0394",
+              "left": "Mem Lim Δ",
               "operator": "/",
               "right": "Pods"
             },
@@ -4521,23 +4521,23 @@
               "Workload": 0,
               "Pods": 1,
               "Mem Req (MiB)": 2,
-              "Mem Req \u0394 (MiB)": 3,
+              "Mem Req Δ (MiB)": 3,
               "Mem Req/Pod (MiB)": 4,
-              "Mem Req \u0394/Pod (MiB)": 5,
+              "Mem Req Δ/Pod (MiB)": 5,
               "Mem Lim (MiB)": 6,
-              "Mem Lim \u0394 (MiB)": 7,
+              "Mem Lim Δ (MiB)": 7,
               "Mem Lim/Pod (MiB)": 8,
-              "Mem Lim \u0394/Pod (MiB)": 9
+              "Mem Lim Δ/Pod (MiB)": 9
             },
             "renameByName": {
               "Mem Req": "Mem Req (MiB)",
-              "Mem Req \u0394": "Mem Req \u0394 (MiB)",
+              "Mem Req Δ": "Mem Req Δ (MiB)",
               "Mem Req/Pod": "Mem Req/Pod (MiB)",
-              "Mem Req \u0394/Pod": "Mem Req \u0394/Pod (MiB)",
+              "Mem Req Δ/Pod": "Mem Req Δ/Pod (MiB)",
               "Mem Lim": "Mem Lim (MiB)",
-              "Mem Lim \u0394": "Mem Lim \u0394 (MiB)",
+              "Mem Lim Δ": "Mem Lim Δ (MiB)",
               "Mem Lim/Pod": "Mem Lim/Pod (MiB)",
-              "Mem Lim \u0394/Pod": "Mem Lim \u0394/Pod (MiB)"
+              "Mem Lim Δ/Pod": "Mem Lim Δ/Pod (MiB)"
             }
           }
         },
@@ -4560,7 +4560,7 @@
       "type": "table",
       "links": [
         {
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1118",
           "targetBlank": true
         }
@@ -4576,7 +4576,7 @@
       },
       "id": 117,
       "panels": [],
-      "title": "\ud83e\uddea Aggressive Profile Simulation: $namespace",
+      "title": "🧪 Aggressive Profile Simulation: $namespace",
       "type": "row"
     },
     {
@@ -4584,7 +4584,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated resource efficiency (Util%) and risk (Risk%) using AGGRESSIVE profile. CPU: Req=P95\u00d71.1, Lim=MAX\u00d71.25. Memory: Req=MAX, Lim=MAX\u00d71.25",
+      "description": "Simulated resource efficiency (Util%) and risk (Risk%) using AGGRESSIVE profile. CPU: Req=P95×1.1, Lim=MAX×1.25. Memory: Req=MAX, Lim=MAX×1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -4826,7 +4826,7 @@
           "refId": "mem_max"
         }
       ],
-      "title": "\ud83e\uddea Resource Utilization & Risk Analysis (Aggressive)",
+      "title": "🧪 Resource Utilization & Risk Analysis (Aggressive)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -5059,7 +5059,7 @@
       "type": "table",
       "links": [
         {
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1112",
           "targetBlank": true
         }
@@ -5070,7 +5070,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated time distribution using AGGRESSIVE profile. CPU: Req=P95\u00d71.1, Lim=MAX\u00d71.25. Memory: Req=MAX, Lim=MAX\u00d71.25",
+      "description": "Simulated time distribution using AGGRESSIVE profile. CPU: Req=P95×1.1, Lim=MAX×1.25. Memory: Req=MAX, Lim=MAX×1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -5375,7 +5375,7 @@
           "refId": "mem_above_lim"
         }
       ],
-      "title": "\ud83e\uddea Time Distribution by Resource Zone (Aggressive)",
+      "title": "🧪 Time Distribution by Resource Zone (Aggressive)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -5499,7 +5499,7 @@
       "type": "table",
       "links": [
         {
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1113",
           "targetBlank": true
         }
@@ -5510,7 +5510,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated Limit/Request ratio using AGGRESSIVE profile. CPU: Req=P95\u00d71.1, Lim=MAX\u00d71.25. Memory: Req=MAX, Lim=MAX\u00d71.25",
+      "description": "Simulated Limit/Request ratio using AGGRESSIVE profile. CPU: Req=P95×1.1, Lim=MAX×1.25. Memory: Req=MAX, Lim=MAX×1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -5711,7 +5711,7 @@
           "refId": "mem_max"
         }
       ],
-      "title": "\ud83e\uddea Limit/Request Ratio Analysis (Aggressive)",
+      "title": "🧪 Limit/Request Ratio Analysis (Aggressive)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -5826,7 +5826,7 @@
       "type": "table",
       "links": [
         {
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1114",
           "targetBlank": true
         }
@@ -5904,7 +5904,7 @@
           {
             "matcher": {
               "id": "byRegexp",
-              "options": ".*\u0394.*"
+              "options": ".*Δ.*"
             },
             "properties": [
               {
@@ -6089,7 +6089,7 @@
           "refId": "cpu_lim_real"
         }
       ],
-      "title": "\ud83e\uddea Simulated CPU Values (Aggressive)",
+      "title": "🧪 Simulated CPU Values (Aggressive)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -6167,7 +6167,7 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "CPU Req \u0394",
+            "alias": "CPU Req Δ",
             "binary": {
               "left": "CPU Req",
               "operator": "-",
@@ -6180,7 +6180,7 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "CPU Lim \u0394",
+            "alias": "CPU Lim Δ",
             "binary": {
               "left": "CPU Lim",
               "operator": "-",
@@ -6193,9 +6193,9 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "CPU Req \u0394/Pod",
+            "alias": "CPU Req Δ/Pod",
             "binary": {
-              "left": "CPU Req \u0394",
+              "left": "CPU Req Δ",
               "operator": "/",
               "right": "Pods"
             },
@@ -6206,9 +6206,9 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "CPU Lim \u0394/Pod",
+            "alias": "CPU Lim Δ/Pod",
             "binary": {
-              "left": "CPU Lim \u0394",
+              "left": "CPU Lim Δ",
               "operator": "/",
               "right": "Pods"
             },
@@ -6238,23 +6238,23 @@
               "Workload": 0,
               "Pods": 1,
               "CPU Req (m)": 2,
-              "CPU Req \u0394 (m)": 3,
+              "CPU Req Δ (m)": 3,
               "CPU Req/Pod (m)": 4,
-              "CPU Req \u0394/Pod (m)": 5,
+              "CPU Req Δ/Pod (m)": 5,
               "CPU Lim (m)": 6,
-              "CPU Lim \u0394 (m)": 7,
+              "CPU Lim Δ (m)": 7,
               "CPU Lim/Pod (m)": 8,
-              "CPU Lim \u0394/Pod (m)": 9
+              "CPU Lim Δ/Pod (m)": 9
             },
             "renameByName": {
               "CPU Req": "CPU Req (m)",
-              "CPU Req \u0394": "CPU Req \u0394 (m)",
+              "CPU Req Δ": "CPU Req Δ (m)",
               "CPU Req/Pod": "CPU Req/Pod (m)",
-              "CPU Req \u0394/Pod": "CPU Req \u0394/Pod (m)",
+              "CPU Req Δ/Pod": "CPU Req Δ/Pod (m)",
               "CPU Lim": "CPU Lim (m)",
-              "CPU Lim \u0394": "CPU Lim \u0394 (m)",
+              "CPU Lim Δ": "CPU Lim Δ (m)",
               "CPU Lim/Pod": "CPU Lim/Pod (m)",
-              "CPU Lim \u0394/Pod": "CPU Lim \u0394/Pod (m)"
+              "CPU Lim Δ/Pod": "CPU Lim Δ/Pod (m)"
             }
           }
         },
@@ -6277,7 +6277,7 @@
       "type": "table",
       "links": [
         {
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1116",
           "targetBlank": true
         }
@@ -6355,7 +6355,7 @@
           {
             "matcher": {
               "id": "byRegexp",
-              "options": ".*\u0394.*"
+              "options": ".*Δ.*"
             },
             "properties": [
               {
@@ -6525,7 +6525,7 @@
           "refId": "mem_lim_real"
         }
       ],
-      "title": "\ud83e\uddea Simulated Memory Values (Aggressive)",
+      "title": "🧪 Simulated Memory Values (Aggressive)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -6602,7 +6602,7 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "Mem Req \u0394",
+            "alias": "Mem Req Δ",
             "binary": {
               "left": "Mem Req",
               "operator": "-",
@@ -6615,7 +6615,7 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "Mem Lim \u0394",
+            "alias": "Mem Lim Δ",
             "binary": {
               "left": "Mem Lim",
               "operator": "-",
@@ -6628,9 +6628,9 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "Mem Req \u0394/Pod",
+            "alias": "Mem Req Δ/Pod",
             "binary": {
-              "left": "Mem Req \u0394",
+              "left": "Mem Req Δ",
               "operator": "/",
               "right": "Pods"
             },
@@ -6641,9 +6641,9 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "Mem Lim \u0394/Pod",
+            "alias": "Mem Lim Δ/Pod",
             "binary": {
-              "left": "Mem Lim \u0394",
+              "left": "Mem Lim Δ",
               "operator": "/",
               "right": "Pods"
             },
@@ -6672,23 +6672,23 @@
               "Workload": 0,
               "Pods": 1,
               "Mem Req (MiB)": 2,
-              "Mem Req \u0394 (MiB)": 3,
+              "Mem Req Δ (MiB)": 3,
               "Mem Req/Pod (MiB)": 4,
-              "Mem Req \u0394/Pod (MiB)": 5,
+              "Mem Req Δ/Pod (MiB)": 5,
               "Mem Lim (MiB)": 6,
-              "Mem Lim \u0394 (MiB)": 7,
+              "Mem Lim Δ (MiB)": 7,
               "Mem Lim/Pod (MiB)": 8,
-              "Mem Lim \u0394/Pod (MiB)": 9
+              "Mem Lim Δ/Pod (MiB)": 9
             },
             "renameByName": {
               "Mem Req": "Mem Req (MiB)",
-              "Mem Req \u0394": "Mem Req \u0394 (MiB)",
+              "Mem Req Δ": "Mem Req Δ (MiB)",
               "Mem Req/Pod": "Mem Req/Pod (MiB)",
-              "Mem Req \u0394/Pod": "Mem Req \u0394/Pod (MiB)",
+              "Mem Req Δ/Pod": "Mem Req Δ/Pod (MiB)",
               "Mem Lim": "Mem Lim (MiB)",
-              "Mem Lim \u0394": "Mem Lim \u0394 (MiB)",
+              "Mem Lim Δ": "Mem Lim Δ (MiB)",
               "Mem Lim/Pod": "Mem Lim/Pod (MiB)",
-              "Mem Lim \u0394/Pod": "Mem Lim \u0394/Pod (MiB)"
+              "Mem Lim Δ/Pod": "Mem Lim Δ/Pod (MiB)"
             }
           }
         },
@@ -6711,7 +6711,7 @@
       "type": "table",
       "links": [
         {
-          "title": "\ud83d\udcd6 View Documentation",
+          "title": "📖 View Documentation",
           "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1119",
           "targetBlank": true
         }
@@ -6750,10 +6750,10 @@
       {
         "current": {
           "selected": true,
-          "text": "",
-          "value": ""
+          "text": ".*",
+          "value": ".*"
         },
-        "description": "Regex pattern to filter namespace dropdown (e.g., '^1510-.*' or 'prod|staging'). Leave empty to show all namespaces.",
+        "description": "Regex pattern to filter namespaces in query (e.g., \"^prod-.*\" or \"staging|production\"). Default \".*\" shows all namespaces.",
         "hide": 2,
         "includeAll": false,
         "label": "Namespace Filter",
@@ -6762,11 +6762,11 @@
         "options": [
           {
             "selected": true,
-            "text": "",
-            "value": ""
+            "text": ".*",
+            "value": ".*"
           }
         ],
-        "query": "",
+        "query": ".*",
         "skipUrlSync": true,
         "type": "custom"
       },
@@ -6780,7 +6780,7 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "label_values(kube_pod_info, namespace)",
+        "definition": "label_values(kube_pod_info{namespace=~\"$namespace_filter\"}, namespace)",
         "hide": 0,
         "includeAll": false,
         "label": "Namespace",
@@ -6788,11 +6788,11 @@
         "name": "namespace",
         "options": [],
         "query": {
-          "query": "label_values(kube_pod_info, namespace)",
+          "query": "label_values(kube_pod_info{namespace=~\"$namespace_filter\"}, namespace)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 2,
-        "regex": "/${namespace_filter}/",
+        "regex": "",
         "skipUrlSync": false,
         "sort": 1,
         "type": "query"

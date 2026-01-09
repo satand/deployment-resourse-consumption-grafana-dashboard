@@ -21,7 +21,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FOLDER_TITLE="Resource Consumption Analysis"
 AUTH_METHOD=""  # "apikey" or "basic"
 INSECURE=false  # Skip TLS certificate verification
-NAMESPACE_FILTER=""  # Optional namespace filter regex for imported dashboards
+NAMESPACE_FILTER=""  # Optional namespace filter regex for PromQL query (default: ".*" shows all)
 WORKLOAD_KINDS=""  # Optional workload kinds override (default in dashboards: ReplicaSet|ReplicationController|StatefulSet)
 
 # Dashboard files
@@ -96,8 +96,9 @@ Options:
                             (default: script directory)
     -o, --overwrite         Overwrite existing dashboards (default for import)
     -n, --no-overwrite      Don't overwrite existing dashboards
-    --namespace-filter REGEX Set default namespace filter regex in imported dashboards
-                            (e.g., "^prod-" or "staging|production")
+    --namespace-filter REGEX Set namespace filter regex used in PromQL query
+                            (e.g., "^prod-.*" or "staging|production")
+                            Default is ".*" (show all namespaces)
                             Only affects namespace overview and workload dashboards
     --workload-kinds KINDS  Override workload kinds filter in imported dashboards
                             (e.g., "ReplicaSet|StatefulSet|DaemonSet")
@@ -137,7 +138,7 @@ Examples:
     $(basename "$0") --user myuser --password mypass -f "My Dashboards" import
 
     # Import with namespace filter preset (only show namespaces starting with "prod-")
-    $(basename "$0") --user myuser --password mypass --namespace-filter "^prod-" import
+    $(basename "$0") --user myuser --password mypass --namespace-filter "^prod-.*" import
 
     # Import with custom workload kinds (include DaemonSet)
     $(basename "$0") --user myuser --password mypass --workload-kinds "ReplicaSet|ReplicationController|StatefulSet|DaemonSet" import
