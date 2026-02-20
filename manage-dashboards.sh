@@ -23,14 +23,27 @@ AUTH_METHOD=""  # "apikey" or "basic"
 INSECURE=false  # Skip TLS certificate verification
 NAMESPACE_FILTER=""  # Optional namespace filter regex for PromQL query (default: ".*" shows all)
 WORKLOAD_KINDS=""  # Optional workload kinds override (default in dashboards: ReplicaSet|ReplicationController|StatefulSet)
+DATASOURCE_REGEX=""  # Optional datasource regex filter
+GRAFANA_VERSION=""  # Optional Grafana version for compatibility (10 or 11)
 
-# Dashboard files
-DASHBOARDS=(
+# Dashboard files (v10 compatible - default)
+DASHBOARDS_V10=(
     "grafana-dashboard.json"
     "grafana-dashboard-docs.json"
     "grafana-dashboard-workload.json"
     "grafana-dashboard-workload-docs.json"
 )
+
+# Dashboard files (v11 compatible - uses joinByField transformation)
+DASHBOARDS_V11=(
+    "grafana-dashboard-v11.json"
+    "grafana-dashboard-docs.json"
+    "grafana-dashboard-workload.json"
+    "grafana-dashboard-workload-docs.json"
+)
+
+# Default to v10 dashboards
+DASHBOARDS=("${DASHBOARDS_V10[@]}")
 
 # Dashboard UIDs (must match the uid in each JSON file)
 DASHBOARD_UIDS=(
@@ -104,6 +117,12 @@ Options:
                             (e.g., "ReplicaSet|StatefulSet|DaemonSet")
                             Default in dashboards: ReplicaSet|ReplicationController|StatefulSet
                             Only affects namespace overview and workload dashboards
+    --datasource-regex REGEX Set regex filter for Prometheus datasource variable
+                            (e.g., "/.*-prod.*/" or "/prometheus-.*/")
+                            Filters which datasources appear in the dropdown
+    --grafana-version VER   Target Grafana version for compatibility (10 or 11)
+                            Default: 10 (uses seriesToColumns transformation)
+                            Use 11 for Grafana v11+ (uses joinByField transformation)
     --insecure              Skip TLS certificate verification (for self-signed certs)
     -h, --help              Show this help message
 
@@ -142,6 +161,12 @@ Examples:
 
     # Import with custom workload kinds (include DaemonSet)
     $(basename "$0") --user myuser --password mypass --workload-kinds "ReplicaSet|ReplicationController|StatefulSet|DaemonSet" import
+
+    # Import dashboards compatible with Grafana v11+
+    $(basename "$0") --user myuser --password mypass --grafana-version 11 import
+
+    # Import with datasource regex filter (only show datasources matching pattern)
+    $(basename "$0") --user myuser --password mypass --datasource-regex "/.*-prod.*/" import
 
 EOF
     exit 1
@@ -302,6 +327,7 @@ import_dashboard() {
     local overwrite="$3"
     local namespace_filter="$4"
     local workload_kinds="$5"
+    local datasource_regex="$6"
     
     if [ ! -f "$dashboard_file" ]; then
         print_error "Dashboard file not found: $dashboard_file"
@@ -353,6 +379,25 @@ import_dashboard() {
                         .current.value = $kinds |
                         .query = $kinds |
                         .options = [{"selected": true, "text": $kinds, "value": $kinds}]
+                    else
+                        .
+                    end
+                ]
+            ')
+        fi
+    fi
+    
+    # Apply datasource regex if provided and dashboard has datasource variable
+    if [ -n "$datasource_regex" ]; then
+        local has_ds_var
+        has_ds_var=$(echo "$dashboard_content" | jq '.templating.list[] | select(.name == "datasource" and .type == "datasource") | .name' 2>/dev/null)
+        
+        if [ -n "$has_ds_var" ]; then
+            print_info "  Setting datasource regex to: $datasource_regex"
+            dashboard_content=$(echo "$dashboard_content" | jq --arg regex "$datasource_regex" '
+                .templating.list = [.templating.list[] | 
+                    if .name == "datasource" and .type == "datasource" then
+                        .regex = $regex
                     else
                         .
                     end
@@ -509,6 +554,9 @@ cmd_import() {
     if [ -n "$WORKLOAD_KINDS" ]; then
         print_info "Workload kinds will be set to: $WORKLOAD_KINDS"
     fi
+    if [ -n "$DATASOURCE_REGEX" ]; then
+        print_info "Datasource regex will be set to: $DATASOURCE_REGEX"
+    fi
     echo ""
     
     local success=0
@@ -517,7 +565,7 @@ cmd_import() {
     for dashboard_file in "${DASHBOARDS[@]}"; do
         local full_path="${DASHBOARD_DIR}/${dashboard_file}"
         
-        if import_dashboard "$full_path" "$folder_uid" "$OVERWRITE" "$NAMESPACE_FILTER" "$WORKLOAD_KINDS"; then
+        if import_dashboard "$full_path" "$folder_uid" "$OVERWRITE" "$NAMESPACE_FILTER" "$WORKLOAD_KINDS" "$DATASOURCE_REGEX"; then
             ((success++))
         else
             ((failed++))
@@ -630,6 +678,24 @@ main() {
                 ;;
             --workload-kinds)
                 WORKLOAD_KINDS="$2"
+                shift 2
+                ;;
+            --datasource-regex)
+                DATASOURCE_REGEX="$2"
+                shift 2
+                ;;
+            --grafana-version)
+                GRAFANA_VERSION="$2"
+                if [[ "$GRAFANA_VERSION" == "11" ]]; then
+                    DASHBOARDS=("${DASHBOARDS_V11[@]}")
+                    print_info "Using Grafana v11 compatible dashboards (joinByField transformation)"
+                elif [[ "$GRAFANA_VERSION" == "10" ]]; then
+                    DASHBOARDS=("${DASHBOARDS_V10[@]}")
+                    print_info "Using Grafana v10 compatible dashboards (seriesToColumns transformation)"
+                else
+                    print_error "Invalid Grafana version: $GRAFANA_VERSION. Use 10 or 11."
+                    exit 1
+                fi
                 shift 2
                 ;;
             -h|--help)

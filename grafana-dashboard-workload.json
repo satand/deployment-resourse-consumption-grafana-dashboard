@@ -3553,7 +3553,7 @@
         "query": "prometheus",
         "queryValue": "",
         "refresh": 1,
-        "regex": "/.*-c\\d{2}\\w/",
+        "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
       },

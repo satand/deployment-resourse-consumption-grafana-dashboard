@@ -311,9 +311,10 @@
       "title": "🔧 Resource Configuration Status",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -347,14 +348,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -686,9 +688,10 @@
       "title": "📋 CPU Resource Usage (millicores)",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -768,14 +771,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -1107,9 +1111,10 @@
       "title": "📋 Memory Resource Usage (MiB)",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -1189,14 +1194,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -1513,9 +1519,10 @@
       "title": "📊 Resource Utilization & Risk Analysis",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -1682,14 +1689,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -2045,9 +2053,10 @@
       "title": "⏱️ Time Distribution by Resource Zone",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -2087,14 +2096,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -2301,9 +2311,10 @@
       "title": "⚖️ Limit/Request Ratio Analysis",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -2331,14 +2342,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -2633,9 +2645,10 @@
       "title": "🧪 Resource Utilization & Risk Analysis (Normal)",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -2841,14 +2854,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -3174,9 +3188,10 @@
       "title": "🧪 Time Distribution by Resource Zone (Normal)",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -3275,14 +3290,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -3519,9 +3535,10 @@
       "title": "🧪 Limit/Request Ratio Analysis (Normal)",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -3634,14 +3651,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -3914,9 +3932,10 @@
       "title": "🧪 Simulated CPU Values (Normal)",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -4086,14 +4105,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -4366,9 +4386,10 @@
       "title": "🧪 Simulated Memory Values (Normal)",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -4538,14 +4559,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -4817,9 +4839,10 @@
       "title": "🧪 Resource Utilization & Risk Analysis (Aggressive)",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -5033,14 +5056,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -5366,9 +5390,10 @@
       "title": "🧪 Time Distribution by Resource Zone (Aggressive)",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -5473,14 +5498,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -5702,9 +5728,10 @@
       "title": "🧪 Limit/Request Ratio Analysis (Aggressive)",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -5800,14 +5827,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -6080,9 +6108,10 @@
       "title": "🧪 Simulated CPU Values (Aggressive)",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -6251,14 +6280,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
@@ -6516,9 +6546,10 @@
       "title": "🧪 Simulated Memory Values (Aggressive)",
       "transformations": [
         {
-          "id": "seriesToColumns",
+          "id": "joinByField",
           "options": {
-            "byField": "workload"
+            "byField": "workload",
+            "mode": "outer"
           }
         },
         {
@@ -6685,14 +6716,15 @@
           "options": {
             "filters": [
               {
+                "fieldName": "Workload",
                 "config": {
-                  "id": "isNotNull"
-                },
-                "fieldName": "Workload"
+                  "id": "isNotNull",
+                  "options": {}
+                }
               }
             ],
-            "match": "all",
-            "type": "include"
+            "type": "include",
+            "match": "all"
           }
         }
       ],
