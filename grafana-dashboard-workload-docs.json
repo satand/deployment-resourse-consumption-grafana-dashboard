@@ -27,7 +27,7 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "← Back to Workload Details",
+      "title": "\u2190 Back to Workload Details",
       "tooltip": "Return to Workload Details Dashboard",
       "type": "link",
       "url": "/d/workload-resource-workload"
@@ -39,7 +39,7 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "← Back to Namespace Documentation",
+      "title": "\u2190 Back to Namespace Documentation",
       "tooltip": "Return to Namespace Overview Documentation",
       "type": "link",
       "url": "/d/workload-resource-analysis-docs"
@@ -61,7 +61,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "# 📖 Resource Consumption Analysis - Workload Details Documentation\n\nThis dashboard provides detailed documentation for each panel in the Workload Details dashboard. Use the navigation links to return to the workload dashboard or the main namespace documentation.",
+        "content": "# \ud83d\udcd6 Resource Consumption Analysis - Workload Details Documentation\n\nThis dashboard provides detailed documentation for each panel in the Workload Details dashboard. Use the navigation links to return to the workload dashboard or the main namespace documentation.",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -78,7 +78,7 @@
       },
       "id": 1103,
       "panels": [],
-      "title": "📋 Workload Resource Configuration Section",
+      "title": "\ud83d\udccb Workload Resource Configuration Section",
       "type": "row"
     },
     {
@@ -95,7 +95,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Pod Count\n\n### Purpose\nShows the current number of running pods for the selected workload.\n\n### Formula\n```\ncount(kube_pod_info{workload})\n```\n\n### Color\n🔵 **Blue** - Informational metric\n\n### How to Use\n- Monitor replica count changes\n- Verify expected pod count\n- Detect scaling events",
+        "content": "## Pod Count\n\n### Purpose\nShows the current number of running pods for the selected workload.\n\n### Formula\n```\ncount(kube_pod_info{workload})\n```\n\n### Color\n\ud83d\udd35 **Blue** - Informational metric\n\n### How to Use\n- Monitor replica count changes\n- Verify expected pod count\n- Detect scaling events",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -116,7 +116,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU Request (m)\n\n### Purpose\nShows the current CPU request configured in the workload manifest.\n\n### What is CPU Request?\n- Guaranteed CPU allocation for the workload\n- Used by Kubernetes scheduler for pod placement\n- Pod won't be scheduled if nodes can't satisfy requests\n\n### Unit\nMillicores (m) - 1000m = 1 CPU core\n\n### Color\n🟡 **Yellow** - Indicates this is a manifest-configured value\n\n### How to Use\nCompare with actual usage to identify over/under-provisioning.",
+        "content": "## CPU Request (m)\n\n### Purpose\nShows the current CPU request configured in the workload manifest.\n\n### What is CPU Request?\n- Guaranteed CPU allocation for the workload\n- Used by Kubernetes scheduler for pod placement\n- Pod won't be scheduled if nodes can't satisfy requests\n\n### Unit\nMillicores (m) - 1000m = 1 CPU core\n\n### Color\n\ud83d\udfe1 **Yellow** - Indicates this is a manifest-configured value\n\n### How to Use\nCompare with actual usage to identify over/under-provisioning.",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -137,7 +137,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU Limit (m)\n\n### Purpose\nShows the current CPU limit configured in the workload manifest.\n\n### What is CPU Limit?\n- Maximum CPU the container can use\n- Exceeding causes CPU throttling (not termination)\n- Process slows down but continues running\n\n### Unit\nMillicores (m) - 1000m = 1 CPU core\n\n### Color\n🔴 **Red** - Indicates this is a limit value (upper bound)\n\n### How to Use\nCompare with CPU Max to ensure adequate headroom.",
+        "content": "## CPU Limit (m)\n\n### Purpose\nShows the current CPU limit configured in the workload manifest.\n\n### What is CPU Limit?\n- Maximum CPU the container can use\n- Exceeding causes CPU throttling (not termination)\n- Process slows down but continues running\n\n### Unit\nMillicores (m) - 1000m = 1 CPU core\n\n### Color\n\ud83d\udd34 **Red** - Indicates this is a limit value (upper bound)\n\n### How to Use\nCompare with CPU Max to ensure adequate headroom.",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -158,7 +158,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Mem Request (MiB)\n\n### Purpose\nShows the current memory request configured in the workload manifest.\n\n### What is Memory Request?\n- Guaranteed memory allocation for the workload\n- Used by Kubernetes scheduler for pod placement\n- Affects Quality of Service (QoS) class\n\n### Unit\nMebibytes (MiB)\n\n### Color\n🟡 **Yellow** - Indicates this is a manifest-configured value\n\n### How to Use\nCompare with actual usage to identify over/under-provisioning.",
+        "content": "## Mem Request (MiB)\n\n### Purpose\nShows the current memory request configured in the workload manifest.\n\n### What is Memory Request?\n- Guaranteed memory allocation for the workload\n- Used by Kubernetes scheduler for pod placement\n- Affects Quality of Service (QoS) class\n\n### Unit\nMebibytes (MiB)\n\n### Color\n\ud83d\udfe1 **Yellow** - Indicates this is a manifest-configured value\n\n### How to Use\nCompare with actual usage to identify over/under-provisioning.",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -179,11 +179,95 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Mem Limit (MiB)\n\n### Purpose\nShows the current memory limit configured in the workload manifest.\n\n### What is Memory Limit?\n- Maximum memory the container can use\n- Exceeding causes immediate OOM kill\n- Container restarts (if restart policy allows)\n\n### Unit\nMebibytes (MiB)\n\n### Color\n🔴 **Red** - Indicates this is a limit value (OOM kill threshold)\n\n### ⚠️ Critical\nExceeding memory limit causes immediate OOM kill!",
+        "content": "## Mem Limit (MiB)\n\n### Purpose\nShows the current memory limit configured in the workload manifest.\n\n### What is Memory Limit?\n- Maximum memory the container can use\n- Exceeding causes immediate OOM kill\n- Container restarts (if restart policy allows)\n\n### Unit\nMebibytes (MiB)\n\n### Color\n\ud83d\udd34 **Red** - Indicates this is a limit value (OOM kill threshold)\n\n### \u26a0\ufe0f Critical\nExceeding memory limit causes immediate OOM kill!",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
       "title": "Mem Limit (MiB)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 20
+      },
+      "id": 1230,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## CPU Request Status\n\n### Purpose\nShows the configuration status for CPU requests across **all containers** in the workload.\n\n### Status Values\n\n| Status | Color | Meaning |\n|--------|-------|---------|\n| **SET ALL** | \ud83d\udfe2 Green | All containers have CPU requests configured |\n| **PARTIAL** | \ud83d\udfe1 Yellow | Some containers have CPU requests, others don't |\n| **UNSET** | \ud83d\udd34 Red | No containers have CPU requests configured |\n\n### Why This Matters\n- CPU requests are **essential** for proper Kubernetes scheduling\n- Without requests, pods may be scheduled on nodes without sufficient resources\n- Mixed configuration (PARTIAL) can cause unpredictable behavior\n\n### Calculation\n```\nconfigured_containers / total_containers\n```\n- 0 = UNSET (0%)\n- 0.001-0.999 = PARTIAL (1-99%)\n- 1 = SET ALL (100%)\n\n### Recommended Actions\n- **UNSET**: Add CPU requests to all container specs\n- **PARTIAL**: Ensure all containers have CPU requests\n- **SET ALL**: Configuration is complete \u2713",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "CPU Req Status",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 20
+      },
+      "id": 1231,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## CPU Limit Status\n\n### Purpose\nShows the configuration status for CPU limits across **all containers** in the workload.\n\n### Status Values\n\n| Status | Color | Meaning |\n|--------|-------|---------|\n| **SET ALL** | \ud83d\udfe2 Green | All containers have CPU limits configured |\n| **PARTIAL** | \ud83d\udfe1 Yellow | Some containers have CPU limits, others don't |\n| **UNSET** | \ud83d\udfe1 Yellow | No containers have CPU limits configured |\n\n### Why UNSET is Yellow (not Red)\nCPU limits are **optional** in many cases:\n- Exceeding CPU limit causes throttling, not termination\n- Some applications perform better without CPU limits\n- Kubernetes best practices sometimes recommend no CPU limits\n\n### Calculation\n```\nconfigured_containers / total_containers\n```\n- 0 = UNSET (0%)\n- 0.001-0.999 = PARTIAL (1-99%)\n- 1 = SET ALL (100%)\n\n### Recommended Actions\n- **UNSET**: Consider if CPU limits are needed for your use case\n- **PARTIAL**: Either set limits for all or remove from all (consistency)\n- **SET ALL**: Configuration is complete \u2713",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "CPU Lim Status",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 30
+      },
+      "id": 1232,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Memory Request Status\n\n### Purpose\nShows the configuration status for memory requests across **all containers** in the workload.\n\n### Status Values\n\n| Status | Color | Meaning |\n|--------|-------|---------|\n| **SET ALL** | \ud83d\udfe2 Green | All containers have memory requests configured |\n| **PARTIAL** | \ud83d\udfe1 Yellow | Some containers have memory requests, others don't |\n| **UNSET** | \ud83d\udd34 Red | No containers have memory requests configured |\n\n### Why This Matters\n- Memory requests affect **QoS class** (Guaranteed, Burstable, BestEffort)\n- Without requests, pods may be evicted first during memory pressure\n- Proper memory requests enable accurate cluster capacity planning\n\n### Calculation\n```\nconfigured_containers / total_containers\n```\n- 0 = UNSET (0%)\n- 0.001-0.999 = PARTIAL (1-99%)\n- 1 = SET ALL (100%)\n\n### Recommended Actions\n- **UNSET**: Add memory requests to all container specs\n- **PARTIAL**: Ensure all containers have memory requests\n- **SET ALL**: Configuration is complete \u2713",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "Mem Req Status",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 30
+      },
+      "id": 1233,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Memory Limit Status\n\n### Purpose\nShows the configuration status for memory limits across **all containers** in the workload.\n\n### Status Values\n\n| Status | Color | Meaning |\n|--------|-------|---------|\n| **SET ALL** | \ud83d\udfe2 Green | All containers have memory limits configured |\n| **PARTIAL** | \ud83d\udfe1 Yellow | Some containers have memory limits, others don't |\n| **UNSET** | \ud83d\udd34 Red | No containers have memory limits configured |\n\n### Why This is Important\n- Memory limits **prevent OOM on the node**\n- Without limits, a runaway process can consume all node memory\n- Exceeding memory limit causes **immediate OOM kill**\n\n### \u26a0\ufe0f Critical Difference from CPU\nUnlike CPU (which just throttles), exceeding memory limit **kills the container**!\n\n### Calculation\n```\nconfigured_containers / total_containers\n```\n- 0 = UNSET (0%)\n- 0.001-0.999 = PARTIAL (1-99%)\n- 1 = SET ALL (100%)\n\n### Recommended Actions\n- **UNSET**: Add memory limits to all container specs (high priority!)\n- **PARTIAL**: Ensure all containers have memory limits\n- **SET ALL**: Configuration is complete \u2713",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "Mem Lim Status",
       "type": "text"
     },
     {
@@ -192,11 +276,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 40
       },
       "id": 1106,
       "panels": [],
-      "title": "📈 Workload Resource Consumption Section",
+      "title": "\ud83d\udcc8 Workload Resource Consumption Section",
       "type": "row"
     },
     {
@@ -204,7 +288,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 21
+        "y": 41
       },
       "id": 1002,
       "options": {
@@ -213,11 +297,11 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## 🔥 CPU Usage: $workload\n\n### Purpose\nTime series visualization showing CPU consumption for the selected workload over time, compared against configured request/limit.\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual CPU consumption over time |\n| Request | Dashed | 🟠 Orange | CPU request from manifest - guaranteed allocation |\n| Limit | Dashed | 🔴 Red | CPU limit from manifest - maximum before throttling |\n\n### Interpretation\n- **Usage below Request**: Under-utilizing allocated resources\n- **Usage between Request and Limit**: Using burst capacity (normal for bursty workloads)\n- **Usage at/near Limit**: Throttling occurring - consider increasing limit",
+        "content": "## \ud83d\udd25 CPU Usage: $workload\n\n### Purpose\nTime series visualization showing CPU consumption for the selected workload over time, compared against configured request/limit.\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual CPU consumption over time |\n| Request | Dashed | \ud83d\udfe0 Orange | CPU request from manifest - guaranteed allocation |\n| Limit | Dashed | \ud83d\udd34 Red | CPU limit from manifest - maximum before throttling |\n\n### Interpretation\n- **Usage below Request**: Under-utilizing allocated resources\n- **Usage between Request and Limit**: Using burst capacity (normal for bursty workloads)\n- **Usage at/near Limit**: Throttling occurring - consider increasing limit",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
-      "title": "🔥 CPU Usage: $workload",
+      "title": "\ud83d\udd25 CPU Usage: $workload",
       "type": "text"
     },
     {
@@ -225,7 +309,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 21
+        "y": 41
       },
       "id": 1003,
       "options": {
@@ -234,11 +318,11 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## 💾 Memory Usage: $workload\n\n### Purpose\nTime series visualization showing memory consumption for the selected workload over time, compared against configured request/limit.\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual memory working set over time |\n| Request | Dashed | 🟠 Orange | Memory request from manifest - guaranteed allocation |\n| Limit | Dashed | 🔴 Red | Memory limit from manifest - OOM kill threshold |\n\n### Interpretation\n- **Usage below Request**: Under-utilizing allocated resources\n- **Usage between Request and Limit**: Using burst capacity\n- **Usage approaching Limit**: ⚠️ OOM kill risk - consider increasing limit immediately\n- **Sudden drops to zero**: May indicate OOM kills and container restarts",
+        "content": "## \ud83d\udcbe Memory Usage: $workload\n\n### Purpose\nTime series visualization showing memory consumption for the selected workload over time, compared against configured request/limit.\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual memory working set over time |\n| Request | Dashed | \ud83d\udfe0 Orange | Memory request from manifest - guaranteed allocation |\n| Limit | Dashed | \ud83d\udd34 Red | Memory limit from manifest - OOM kill threshold |\n\n### Interpretation\n- **Usage below Request**: Under-utilizing allocated resources\n- **Usage between Request and Limit**: Using burst capacity\n- **Usage approaching Limit**: \u26a0\ufe0f OOM kill risk - consider increasing limit immediately\n- **Sudden drops to zero**: May indicate OOM kills and container restarts",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
-      "title": "💾 Memory Usage: $workload",
+      "title": "\ud83d\udcbe Memory Usage: $workload",
       "type": "text"
     },
     {
@@ -246,7 +330,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 31
+        "y": 51
       },
       "id": 1004,
       "options": {
@@ -255,7 +339,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU % of Request\n\n### Purpose\nGauge showing current CPU usage as a percentage of the configured request.\n\n### Formula\n```\n(Current CPU Usage / CPU Request) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔴 Red | Over-provisioned |\n| 50-110% | 🟢 Green | Optimal utilization |\n| > 110% | 🟡 Yellow | High utilization |",
+        "content": "## CPU % of Request\n\n### Purpose\nGauge showing current CPU usage as a percentage of the configured request.\n\n### Formula\n```\n(Current CPU Usage / CPU Request) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd34 Red | Over-provisioned |\n| 50-110% | \ud83d\udfe2 Green | Optimal utilization |\n| > 110% | \ud83d\udfe1 Yellow | High utilization |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -267,7 +351,7 @@
         "h": 8,
         "w": 6,
         "x": 6,
-        "y": 31
+        "y": 51
       },
       "id": 1005,
       "options": {
@@ -276,7 +360,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU % of Limit\n\n### Purpose\nGauge showing current CPU usage as a percentage of the configured limit. Indicates throttling risk.\n\n### Formula\n```\n(Current CPU Usage / CPU Limit) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | 🟢 Green | Safe headroom |\n| 70-90% | 🟡 Yellow | Approaching limit |\n| > 90% | 🔴 Red | Throttling likely |\n\n### Note\nCPU throttling slows the process but doesn't terminate it.",
+        "content": "## CPU % of Limit\n\n### Purpose\nGauge showing current CPU usage as a percentage of the configured limit. Indicates throttling risk.\n\n### Formula\n```\n(Current CPU Usage / CPU Limit) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom |\n| 70-90% | \ud83d\udfe1 Yellow | Approaching limit |\n| > 90% | \ud83d\udd34 Red | Throttling likely |\n\n### Note\nCPU throttling slows the process but doesn't terminate it.",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -288,7 +372,7 @@
         "h": 8,
         "w": 6,
         "x": 12,
-        "y": 31
+        "y": 51
       },
       "id": 1006,
       "options": {
@@ -297,7 +381,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Memory % of Request\n\n### Purpose\nGauge showing current memory usage as a percentage of the configured request.\n\n### Formula\n```\n(Current Memory Usage / Memory Request) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔴 Red | Over-provisioned |\n| 50-110% | 🟢 Green | Optimal utilization |\n| > 110% | 🟡 Yellow | High utilization |",
+        "content": "## Memory % of Request\n\n### Purpose\nGauge showing current memory usage as a percentage of the configured request.\n\n### Formula\n```\n(Current Memory Usage / Memory Request) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd34 Red | Over-provisioned |\n| 50-110% | \ud83d\udfe2 Green | Optimal utilization |\n| > 110% | \ud83d\udfe1 Yellow | High utilization |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -309,7 +393,7 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 31
+        "y": 51
       },
       "id": 1007,
       "options": {
@@ -318,7 +402,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Memory % of Limit\n\n### Purpose\nGauge showing current memory usage as a percentage of the configured limit. Indicates OOM kill risk.\n\n### Formula\n```\n(Current Memory Usage / Memory Limit) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | 🟢 Green | Safe headroom |\n| 70-90% | 🟡 Yellow | Approaching limit |\n| > 90% | 🔴 Red | OOM kill risk |\n\n### ⚠️ Critical\nExceeding memory limit causes immediate OOM kill!",
+        "content": "## Memory % of Limit\n\n### Purpose\nGauge showing current memory usage as a percentage of the configured limit. Indicates OOM kill risk.\n\n### Formula\n```\n(Current Memory Usage / Memory Limit) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom |\n| 70-90% | \ud83d\udfe1 Yellow | Approaching limit |\n| > 90% | \ud83d\udd34 Red | OOM kill risk |\n\n### \u26a0\ufe0f Critical\nExceeding memory limit causes immediate OOM kill!",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -330,7 +414,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 39
+        "y": 59
       },
       "id": 1206,
       "options": {
@@ -339,7 +423,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU Limit/Request Ratio\n\n### Purpose\nGauge showing the ratio between CPU limit and CPU request. Indicates how much burst headroom is configured.\n\n### Formula\n```\nCPU Limit / CPU Request\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | 🔴 Red | Insufficient headroom - throttling risk |\n| 1.2 - 10 | 🟢 Green | Good balance |\n| > 10 | 🟡 Yellow | Excessive ratio - potential over-provisioning |\n\n### Max Scale\n50 (CPU can have higher ratios than memory)",
+        "content": "## CPU Limit/Request Ratio\n\n### Purpose\nGauge showing the ratio between CPU limit and CPU request. Indicates how much burst headroom is configured.\n\n### Formula\n```\nCPU Limit / CPU Request\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | \ud83d\udd34 Red | Insufficient headroom - throttling risk |\n| 1.2 - 10 | \ud83d\udfe2 Green | Good balance |\n| > 10 | \ud83d\udfe1 Yellow | Excessive ratio - potential over-provisioning |\n\n### Max Scale\n50 (CPU can have higher ratios than memory)",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -351,7 +435,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 39
+        "y": 59
       },
       "id": 1207,
       "options": {
@@ -360,7 +444,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Memory Limit/Request Ratio\n\n### Purpose\nGauge showing the ratio between memory limit and memory request. Indicates how much burst headroom is configured.\n\n### Formula\n```\nMemory Limit / Memory Request\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | 🔴 Red | Insufficient headroom - OOM risk |\n| 1.2 - 3.5 | 🟢 Green | Good balance |\n| > 3.5 | 🟡 Yellow | Excessive ratio - potential over-provisioning |\n\n### Max Scale\n10 (Memory should have tighter ratios than CPU)",
+        "content": "## Memory Limit/Request Ratio\n\n### Purpose\nGauge showing the ratio between memory limit and memory request. Indicates how much burst headroom is configured.\n\n### Formula\n```\nMemory Limit / Memory Request\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | \ud83d\udd34 Red | Insufficient headroom - OOM risk |\n| 1.2 - 3.5 | \ud83d\udfe2 Green | Good balance |\n| > 3.5 | \ud83d\udfe1 Yellow | Excessive ratio - potential over-provisioning |\n\n### Max Scale\n10 (Memory should have tighter ratios than CPU)",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -373,11 +457,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 47
+        "y": 67
       },
       "id": 1200,
       "panels": [],
-      "title": "🧪 Workload Normal Profile Simulation Section",
+      "title": "\ud83e\uddea Workload Normal Profile Simulation Section",
       "type": "row"
     },
     {
@@ -385,7 +469,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 48
+        "y": 68
       },
       "id": 1201,
       "options": {
@@ -394,11 +478,11 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## 🔥 CPU with Normal Profile Simulation\n\n### Purpose\nTime series comparing actual CPU usage with current and simulated (Normal profile) request/limit values.\n\n### Normal Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | P90 | 90th percentile of CPU usage |\n| Sim Limit | P99 × 1.5 | 99th percentile × 1.5 safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual CPU usage |\n| Sim Request | Short dash | Light orange | Simulated request (P90) |\n| Sim Limit | Short dash | Light red | Simulated limit (P99×1.5) |\n\n### Note\nCurrent Request/Limit are hidden by default but can be enabled in query editor.",
+        "content": "## \ud83d\udd25 CPU with Normal Profile Simulation\n\n### Purpose\nTime series comparing actual CPU usage with current and simulated (Normal profile) request/limit values.\n\n### Normal Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | P90 | 90th percentile of CPU usage |\n| Sim Limit | P99 \u00d7 1.5 | 99th percentile \u00d7 1.5 safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual CPU usage |\n| Sim Request | Short dash | Light orange | Simulated request (P90) |\n| Sim Limit | Short dash | Light red | Simulated limit (P99\u00d71.5) |\n\n### Note\nCurrent Request/Limit are hidden by default but can be enabled in query editor.",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
-      "title": "🔥 CPU with Normal Profile Simulation",
+      "title": "\ud83d\udd25 CPU with Normal Profile Simulation",
       "type": "text"
     },
     {
@@ -406,7 +490,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 48
+        "y": 68
       },
       "id": 1202,
       "options": {
@@ -415,11 +499,11 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## 💾 Memory with Normal Profile Simulation\n\n### Purpose\nTime series comparing actual memory usage with current and simulated (Normal profile) request/limit values.\n\n### Normal Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | P95 | 95th percentile of memory usage |\n| Sim Limit | Max × 1.2 | Maximum × 1.2 safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual memory usage |\n| Sim Request | Short dash | Light orange | Simulated request (P95) |\n| Sim Limit | Short dash | Light red | Simulated limit (Max×1.2) |\n\n### Note\nCurrent Request/Limit are hidden by default but can be enabled in query editor.",
+        "content": "## \ud83d\udcbe Memory with Normal Profile Simulation\n\n### Purpose\nTime series comparing actual memory usage with current and simulated (Normal profile) request/limit values.\n\n### Normal Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | P95 | 95th percentile of memory usage |\n| Sim Limit | Max \u00d7 1.2 | Maximum \u00d7 1.2 safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual memory usage |\n| Sim Request | Short dash | Light orange | Simulated request (P95) |\n| Sim Limit | Short dash | Light red | Simulated limit (Max\u00d71.2) |\n\n### Note\nCurrent Request/Limit are hidden by default but can be enabled in query editor.",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
-      "title": "💾 Memory with Normal Profile Simulation",
+      "title": "\ud83d\udcbe Memory with Normal Profile Simulation",
       "type": "text"
     },
     {
@@ -427,7 +511,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 58
+        "y": 78
       },
       "id": 1210,
       "options": {
@@ -436,7 +520,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU % of Sim Request (Normal)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** request (P90).\n\n### Formula\n```\n(Current CPU / P90) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔴 Red | Over-provisioned for this profile |\n| 50-110% | 🟢 Green | Optimal for this profile |\n| > 110% | 🟡 Yellow | High utilization for this profile |",
+        "content": "## CPU % of Sim Request (Normal)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** request (P90).\n\n### Formula\n```\n(Current CPU / P90) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd34 Red | Over-provisioned for this profile |\n| 50-110% | \ud83d\udfe2 Green | Optimal for this profile |\n| > 110% | \ud83d\udfe1 Yellow | High utilization for this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -448,7 +532,7 @@
         "h": 8,
         "w": 6,
         "x": 6,
-        "y": 58
+        "y": 78
       },
       "id": 1211,
       "options": {
@@ -457,7 +541,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU % of Sim Limit (Normal)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** limit (P99×1.5).\n\n### Formula\n```\n(Current CPU / (P99 × 1.5)) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | 🟢 Green | Safe headroom |\n| 70-90% | 🟡 Yellow | Approaching simulated limit |\n| > 90% | 🔴 Red | Would be throttled with this profile |",
+        "content": "## CPU % of Sim Limit (Normal)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** limit (P99\u00d71.5).\n\n### Formula\n```\n(Current CPU / (P99 \u00d7 1.5)) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom |\n| 70-90% | \ud83d\udfe1 Yellow | Approaching simulated limit |\n| > 90% | \ud83d\udd34 Red | Would be throttled with this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -469,7 +553,7 @@
         "h": 8,
         "w": 6,
         "x": 12,
-        "y": 58
+        "y": 78
       },
       "id": 1212,
       "options": {
@@ -478,7 +562,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Mem % of Sim Request (Normal)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** request (P95).\n\n### Formula\n```\n(Current Memory / P95) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔴 Red | Over-provisioned for this profile |\n| 50-110% | 🟢 Green | Optimal for this profile |\n| > 110% | 🟡 Yellow | High utilization for this profile |",
+        "content": "## Mem % of Sim Request (Normal)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** request (P95).\n\n### Formula\n```\n(Current Memory / P95) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd34 Red | Over-provisioned for this profile |\n| 50-110% | \ud83d\udfe2 Green | Optimal for this profile |\n| > 110% | \ud83d\udfe1 Yellow | High utilization for this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -490,7 +574,7 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 58
+        "y": 78
       },
       "id": 1213,
       "options": {
@@ -499,7 +583,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Mem % of Sim Limit (Normal)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** limit (Max×1.2).\n\n### Formula\n```\n(Current Memory / (Max × 1.2)) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | 🟢 Green | Safe headroom |\n| 70-90% | 🟡 Yellow | Approaching simulated limit |\n| > 90% | 🔴 Red | OOM risk with this profile |",
+        "content": "## Mem % of Sim Limit (Normal)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** limit (Max\u00d71.2).\n\n### Formula\n```\n(Current Memory / (Max \u00d7 1.2)) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom |\n| 70-90% | \ud83d\udfe1 Yellow | Approaching simulated limit |\n| > 90% | \ud83d\udd34 Red | OOM risk with this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -511,7 +595,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 66
+        "y": 86
       },
       "id": 1214,
       "options": {
@@ -520,7 +604,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU Sim Limit/Request (Normal)\n\n### Purpose\nGauge showing the ratio between simulated CPU limit (P99×1.5) and request (P90) for the Normal profile.\n\n### Formula\n```\n(P99 × 1.5) / P90\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | 🔴 Red | Insufficient headroom in simulation |\n| 1.2 - 10 | 🟢 Green | Good balance |\n| > 10 | 🟡 Yellow | Wide gap between P90 and P99 |",
+        "content": "## CPU Sim Limit/Request (Normal)\n\n### Purpose\nGauge showing the ratio between simulated CPU limit (P99\u00d71.5) and request (P90) for the Normal profile.\n\n### Formula\n```\n(P99 \u00d7 1.5) / P90\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | \ud83d\udd34 Red | Insufficient headroom in simulation |\n| 1.2 - 10 | \ud83d\udfe2 Green | Good balance |\n| > 10 | \ud83d\udfe1 Yellow | Wide gap between P90 and P99 |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -532,7 +616,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 66
+        "y": 86
       },
       "id": 1215,
       "options": {
@@ -541,7 +625,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Mem Sim Limit/Request (Normal)\n\n### Purpose\nGauge showing the ratio between simulated memory limit (Max×1.2) and request (P95) for the Normal profile.\n\n### Formula\n```\n(Max × 1.2) / P95\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | 🔴 Red | Insufficient headroom in simulation |\n| 1.2 - 3.5 | 🟢 Green | Good balance |\n| > 3.5 | 🟡 Yellow | Wide gap between P95 and Max |",
+        "content": "## Mem Sim Limit/Request (Normal)\n\n### Purpose\nGauge showing the ratio between simulated memory limit (Max\u00d71.2) and request (P95) for the Normal profile.\n\n### Formula\n```\n(Max \u00d7 1.2) / P95\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | \ud83d\udd34 Red | Insufficient headroom in simulation |\n| 1.2 - 3.5 | \ud83d\udfe2 Green | Good balance |\n| > 3.5 | \ud83d\udfe1 Yellow | Wide gap between P95 and Max |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -554,11 +638,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 74
+        "y": 94
       },
       "id": 1203,
       "panels": [],
-      "title": "🧪 Workload Aggressive Profile Simulation Section",
+      "title": "\ud83e\uddea Workload Aggressive Profile Simulation Section",
       "type": "row"
     },
     {
@@ -566,7 +650,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 75
+        "y": 95
       },
       "id": 1204,
       "options": {
@@ -575,11 +659,11 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## 🔥 CPU with Aggressive Profile Simulation\n\n### Purpose\nTime series comparing actual CPU usage with current and simulated (Aggressive profile) request/limit values.\n\n### Aggressive Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | P95 × 1.1 | 95th percentile × 1.1 |\n| Sim Limit | Max × 1.25 | Maximum × 1.25 minimal safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual CPU usage |\n| Sim Request | Short dash | Light orange | Simulated request (P95×1.1) |\n| Sim Limit | Short dash | Light red | Simulated limit (Max×1.25) |\n\n### ⚠️ Warning\nAggressive profile has tighter margins - higher throttling risk!",
+        "content": "## \ud83d\udd25 CPU with Aggressive Profile Simulation\n\n### Purpose\nTime series comparing actual CPU usage with current and simulated (Aggressive profile) request/limit values.\n\n### Aggressive Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | P95 \u00d7 1.1 | 95th percentile \u00d7 1.1 |\n| Sim Limit | Max \u00d7 1.25 | Maximum \u00d7 1.25 minimal safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual CPU usage |\n| Sim Request | Short dash | Light orange | Simulated request (P95\u00d71.1) |\n| Sim Limit | Short dash | Light red | Simulated limit (Max\u00d71.25) |\n\n### \u26a0\ufe0f Warning\nAggressive profile has tighter margins - higher throttling risk!",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
-      "title": "🔥 CPU with Aggressive Profile Simulation",
+      "title": "\ud83d\udd25 CPU with Aggressive Profile Simulation",
       "type": "text"
     },
     {
@@ -587,7 +671,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 75
+        "y": 95
       },
       "id": 1205,
       "options": {
@@ -596,11 +680,11 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## 💾 Memory with Aggressive Profile Simulation\n\n### Purpose\nTime series comparing actual memory usage with current and simulated (Aggressive profile) request/limit values.\n\n### Aggressive Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | Max | Maximum memory usage (no buffer) |\n| Sim Limit | Max × 1.25 | Maximum × 1.25 minimal safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual memory usage |\n| Sim Request | Short dash | Light orange | Simulated request (Max) |\n| Sim Limit | Short dash | Light red | Simulated limit (Max×1.25) |\n\n### ⚠️ Warning\nAggressive profile has tighter margins - higher OOM kill risk!",
+        "content": "## \ud83d\udcbe Memory with Aggressive Profile Simulation\n\n### Purpose\nTime series comparing actual memory usage with current and simulated (Aggressive profile) request/limit values.\n\n### Aggressive Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | Max | Maximum memory usage (no buffer) |\n| Sim Limit | Max \u00d7 1.25 | Maximum \u00d7 1.25 minimal safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual memory usage |\n| Sim Request | Short dash | Light orange | Simulated request (Max) |\n| Sim Limit | Short dash | Light red | Simulated limit (Max\u00d71.25) |\n\n### \u26a0\ufe0f Warning\nAggressive profile has tighter margins - higher OOM kill risk!",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
-      "title": "💾 Memory with Aggressive Profile Simulation",
+      "title": "\ud83d\udcbe Memory with Aggressive Profile Simulation",
       "type": "text"
     },
     {
@@ -608,7 +692,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 85
+        "y": 105
       },
       "id": 1220,
       "options": {
@@ -617,7 +701,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU % of Sim Request (Aggressive)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** request (P95×1.1).\n\n### Formula\n```\n(Current CPU / (P95 × 1.1)) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔴 Red | Over-provisioned for this profile |\n| 50-110% | 🟢 Green | Optimal for this profile |\n| > 110% | 🟡 Yellow | High utilization for this profile |",
+        "content": "## CPU % of Sim Request (Aggressive)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** request (P95\u00d71.1).\n\n### Formula\n```\n(Current CPU / (P95 \u00d7 1.1)) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd34 Red | Over-provisioned for this profile |\n| 50-110% | \ud83d\udfe2 Green | Optimal for this profile |\n| > 110% | \ud83d\udfe1 Yellow | High utilization for this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -629,7 +713,7 @@
         "h": 8,
         "w": 6,
         "x": 6,
-        "y": 85
+        "y": 105
       },
       "id": 1221,
       "options": {
@@ -638,7 +722,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU % of Sim Limit (Aggressive)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** limit (Max×1.25).\n\n### Formula\n```\n(Current CPU / (Max × 1.25)) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | 🟢 Green | Safe headroom |\n| 70-90% | 🟡 Yellow | Approaching simulated limit |\n| > 90% | 🔴 Red | Would be throttled with this profile |",
+        "content": "## CPU % of Sim Limit (Aggressive)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** limit (Max\u00d71.25).\n\n### Formula\n```\n(Current CPU / (Max \u00d7 1.25)) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom |\n| 70-90% | \ud83d\udfe1 Yellow | Approaching simulated limit |\n| > 90% | \ud83d\udd34 Red | Would be throttled with this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -650,7 +734,7 @@
         "h": 8,
         "w": 6,
         "x": 12,
-        "y": 85
+        "y": 105
       },
       "id": 1222,
       "options": {
@@ -659,7 +743,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Mem % of Sim Request (Aggressive)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** request (Max).\n\n### Formula\n```\n(Current Memory / Max) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | 🔴 Red | Over-provisioned for this profile |\n| 50-110% | 🟢 Green | Optimal for this profile |\n| > 110% | 🟡 Yellow | High utilization for this profile |",
+        "content": "## Mem % of Sim Request (Aggressive)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** request (Max).\n\n### Formula\n```\n(Current Memory / Max) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd34 Red | Over-provisioned for this profile |\n| 50-110% | \ud83d\udfe2 Green | Optimal for this profile |\n| > 110% | \ud83d\udfe1 Yellow | High utilization for this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -671,7 +755,7 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 85
+        "y": 105
       },
       "id": 1223,
       "options": {
@@ -680,7 +764,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Mem % of Sim Limit (Aggressive)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** limit (Max×1.25).\n\n### Formula\n```\n(Current Memory / (Max × 1.25)) × 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | 🟢 Green | Safe headroom |\n| 70-90% | 🟡 Yellow | Approaching simulated limit |\n| > 90% | 🔴 Red | OOM risk with this profile |",
+        "content": "## Mem % of Sim Limit (Aggressive)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** limit (Max\u00d71.25).\n\n### Formula\n```\n(Current Memory / (Max \u00d7 1.25)) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom |\n| 70-90% | \ud83d\udfe1 Yellow | Approaching simulated limit |\n| > 90% | \ud83d\udd34 Red | OOM risk with this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -692,7 +776,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 93
+        "y": 113
       },
       "id": 1224,
       "options": {
@@ -701,7 +785,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU Sim Limit/Request (Aggressive)\n\n### Purpose\nGauge showing the ratio between simulated CPU limit (Max×1.25) and request (P95×1.1) for the Aggressive profile.\n\n### Formula\n```\n(Max × 1.25) / (P95 × 1.1)\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | 🔴 Red | Insufficient headroom in simulation |\n| 1.2 - 10 | 🟢 Green | Good balance |\n| > 10 | 🟡 Yellow | Wide gap between P95 and Max |",
+        "content": "## CPU Sim Limit/Request (Aggressive)\n\n### Purpose\nGauge showing the ratio between simulated CPU limit (Max\u00d71.25) and request (P95\u00d71.1) for the Aggressive profile.\n\n### Formula\n```\n(Max \u00d7 1.25) / (P95 \u00d7 1.1)\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | \ud83d\udd34 Red | Insufficient headroom in simulation |\n| 1.2 - 10 | \ud83d\udfe2 Green | Good balance |\n| > 10 | \ud83d\udfe1 Yellow | Wide gap between P95 and Max |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -713,7 +797,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 93
+        "y": 113
       },
       "id": 1225,
       "options": {
@@ -722,7 +806,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Mem Sim Limit/Request (Aggressive)\n\n### Purpose\nGauge showing the ratio between simulated memory limit (Max×1.25) and request (Max) for the Aggressive profile.\n\n### Formula\n```\n(Max × 1.25) / Max = 1.25 (constant)\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | 🔴 Red | Insufficient headroom |\n| 1.2 - 3.5 | 🟢 Green | Good balance |\n| > 3.5 | 🟡 Yellow | Over-provisioned |\n\n### Note\nThis ratio is always 1.25 for Aggressive profile (Max×1.25 / Max).",
+        "content": "## Mem Sim Limit/Request (Aggressive)\n\n### Purpose\nGauge showing the ratio between simulated memory limit (Max\u00d71.25) and request (Max) for the Aggressive profile.\n\n### Formula\n```\n(Max \u00d7 1.25) / Max = 1.25 (constant)\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | \ud83d\udd34 Red | Insufficient headroom |\n| 1.2 - 3.5 | \ud83d\udfe2 Green | Good balance |\n| > 3.5 | \ud83d\udfe1 Yellow | Over-provisioned |\n\n### Note\nThis ratio is always 1.25 for Aggressive profile (Max\u00d71.25 / Max).",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -735,11 +819,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 101
+        "y": 121
       },
       "id": 1105,
       "panels": [],
-      "title": "📊 Per-Pod Breakdown Section",
+      "title": "\ud83d\udcca Per-Pod Breakdown Section",
       "type": "row"
     },
     {
@@ -747,7 +831,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 102
+        "y": 122
       },
       "id": 1018,
       "options": {
@@ -768,7 +852,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 102
+        "y": 122
       },
       "id": 1019,
       "options": {

@@ -27,7 +27,7 @@
       "keepTime": true,
       "tags": [],
       "targetBlank": true,
-      "title": "📖 View Documentation →",
+      "title": "\ud83d\udcd6 View Documentation \u2192",
       "tooltip": "Open documentation for this dashboard",
       "type": "link",
       "url": "/d/workload-resource-workload-docs"
@@ -36,16 +36,476 @@
   "liveNow": false,
   "panels": [
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Configuration status for CPU requests across all containers in this workload.\n\n- SET ALL (Green): All containers have CPU requests configured\n- PARTIAL (Yellow): Some containers have CPU requests configured\n- UNSET (Red): No containers have CPU requests configured",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "from": 0,
+                "result": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "UNSET"
+                },
+                "to": 0
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 0.001,
+                "result": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "PARTIAL"
+                },
+                "to": 0.999
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 1,
+                "result": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "SET ALL"
+                },
+                "to": 1
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.001
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 4,
+        "y": 1
+      },
+      "id": 230,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "\ud83d\udcd6 View Documentation",
+          "url": "/d/workload-resource-workload-docs?viewPanel=1230"
+        }
+      ],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "(\n  count(\n    kube_pod_container_resource_requests{namespace=\"$namespace\", resource=\"cpu\", container!=\"\"}\n    * on(pod, namespace, container) group_left()\n    (\n      kube_pod_container_info{namespace=\"$namespace\", container!=\"\"}\n      * on(pod, namespace) group_left()\n      (group by (pod, namespace) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n    )\n  )\n  or\n  (\n    count(\n      kube_pod_container_info{namespace=\"$namespace\", container!=\"\"}\n      * on(pod, namespace) group_left()\n      (group by (pod, namespace) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n    ) * 0\n  )\n)\n/\ncount(\n  kube_pod_container_info{namespace=\"$namespace\", container!=\"\"}\n  * on(pod, namespace) group_left()\n  (group by (pod, namespace) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n)",
+          "legendFormat": "CPU Request Status",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "CPU Req Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Configuration status for CPU limits across all containers in this workload.\n\n- SET ALL (Green): All containers have CPU limits configured\n- PARTIAL (Yellow): Some containers have CPU limits configured\n- UNSET (Yellow): No containers have CPU limits configured (acceptable in some cases)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "from": 0,
+                "result": {
+                  "color": "yellow",
+                  "index": 0,
+                  "text": "UNSET"
+                },
+                "to": 0
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 0.001,
+                "result": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "PARTIAL"
+                },
+                "to": 0.999
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 1,
+                "result": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "SET ALL"
+                },
+                "to": 1
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.001
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 9,
+        "y": 1
+      },
+      "id": 231,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "\ud83d\udcd6 View Documentation",
+          "url": "/d/workload-resource-workload-docs?viewPanel=1231"
+        }
+      ],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "(\n  count(\n    kube_pod_container_resource_limits{namespace=\"$namespace\", resource=\"cpu\", container!=\"\"}\n    * on(pod, namespace, container) group_left()\n    (\n      kube_pod_container_info{namespace=\"$namespace\", container!=\"\"}\n      * on(pod, namespace) group_left()\n      (group by (pod, namespace) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n    )\n  )\n  or\n  (\n    count(\n      kube_pod_container_info{namespace=\"$namespace\", container!=\"\"}\n      * on(pod, namespace) group_left()\n      (group by (pod, namespace) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n    ) * 0\n  )\n)\n/\ncount(\n  kube_pod_container_info{namespace=\"$namespace\", container!=\"\"}\n  * on(pod, namespace) group_left()\n  (group by (pod, namespace) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n)",
+          "legendFormat": "CPU Limit Status",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "CPU Lim Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Configuration status for memory requests across all containers in this workload.\n\n- SET ALL (Green): All containers have memory requests configured\n- PARTIAL (Yellow): Some containers have memory requests configured\n- UNSET (Red): No containers have memory requests configured",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "from": 0,
+                "result": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "UNSET"
+                },
+                "to": 0
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 0.001,
+                "result": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "PARTIAL"
+                },
+                "to": 0.999
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 1,
+                "result": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "SET ALL"
+                },
+                "to": 1
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.001
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 14,
+        "y": 1
+      },
+      "id": 232,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "\ud83d\udcd6 View Documentation",
+          "url": "/d/workload-resource-workload-docs?viewPanel=1232"
+        }
+      ],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "(\n  count(\n    kube_pod_container_resource_requests{namespace=\"$namespace\", resource=\"memory\", container!=\"\"}\n    * on(pod, namespace, container) group_left()\n    (\n      kube_pod_container_info{namespace=\"$namespace\", container!=\"\"}\n      * on(pod, namespace) group_left()\n      (group by (pod, namespace) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n    )\n  )\n  or\n  (\n    count(\n      kube_pod_container_info{namespace=\"$namespace\", container!=\"\"}\n      * on(pod, namespace) group_left()\n      (group by (pod, namespace) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n    ) * 0\n  )\n)\n/\ncount(\n  kube_pod_container_info{namespace=\"$namespace\", container!=\"\"}\n  * on(pod, namespace) group_left()\n  (group by (pod, namespace) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n)",
+          "legendFormat": "Memory Request Status",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Mem Req Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Configuration status for memory limits across all containers in this workload.\n\n- SET ALL (Green): All containers have memory limits configured\n- PARTIAL (Yellow): Some containers have memory limits configured\n- UNSET (Red): No containers have memory limits configured",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "from": 0,
+                "result": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "UNSET"
+                },
+                "to": 0
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 0.001,
+                "result": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "PARTIAL"
+                },
+                "to": 0.999
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 1,
+                "result": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "SET ALL"
+                },
+                "to": 1
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.001
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 19,
+        "y": 1
+      },
+      "id": 233,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "\ud83d\udcd6 View Documentation",
+          "url": "/d/workload-resource-workload-docs?viewPanel=1233"
+        }
+      ],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "(\n  count(\n    kube_pod_container_resource_limits{namespace=\"$namespace\", resource=\"memory\", container!=\"\"}\n    * on(pod, namespace, container) group_left()\n    (\n      kube_pod_container_info{namespace=\"$namespace\", container!=\"\"}\n      * on(pod, namespace) group_left()\n      (group by (pod, namespace) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n    )\n  )\n  or\n  (\n    count(\n      kube_pod_container_info{namespace=\"$namespace\", container!=\"\"}\n      * on(pod, namespace) group_left()\n      (group by (pod, namespace) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n    ) * 0\n  )\n)\n/\ncount(\n  kube_pod_container_info{namespace=\"$namespace\", container!=\"\"}\n  * on(pod, namespace) group_left()\n  (group by (pod, namespace) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n)",
+          "legendFormat": "Memory Limit Status",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Mem Lim Status",
+      "type": "stat"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 7
       },
       "id": 106,
       "panels": [],
-      "title": "📈 Workload Resource Consumption: $workload",
+      "title": "\ud83d\udcc8 Workload Resource Consumption: $workload",
       "type": "row"
     },
     {
@@ -168,13 +628,13 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 6
+        "y": 8
       },
       "id": 2,
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1002"
         }
       ],
@@ -225,7 +685,7 @@
           "refId": "C"
         }
       ],
-      "title": "🔥 CPU Usage: $workload",
+      "title": "\ud83d\udd25 CPU Usage: $workload",
       "type": "timeseries"
     },
     {
@@ -348,13 +808,13 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 6
+        "y": 8
       },
       "id": 3,
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1003"
         }
       ],
@@ -405,7 +865,7 @@
           "refId": "C"
         }
       ],
-      "title": "💾 Memory Usage: $workload",
+      "title": "\ud83d\udcbe Memory Usage: $workload",
       "type": "timeseries"
     },
     {
@@ -447,13 +907,13 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 16
+        "y": 18
       },
       "id": 4,
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1004"
         }
       ],
@@ -526,13 +986,13 @@
         "h": 5,
         "w": 4,
         "x": 4,
-        "y": 16
+        "y": 18
       },
       "id": 5,
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1005"
         }
       ],
@@ -605,13 +1065,13 @@
         "h": 5,
         "w": 4,
         "x": 12,
-        "y": 16
+        "y": 18
       },
       "id": 6,
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1006"
         }
       ],
@@ -684,13 +1144,13 @@
         "h": 5,
         "w": 4,
         "x": 16,
-        "y": 16
+        "y": 18
       },
       "id": 7,
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1007"
         }
       ],
@@ -734,7 +1194,7 @@
       },
       "id": 103,
       "panels": [],
-      "title": "📋 Workload Resource Configuration: $workload",
+      "title": "\ud83d\udccb Workload Resource Configuration: $workload",
       "type": "row"
     },
     {
@@ -764,10 +1224,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 3,
         "w": 5,
         "x": 4,
-        "y": 1
+        "y": 4
       },
       "id": 15,
       "options": {
@@ -803,7 +1263,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1015"
         }
       ]
@@ -835,10 +1295,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 3,
         "w": 5,
         "x": 14,
-        "y": 1
+        "y": 4
       },
       "id": 17,
       "options": {
@@ -874,7 +1334,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1017"
         }
       ]
@@ -885,11 +1345,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 53
+        "y": 55
       },
       "id": 105,
       "panels": [],
-      "title": "📊 Per-Pod Breakdown: $workload",
+      "title": "\ud83d\udcca Per-Pod Breakdown: $workload",
       "type": "row"
     },
     {
@@ -953,13 +1413,13 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 54
+        "y": 56
       },
       "id": 18,
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1018"
         }
       ],
@@ -1055,13 +1515,13 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 54
+        "y": 56
       },
       "id": 19,
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1019"
         }
       ],
@@ -1123,7 +1583,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 6,
         "w": 4,
         "x": 0,
         "y": 1
@@ -1194,10 +1654,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 3,
         "w": 5,
         "x": 9,
-        "y": 1
+        "y": 4
       },
       "id": 125,
       "links": [
@@ -1265,10 +1725,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 3,
         "w": 5,
         "x": 19,
-        "y": 1
+        "y": 4
       },
       "id": 126,
       "links": [
@@ -1315,11 +1775,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 23
       },
       "id": 200,
       "panels": [],
-      "title": "🧪 Workload Normal Profile Simulation: $workload",
+      "title": "\ud83e\uddea Workload Normal Profile Simulation: $workload",
       "type": "row"
     },
     {
@@ -1327,7 +1787,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "CPU usage compared to current and simulated (Normal profile) request/limit values.\n\nNormal Profile Rules:\n- Simulated Request = P90\n- Simulated Limit = P99 × 1.5",
+      "description": "CPU usage compared to current and simulated (Normal profile) request/limit values.\n\nNormal Profile Rules:\n- Simulated Request = P90\n- Simulated Limit = P99 \u00d7 1.5",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1472,7 +1932,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Sim Limit (P99×1.5)"
+              "options": "Sim Limit (P99\u00d71.5)"
             },
             "properties": [
               {
@@ -1508,7 +1968,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 22
+        "y": 24
       },
       "id": 201,
       "options": {
@@ -1577,17 +2037,17 @@
           },
           "editorMode": "code",
           "expr": "quantile_over_time(0.99,\n  sum(\n    rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n    * on(pod, namespace) group_left()\n    (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n  )[$__range:$__rate_interval]\n) * 1000 * 1.5",
-          "legendFormat": "Sim Limit (P99×1.5)",
+          "legendFormat": "Sim Limit (P99\u00d71.5)",
           "range": true,
           "refId": "E"
         }
       ],
-      "title": "🔥 CPU with Normal Profile Simulation",
+      "title": "\ud83d\udd25 CPU with Normal Profile Simulation",
       "type": "timeseries",
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1201"
         }
       ]
@@ -1597,7 +2057,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Memory usage compared to current and simulated (Normal profile) request/limit values.\n\nNormal Profile Rules:\n- Simulated Request = P95\n- Simulated Limit = Max × 1.2",
+      "description": "Memory usage compared to current and simulated (Normal profile) request/limit values.\n\nNormal Profile Rules:\n- Simulated Request = P95\n- Simulated Limit = Max \u00d7 1.2",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1742,7 +2202,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Sim Limit (Max×1.2)"
+              "options": "Sim Limit (Max\u00d71.2)"
             },
             "properties": [
               {
@@ -1778,7 +2238,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 22
+        "y": 24
       },
       "id": 202,
       "options": {
@@ -1847,17 +2307,17 @@
           },
           "editorMode": "code",
           "expr": "max_over_time(\n  sum(\n    container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n    * on(pod, namespace) group_left()\n    (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n  )[$__range:$__rate_interval]\n) * 1.2",
-          "legendFormat": "Sim Limit (Max×1.2)",
+          "legendFormat": "Sim Limit (Max\u00d71.2)",
           "range": true,
           "refId": "E"
         }
       ],
-      "title": "💾 Memory with Normal Profile Simulation",
+      "title": "\ud83d\udcbe Memory with Normal Profile Simulation",
       "type": "timeseries",
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1202"
         }
       ]
@@ -1868,11 +2328,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 37
+        "y": 39
       },
       "id": 203,
       "panels": [],
-      "title": "🧪 Workload Aggressive Profile Simulation: $workload",
+      "title": "\ud83e\uddea Workload Aggressive Profile Simulation: $workload",
       "type": "row"
     },
     {
@@ -1880,7 +2340,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "CPU usage compared to current and simulated (Aggressive profile) request/limit values.\n\nAggressive Profile Rules:\n- Simulated Request = P95 × 1.1\n- Simulated Limit = Max × 1.25",
+      "description": "CPU usage compared to current and simulated (Aggressive profile) request/limit values.\n\nAggressive Profile Rules:\n- Simulated Request = P95 \u00d7 1.1\n- Simulated Limit = Max \u00d7 1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1992,7 +2452,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Sim Request (P95×1.1)"
+              "options": "Sim Request (P95\u00d71.1)"
             },
             "properties": [
               {
@@ -2025,7 +2485,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Sim Limit (Max×1.25)"
+              "options": "Sim Limit (Max\u00d71.25)"
             },
             "properties": [
               {
@@ -2061,7 +2521,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 38
+        "y": 40
       },
       "id": 204,
       "options": {
@@ -2119,7 +2579,7 @@
           },
           "editorMode": "code",
           "expr": "quantile_over_time(0.95,\n  sum(\n    rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n    * on(pod, namespace) group_left()\n    (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n  )[$__range:$__rate_interval]\n) * 1000 * 1.1",
-          "legendFormat": "Sim Request (P95×1.1)",
+          "legendFormat": "Sim Request (P95\u00d71.1)",
           "range": true,
           "refId": "D"
         },
@@ -2130,17 +2590,17 @@
           },
           "editorMode": "code",
           "expr": "max_over_time(\n  sum(\n    rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n    * on(pod, namespace) group_left()\n    (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n  )[$__range:$__rate_interval]\n) * 1000 * 1.25",
-          "legendFormat": "Sim Limit (Max×1.25)",
+          "legendFormat": "Sim Limit (Max\u00d71.25)",
           "range": true,
           "refId": "E"
         }
       ],
-      "title": "🔥 CPU with Aggressive Profile Simulation",
+      "title": "\ud83d\udd25 CPU with Aggressive Profile Simulation",
       "type": "timeseries",
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1204"
         }
       ]
@@ -2150,7 +2610,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Memory usage compared to current and simulated (Aggressive profile) request/limit values.\n\nAggressive Profile Rules:\n- Simulated Request = Max\n- Simulated Limit = Max × 1.25",
+      "description": "Memory usage compared to current and simulated (Aggressive profile) request/limit values.\n\nAggressive Profile Rules:\n- Simulated Request = Max\n- Simulated Limit = Max \u00d7 1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2295,7 +2755,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Sim Limit (Max×1.25)"
+              "options": "Sim Limit (Max\u00d71.25)"
             },
             "properties": [
               {
@@ -2331,7 +2791,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 38
+        "y": 40
       },
       "id": 205,
       "options": {
@@ -2400,17 +2860,17 @@
           },
           "editorMode": "code",
           "expr": "max_over_time(\n  sum(\n    container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n    * on(pod, namespace) group_left()\n    (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n  )[$__range:$__rate_interval]\n) * 1.25",
-          "legendFormat": "Sim Limit (Max×1.25)",
+          "legendFormat": "Sim Limit (Max\u00d71.25)",
           "range": true,
           "refId": "E"
         }
       ],
-      "title": "💾 Memory with Aggressive Profile Simulation",
+      "title": "\ud83d\udcbe Memory with Aggressive Profile Simulation",
       "type": "timeseries",
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1205"
         }
       ]
@@ -2455,7 +2915,7 @@
         "h": 5,
         "w": 4,
         "x": 8,
-        "y": 16
+        "y": 18
       },
       "id": 206,
       "options": {
@@ -2490,7 +2950,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1206"
         }
       ]
@@ -2535,7 +2995,7 @@
         "h": 5,
         "w": 4,
         "x": 20,
-        "y": 16
+        "y": 18
       },
       "id": 207,
       "options": {
@@ -2570,7 +3030,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1207"
         }
       ]
@@ -2614,7 +3074,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 32
+        "y": 34
       },
       "id": 210,
       "options": {
@@ -2649,7 +3109,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1210"
         }
       ]
@@ -2659,7 +3119,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Current CPU usage as percentage of simulated limit (P99 × 1.5).",
+      "description": "Current CPU usage as percentage of simulated limit (P99 \u00d7 1.5).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2693,7 +3153,7 @@
         "h": 5,
         "w": 4,
         "x": 4,
-        "y": 32
+        "y": 34
       },
       "id": 211,
       "options": {
@@ -2728,7 +3188,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1211"
         }
       ]
@@ -2772,7 +3232,7 @@
         "h": 5,
         "w": 4,
         "x": 12,
-        "y": 32
+        "y": 34
       },
       "id": 212,
       "options": {
@@ -2807,7 +3267,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1212"
         }
       ]
@@ -2817,7 +3277,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Current memory usage as percentage of simulated limit (Max × 1.2).",
+      "description": "Current memory usage as percentage of simulated limit (Max \u00d7 1.2).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2851,7 +3311,7 @@
         "h": 5,
         "w": 4,
         "x": 16,
-        "y": 32
+        "y": 34
       },
       "id": 213,
       "options": {
@@ -2886,7 +3346,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1213"
         }
       ]
@@ -2896,7 +3356,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Ratio between simulated CPU limit (P99×1.5) and request (P90).",
+      "description": "Ratio between simulated CPU limit (P99\u00d71.5) and request (P90).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2931,7 +3391,7 @@
         "h": 5,
         "w": 4,
         "x": 8,
-        "y": 32
+        "y": 34
       },
       "id": 214,
       "options": {
@@ -2966,7 +3426,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1214"
         }
       ]
@@ -2976,7 +3436,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Ratio between simulated memory limit (Max×1.2) and request (P95).",
+      "description": "Ratio between simulated memory limit (Max\u00d71.2) and request (P95).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3011,7 +3471,7 @@
         "h": 5,
         "w": 4,
         "x": 20,
-        "y": 32
+        "y": 34
       },
       "id": 215,
       "options": {
@@ -3046,7 +3506,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1215"
         }
       ]
@@ -3056,7 +3516,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Current CPU usage as percentage of simulated request (P95 × 1.1).",
+      "description": "Current CPU usage as percentage of simulated request (P95 \u00d7 1.1).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3090,7 +3550,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 48
+        "y": 50
       },
       "id": 220,
       "options": {
@@ -3125,7 +3585,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1220"
         }
       ]
@@ -3135,7 +3595,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Current CPU usage as percentage of simulated limit (Max × 1.25).",
+      "description": "Current CPU usage as percentage of simulated limit (Max \u00d7 1.25).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3169,7 +3629,7 @@
         "h": 5,
         "w": 4,
         "x": 4,
-        "y": 48
+        "y": 50
       },
       "id": 221,
       "options": {
@@ -3204,7 +3664,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1221"
         }
       ]
@@ -3248,7 +3708,7 @@
         "h": 5,
         "w": 4,
         "x": 12,
-        "y": 48
+        "y": 50
       },
       "id": 222,
       "options": {
@@ -3283,7 +3743,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1222"
         }
       ]
@@ -3293,7 +3753,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Current memory usage as percentage of simulated limit (Max × 1.25).",
+      "description": "Current memory usage as percentage of simulated limit (Max \u00d7 1.25).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3327,7 +3787,7 @@
         "h": 5,
         "w": 4,
         "x": 16,
-        "y": 48
+        "y": 50
       },
       "id": 223,
       "options": {
@@ -3362,7 +3822,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1223"
         }
       ]
@@ -3372,7 +3832,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Ratio between simulated CPU limit (Max×1.25) and request (P95×1.1).",
+      "description": "Ratio between simulated CPU limit (Max\u00d71.25) and request (P95\u00d71.1).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3407,7 +3867,7 @@
         "h": 5,
         "w": 4,
         "x": 8,
-        "y": 48
+        "y": 50
       },
       "id": 224,
       "options": {
@@ -3442,7 +3902,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1224"
         }
       ]
@@ -3452,7 +3912,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Ratio between simulated memory limit (Max×1.25) and request (Max). Always 1.25.",
+      "description": "Ratio between simulated memory limit (Max\u00d71.25) and request (Max). Always 1.25.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3487,7 +3947,7 @@
         "h": 5,
         "w": 4,
         "x": 20,
-        "y": 48
+        "y": 50
       },
       "id": 225,
       "options": {
@@ -3522,7 +3982,7 @@
       "links": [
         {
           "targetBlank": true,
-          "title": "📖 View Documentation",
+          "title": "\ud83d\udcd6 View Documentation",
           "url": "/d/workload-resource-workload-docs?viewPanel=1225"
         }
       ]
