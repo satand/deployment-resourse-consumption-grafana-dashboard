@@ -2417,7 +2417,14 @@
       "id": 117,
       "panels": [],
       "title": "🧪 Normal Profile Simulation: $namespace",
-      "type": "row"
+      "type": "row",
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "📖 View Documentation",
+          "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1121"
+        }
+      ]
     },
     {
       "datasource": {
@@ -4574,7 +4581,14 @@
       "id": 108,
       "panels": [],
       "title": "🧪 Aggressive Profile Simulation: $namespace",
-      "type": "row"
+      "type": "row",
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "📖 View Documentation",
+          "url": "/d/workload-resource-analysis-docs/workload-resource-consumption-analysis-documentation?viewPanel=1121"
+        }
+      ]
     },
     {
       "datasource": {

@@ -1710,7 +1710,14 @@
       "id": 203,
       "panels": [],
       "title": "🧪 Workload Normal Profile Simulation: $workload",
-      "type": "row"
+      "type": "row",
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "📖 View Documentation",
+          "url": "/d/workload-resource-workload-docs?viewPanel=1226"
+        }
+      ]
     },
     {
       "datasource": {
@@ -2739,7 +2746,14 @@
       "id": 200,
       "panels": [],
       "title": "🧪 Workload Aggressive Profile Simulation: $workload",
-      "type": "row"
+      "type": "row",
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "📖 View Documentation",
+          "url": "/d/workload-resource-workload-docs?viewPanel=1226"
+        }
+      ]
     },
     {
       "datasource": {
