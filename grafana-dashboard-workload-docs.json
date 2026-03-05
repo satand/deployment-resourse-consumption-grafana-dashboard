@@ -461,7 +461,7 @@
       },
       "id": 1200,
       "panels": [],
-      "title": "\ud83e\uddea Workload Normal Profile Simulation Section",
+      "title": "\ud83e\uddea Workload Aggressive Profile Simulation Section",
       "type": "row"
     },
     {
@@ -478,11 +478,11 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## \ud83d\udd25 CPU with Normal Profile Simulation\n\n### Purpose\nTime series comparing actual CPU usage with current and simulated (Normal profile) request/limit values.\n\n### Normal Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | P90 | 90th percentile of CPU usage |\n| Sim Limit | P99 \u00d7 1.5 | 99th percentile \u00d7 1.5 safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual CPU usage |\n| Sim Request | Short dash | Light orange | Simulated request (P90) |\n| Sim Limit | Short dash | Light red | Simulated limit (P99\u00d71.5) |\n\n### Note\nCurrent Request/Limit are hidden by default but can be enabled in query editor.",
+        "content": "## \ud83d\udd25 CPU with Aggressive Profile Simulation\n\n### Purpose\nTime series comparing actual CPU usage with current and simulated (Aggressive profile) request/limit values.\n\n### Aggressive Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | P90 | 90th percentile of CPU usage |\n| Sim Limit | P99 \u00d7 1.25 | 99th percentile \u00d7 1.25 safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual CPU usage |\n| Sim Request | Short dash | Light orange | Simulated request (P90) |\n| Sim Limit | Short dash | Light red | Simulated limit (P99\u00d71.25) |\n\n### Note\nCurrent Request/Limit are hidden by default but can be enabled in query editor.",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
-      "title": "\ud83d\udd25 CPU with Normal Profile Simulation",
+      "title": "\ud83d\udd25 CPU with Aggressive Profile Simulation",
       "type": "text"
     },
     {
@@ -499,11 +499,11 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## \ud83d\udcbe Memory with Normal Profile Simulation\n\n### Purpose\nTime series comparing actual memory usage with current and simulated (Normal profile) request/limit values.\n\n### Normal Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | P95 | 95th percentile of memory usage |\n| Sim Limit | Max \u00d7 1.2 | Maximum \u00d7 1.2 safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual memory usage |\n| Sim Request | Short dash | Light orange | Simulated request (P95) |\n| Sim Limit | Short dash | Light red | Simulated limit (Max\u00d71.2) |\n\n### Note\nCurrent Request/Limit are hidden by default but can be enabled in query editor.",
+        "content": "## \ud83d\udcbe Memory with Aggressive Profile Simulation\n\n### Purpose\nTime series comparing actual memory usage with current and simulated (Aggressive profile) request/limit values.\n\n### Aggressive Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | P95 | 95th percentile of memory usage |\n| Sim Limit | Max \u00d7 1.25 | Maximum \u00d7 1.2 safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual memory usage |\n| Sim Request | Short dash | Light orange | Simulated request (P95) |\n| Sim Limit | Short dash | Light red | Simulated limit (Max\u00d71.25) |\n\n### Note\nCurrent Request/Limit are hidden by default but can be enabled in query editor.",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
-      "title": "\ud83d\udcbe Memory with Normal Profile Simulation",
+      "title": "\ud83d\udcbe Memory with Aggressive Profile Simulation",
       "type": "text"
     },
     {
@@ -520,11 +520,11 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU % of Sim Request (Normal)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** request (P90).\n\n### Formula\n```\n(Current CPU / P90) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd34 Red | Over-provisioned for this profile |\n| 50-110% | \ud83d\udfe2 Green | Optimal for this profile |\n| > 110% | \ud83d\udfe1 Yellow | High utilization for this profile |",
+        "content": "## CPU % of Sim Request (Aggressive)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** request (P90).\n\n### Formula\n```\n(Current CPU / P90) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd34 Red | Over-provisioned for this profile |\n| 50-110% | \ud83d\udfe2 Green | Optimal for this profile |\n| > 110% | \ud83d\udfe1 Yellow | High utilization for this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
-      "title": "CPU % of Sim Request (Normal)",
+      "title": "CPU % of Sim Request (Aggressive)",
       "type": "text"
     },
     {
@@ -541,11 +541,11 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU % of Sim Limit (Normal)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** limit (P99\u00d71.5).\n\n### Formula\n```\n(Current CPU / (P99 \u00d7 1.5)) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom |\n| 70-90% | \ud83d\udfe1 Yellow | Approaching simulated limit |\n| > 90% | \ud83d\udd34 Red | Would be throttled with this profile |",
+        "content": "## CPU % of Sim Limit (Aggressive)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** limit (P99\u00d71.25).\n\n### Formula\n```\n(Current CPU / (P99 \u00d7 1.25)) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom |\n| 70-90% | \ud83d\udfe1 Yellow | Approaching simulated limit |\n| > 90% | \ud83d\udd34 Red | Would be throttled with this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
-      "title": "CPU % of Sim Limit (Normal)",
+      "title": "CPU % of Sim Limit (Aggressive)",
       "type": "text"
     },
     {
@@ -562,188 +562,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Mem % of Sim Request (Normal)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** request (P95).\n\n### Formula\n```\n(Current Memory / P95) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd34 Red | Over-provisioned for this profile |\n| 50-110% | \ud83d\udfe2 Green | Optimal for this profile |\n| > 110% | \ud83d\udfe1 Yellow | High utilization for this profile |",
-        "mode": "markdown"
-      },
-      "pluginVersion": "10.4.3",
-      "title": "Mem % of Sim Request (Normal)",
-      "type": "text"
-    },
-    {
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 18,
-        "y": 78
-      },
-      "id": 1213,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "## Mem % of Sim Limit (Normal)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** limit (Max\u00d71.2).\n\n### Formula\n```\n(Current Memory / (Max \u00d7 1.2)) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom |\n| 70-90% | \ud83d\udfe1 Yellow | Approaching simulated limit |\n| > 90% | \ud83d\udd34 Red | OOM risk with this profile |",
-        "mode": "markdown"
-      },
-      "pluginVersion": "10.4.3",
-      "title": "Mem % of Sim Limit (Normal)",
-      "type": "text"
-    },
-    {
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 86
-      },
-      "id": 1214,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "## CPU Sim Limit/Request (Normal)\n\n### Purpose\nGauge showing the ratio between simulated CPU limit (P99\u00d71.5) and request (P90) for the Normal profile.\n\n### Formula\n```\n(P99 \u00d7 1.5) / P90\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | \ud83d\udd34 Red | Insufficient headroom in simulation |\n| 1.2 - 10 | \ud83d\udfe2 Green | Good balance |\n| > 10 | \ud83d\udfe1 Yellow | Wide gap between P90 and P99 |",
-        "mode": "markdown"
-      },
-      "pluginVersion": "10.4.3",
-      "title": "CPU Sim Limit/Request (Normal)",
-      "type": "text"
-    },
-    {
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 86
-      },
-      "id": 1215,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "## Mem Sim Limit/Request (Normal)\n\n### Purpose\nGauge showing the ratio between simulated memory limit (Max\u00d71.2) and request (P95) for the Normal profile.\n\n### Formula\n```\n(Max \u00d7 1.2) / P95\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | \ud83d\udd34 Red | Insufficient headroom in simulation |\n| 1.2 - 3.5 | \ud83d\udfe2 Green | Good balance |\n| > 3.5 | \ud83d\udfe1 Yellow | Wide gap between P95 and Max |",
-        "mode": "markdown"
-      },
-      "pluginVersion": "10.4.3",
-      "title": "Mem Sim Limit/Request (Normal)",
-      "type": "text"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 94
-      },
-      "id": 1203,
-      "panels": [],
-      "title": "\ud83e\uddea Workload Aggressive Profile Simulation Section",
-      "type": "row"
-    },
-    {
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 0,
-        "y": 95
-      },
-      "id": 1204,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "## \ud83d\udd25 CPU with Aggressive Profile Simulation\n\n### Purpose\nTime series comparing actual CPU usage with current and simulated (Aggressive profile) request/limit values.\n\n### Aggressive Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | P95 \u00d7 1.1 | 95th percentile \u00d7 1.1 |\n| Sim Limit | Max \u00d7 1.25 | Maximum \u00d7 1.25 minimal safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual CPU usage |\n| Sim Request | Short dash | Light orange | Simulated request (P95\u00d71.1) |\n| Sim Limit | Short dash | Light red | Simulated limit (Max\u00d71.25) |\n\n### \u26a0\ufe0f Warning\nAggressive profile has tighter margins - higher throttling risk!",
-        "mode": "markdown"
-      },
-      "pluginVersion": "10.4.3",
-      "title": "\ud83d\udd25 CPU with Aggressive Profile Simulation",
-      "type": "text"
-    },
-    {
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 12,
-        "y": 95
-      },
-      "id": 1205,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "## \ud83d\udcbe Memory with Aggressive Profile Simulation\n\n### Purpose\nTime series comparing actual memory usage with current and simulated (Aggressive profile) request/limit values.\n\n### Aggressive Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | Max | Maximum memory usage (no buffer) |\n| Sim Limit | Max \u00d7 1.25 | Maximum \u00d7 1.25 minimal safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual memory usage |\n| Sim Request | Short dash | Light orange | Simulated request (Max) |\n| Sim Limit | Short dash | Light red | Simulated limit (Max\u00d71.25) |\n\n### \u26a0\ufe0f Warning\nAggressive profile has tighter margins - higher OOM kill risk!",
-        "mode": "markdown"
-      },
-      "pluginVersion": "10.4.3",
-      "title": "\ud83d\udcbe Memory with Aggressive Profile Simulation",
-      "type": "text"
-    },
-    {
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 0,
-        "y": 105
-      },
-      "id": 1220,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "## CPU % of Sim Request (Aggressive)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** request (P95\u00d71.1).\n\n### Formula\n```\n(Current CPU / (P95 \u00d7 1.1)) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd34 Red | Over-provisioned for this profile |\n| 50-110% | \ud83d\udfe2 Green | Optimal for this profile |\n| > 110% | \ud83d\udfe1 Yellow | High utilization for this profile |",
-        "mode": "markdown"
-      },
-      "pluginVersion": "10.4.3",
-      "title": "CPU % of Sim Request (Aggressive)",
-      "type": "text"
-    },
-    {
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 6,
-        "y": 105
-      },
-      "id": 1221,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "## CPU % of Sim Limit (Aggressive)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** limit (Max\u00d71.25).\n\n### Formula\n```\n(Current CPU / (Max \u00d7 1.25)) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom |\n| 70-90% | \ud83d\udfe1 Yellow | Approaching simulated limit |\n| > 90% | \ud83d\udd34 Red | Would be throttled with this profile |",
-        "mode": "markdown"
-      },
-      "pluginVersion": "10.4.3",
-      "title": "CPU % of Sim Limit (Aggressive)",
-      "type": "text"
-    },
-    {
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 12,
-        "y": 105
-      },
-      "id": 1222,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "## Mem % of Sim Request (Aggressive)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** request (Max).\n\n### Formula\n```\n(Current Memory / Max) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd34 Red | Over-provisioned for this profile |\n| 50-110% | \ud83d\udfe2 Green | Optimal for this profile |\n| > 110% | \ud83d\udfe1 Yellow | High utilization for this profile |",
+        "content": "## Mem % of Sim Request (Aggressive)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** request (P95).\n\n### Formula\n```\n(Current Memory / P95) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd34 Red | Over-provisioned for this profile |\n| 50-110% | \ud83d\udfe2 Green | Optimal for this profile |\n| > 110% | \ud83d\udfe1 Yellow | High utilization for this profile |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
@@ -755,9 +574,9 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 105
+        "y": 78
       },
-      "id": 1223,
+      "id": 1213,
       "options": {
         "code": {
           "language": "plaintext",
@@ -776,6 +595,187 @@
         "h": 8,
         "w": 12,
         "x": 0,
+        "y": 86
+      },
+      "id": 1214,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## CPU Sim Limit/Request (Aggressive)\n\n### Purpose\nGauge showing the ratio between simulated CPU limit (P99\u00d71.25) and request (P90) for the Aggressive profile.\n\n### Formula\n```\n(P99 \u00d7 1.25) / P90\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | \ud83d\udd34 Red | Insufficient headroom in simulation |\n| 1.2 - 10 | \ud83d\udfe2 Green | Good balance |\n| > 10 | \ud83d\udfe1 Yellow | Wide gap between P90 and P99 |",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "CPU Sim Limit/Request (Aggressive)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 86
+      },
+      "id": 1215,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Mem Sim Limit/Request (Aggressive)\n\n### Purpose\nGauge showing the ratio between simulated memory limit (Max\u00d71.5) and request (P95) for the Aggressive profile.\n\n### Formula\n```\n(Max \u00d7 1.25) / P95\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | \ud83d\udd34 Red | Insufficient headroom in simulation |\n| 1.2 - 3.5 | \ud83d\udfe2 Green | Good balance |\n| > 3.5 | \ud83d\udfe1 Yellow | Wide gap between P95 and Max |",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "Mem Sim Limit/Request (Aggressive)",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 94
+      },
+      "id": 1203,
+      "panels": [],
+      "title": "\ud83e\uddea Workload Normal Profile Simulation Section",
+      "type": "row"
+    },
+    {
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 95
+      },
+      "id": 1204,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83d\udd25 CPU with Normal Profile Simulation\n\n### Purpose\nTime series comparing actual CPU usage with current and simulated (Normal profile) request/limit values.\n\n### Normal Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | P95 \u00d7 1.1 | 95th percentile \u00d7 1.1 |\n| Sim Limit | Max \u00d7 1.25 | Maximum \u00d7 1.25 minimal safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual CPU usage |\n| Sim Request | Short dash | Light orange | Simulated request (P95\u00d71.1) |\n| Sim Limit | Short dash | Light red | Simulated limit (Max\u00d71.25) |\n\n### \u26a0\ufe0f Warning\nNormal profile has tighter margins - higher throttling risk!",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83d\udd25 CPU with Normal Profile Simulation",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 95
+      },
+      "id": 1205,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## \ud83d\udcbe Memory with Normal Profile Simulation\n\n### Purpose\nTime series comparing actual memory usage with current and simulated (Normal profile) request/limit values.\n\n### Normal Profile Rules\n| Metric | Formula | Description |\n|--------|---------|-------------|\n| Sim Request | Max | Maximum memory usage (no buffer) |\n| Sim Limit | Max \u00d7 1.25 | Maximum \u00d7 1.25 minimal safety margin |\n\n### Lines\n| Line | Style | Color | Description |\n|------|-------|-------|-------------|\n| Usage | Solid | Auto | Actual memory usage |\n| Sim Request | Short dash | Light orange | Simulated request (Max) |\n| Sim Limit | Short dash | Light red | Simulated limit (Max\u00d71.25) |\n\n### \u26a0\ufe0f Warning\nNormal profile has tighter margins - higher OOM kill risk!",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "\ud83d\udcbe Memory with Normal Profile Simulation",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 105
+      },
+      "id": 1220,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## CPU % of Sim Request (Normal)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** request (P95\u00d71.1).\n\n### Formula\n```\n(Current CPU / (P95 \u00d7 1.1)) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd34 Red | Over-provisioned for this profile |\n| 50-110% | \ud83d\udfe2 Green | Optimal for this profile |\n| > 110% | \ud83d\udfe1 Yellow | High utilization for this profile |",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "CPU % of Sim Request (Normal)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 105
+      },
+      "id": 1221,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## CPU % of Sim Limit (Normal)\n\n### Purpose\nGauge showing current CPU usage as percentage of the **simulated** limit (Max\u00d71.25).\n\n### Formula\n```\n(Current CPU / (Max \u00d7 1.25)) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom |\n| 70-90% | \ud83d\udfe1 Yellow | Approaching simulated limit |\n| > 90% | \ud83d\udd34 Red | Would be throttled with this profile |",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "CPU % of Sim Limit (Normal)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 105
+      },
+      "id": 1222,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Mem % of Sim Request (Normal)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** request (Max).\n\n### Formula\n```\n(Current Memory / Max) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 50% | \ud83d\udd34 Red | Over-provisioned for this profile |\n| 50-110% | \ud83d\udfe2 Green | Optimal for this profile |\n| > 110% | \ud83d\udfe1 Yellow | High utilization for this profile |",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "Mem % of Sim Request (Normal)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 105
+      },
+      "id": 1223,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Mem % of Sim Limit (Normal)\n\n### Purpose\nGauge showing current memory usage as percentage of the **simulated** limit (Max\u00d71.25).\n\n### Formula\n```\n(Current Memory / (Max \u00d7 1.25)) \u00d7 100\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 70% | \ud83d\udfe2 Green | Safe headroom |\n| 70-90% | \ud83d\udfe1 Yellow | Approaching simulated limit |\n| > 90% | \ud83d\udd34 Red | OOM risk with this profile |",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "Mem % of Sim Limit (Normal)",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
         "y": 113
       },
       "id": 1224,
@@ -785,11 +785,11 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## CPU Sim Limit/Request (Aggressive)\n\n### Purpose\nGauge showing the ratio between simulated CPU limit (Max\u00d71.25) and request (P95\u00d71.1) for the Aggressive profile.\n\n### Formula\n```\n(Max \u00d7 1.25) / (P95 \u00d7 1.1)\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | \ud83d\udd34 Red | Insufficient headroom in simulation |\n| 1.2 - 10 | \ud83d\udfe2 Green | Good balance |\n| > 10 | \ud83d\udfe1 Yellow | Wide gap between P95 and Max |",
+        "content": "## CPU Sim Limit/Request (Normal)\n\n### Purpose\nGauge showing the ratio between simulated CPU limit (Max\u00d71.25) and request (P95\u00d71.1) for the Normal profile.\n\n### Formula\n```\n(Max \u00d7 1.25) / (P95 \u00d7 1.1)\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | \ud83d\udd34 Red | Insufficient headroom in simulation |\n| 1.2 - 10 | \ud83d\udfe2 Green | Good balance |\n| > 10 | \ud83d\udfe1 Yellow | Wide gap between P95 and Max |",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
-      "title": "CPU Sim Limit/Request (Aggressive)",
+      "title": "CPU Sim Limit/Request (Normal)",
       "type": "text"
     },
     {
@@ -806,11 +806,11 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Mem Sim Limit/Request (Aggressive)\n\n### Purpose\nGauge showing the ratio between simulated memory limit (Max\u00d71.25) and request (Max) for the Aggressive profile.\n\n### Formula\n```\n(Max \u00d7 1.25) / Max = 1.25 (constant)\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | \ud83d\udd34 Red | Insufficient headroom |\n| 1.2 - 3.5 | \ud83d\udfe2 Green | Good balance |\n| > 3.5 | \ud83d\udfe1 Yellow | Over-provisioned |\n\n### Note\nThis ratio is always 1.25 for Aggressive profile (Max\u00d71.25 / Max).",
+        "content": "## Mem Sim Limit/Request (Normal)\n\n### Purpose\nGauge showing the ratio between simulated memory limit (Max\u00d71.5) and request (Max) for the Normal profile.\n\n### Formula\n```\n(Max \u00d7 1.5) / Max = 1.5 (constant)\n```\n\n### Thresholds\n| Range | Color | Interpretation |\n|-------|-------|----------------|\n| < 1.2 | \ud83d\udd34 Red | Insufficient headroom |\n| 1.2 - 3.5 | \ud83d\udfe2 Green | Good balance |\n| > 3.5 | \ud83d\udfe1 Yellow | Over-provisioned |\n\n### Note\nThis ratio is always 1.5 for Normal profile (Max\u00d71.5 / Max).",
         "mode": "markdown"
       },
       "pluginVersion": "10.4.3",
-      "title": "Mem Sim Limit/Request (Aggressive)",
+      "title": "Mem Sim Limit/Request (Normal)",
       "type": "text"
     },
     {

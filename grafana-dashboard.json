@@ -2404,7 +2404,7 @@
       },
       "id": 108,
       "panels": [],
-      "title": "🧪 Normal Profile Simulation: $namespace",
+      "title": "🧪 Aggressive Profile Simulation: $namespace",
       "type": "row"
     },
     {
@@ -2412,7 +2412,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated resource efficiency (Util%) and risk (Risk%) using NORMAL profile. CPU: Req=P90, Lim=P99×1.5. Memory: Req=P95, Lim=MAX×1.2",
+      "description": "Simulated resource efficiency (Util%) and risk (Risk%) using AGGRESSIVE profile. CPU: Req=P90, Lim=P99×1.25. Memory: Req=P95, Lim=MAX×1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2680,7 +2680,7 @@
           "refId": "mem_p95"
         }
       ],
-      "title": "🧪 Resource Utilization & Risk Analysis (Normal)",
+      "title": "🧪 Resource Utilization & Risk Analysis (Aggressive)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -2916,7 +2916,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated time distribution using NORMAL profile. CPU: Req=P90, Lim=P99×1.5. Memory: Req=P95, Lim=MAX×1.2",
+      "description": "Simulated time distribution using AGGRESSIVE profile. CPU: Req=P90, Lim=P99×1.25. Memory: Req=P95, Lim=MAX×1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3182,7 +3182,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg by (workload) (\n  label_replace(\n    avg_over_time(\n      (\n        sum by (created_by_name) (\n          rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )\n        >= bool\n        (quantile_over_time(0.99, sum by (created_by_name) (\n          rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )[$__range:$__rate_interval]) * 1.5)\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 100",
+          "expr": "avg by (workload) (\n  label_replace(\n    avg_over_time(\n      (\n        sum by (created_by_name) (\n          rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )\n        >= bool\n        (quantile_over_time(0.99, sum by (created_by_name) (\n          rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )[$__range:$__rate_interval]) * 1.25)\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 100",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -3212,7 +3212,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg by (workload) (\n  label_replace(\n    avg_over_time(\n      (\n        sum by (created_by_name) (\n          container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )\n        >= bool\n        (max_over_time(sum by (created_by_name) (\n          container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )[$__range:$__rate_interval]) * 1.2)\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 100",
+          "expr": "avg by (workload) (\n  label_replace(\n    avg_over_time(\n      (\n        sum by (created_by_name) (\n          container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )\n        >= bool\n        (max_over_time(sum by (created_by_name) (\n          container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )[$__range:$__rate_interval]) * 1.25)\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 100",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -3221,7 +3221,7 @@
           "refId": "mem_above_lim"
         }
       ],
-      "title": "🧪 Time Distribution by Resource Zone (Normal)",
+      "title": "🧪 Time Distribution by Resource Zone (Aggressive)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -3350,7 +3350,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated Limit/Request ratio using NORMAL profile. CPU: Req=P90, Lim=P99×1.5. Memory: Req=P95, Lim=MAX×1.2",
+      "description": "Simulated Limit/Request ratio using AGGRESSIVE profile. CPU: Req=P90, Lim=P99×1.25. Memory: Req=P95, Lim=MAX×1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3566,7 +3566,7 @@
           "refId": "mem_p95"
         }
       ],
-      "title": "🧪 Limit/Request Ratio Analysis (Normal)",
+      "title": "🧪 Limit/Request Ratio Analysis (Aggressive)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -3709,7 +3709,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated CPU request/limit values using NORMAL profile, per-replica values, and differences from actual configuration. CPU: Req=P90, Lim=P99×1.5",
+      "description": "Simulated CPU request/limit values using AGGRESSIVE profile, per-replica values, and differences from actual configuration. CPU: Req=P90, Lim=P99×1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3961,7 +3961,7 @@
           "refId": "cpu_lim_real"
         }
       ],
-      "title": "🧪 Simulated CPU Values (Normal)",
+      "title": "🧪 Simulated CPU Values (Aggressive)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -4161,7 +4161,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated Memory request/limit values using NORMAL profile, per-replica values, and differences from actual configuration. Memory: Req=P95, Lim=MAX×1.2",
+      "description": "Simulated Memory request/limit values using AGGRESSIVE profile, per-replica values, and differences from actual configuration. Memory: Req=P95, Lim=MAX×1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -4413,7 +4413,7 @@
           "refId": "mem_lim_real"
         }
       ],
-      "title": "🧪 Simulated Memory Values (Normal)",
+      "title": "🧪 Simulated Memory Values (Aggressive)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -4618,7 +4618,7 @@
       },
       "id": 117,
       "panels": [],
-      "title": "🧪 Aggressive Profile Simulation: $namespace",
+      "title": "🧪 Normal Profile Simulation: $namespace",
       "type": "row"
     },
     {
@@ -4626,7 +4626,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated resource efficiency (Util%) and risk (Risk%) using AGGRESSIVE profile. CPU: Req=P95×1.1, Lim=MAX×1.25. Memory: Req=MAX, Lim=MAX×1.25",
+      "description": "Simulated resource efficiency (Util%) and risk (Risk%) using NORMAL profile. CPU: Req=P95×1.1, Lim=MAX×1.25. Memory: Req=MAX, Lim=MAX×1.5",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -4864,7 +4864,7 @@
           "refId": "mem_max"
         }
       ],
-      "title": "🧪 Resource Utilization & Risk Analysis (Aggressive)",
+      "title": "🧪 Resource Utilization & Risk Analysis (Normal)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -5108,7 +5108,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated time distribution using AGGRESSIVE profile. CPU: Req=P95×1.1, Lim=MAX×1.25. Memory: Req=MAX, Lim=MAX×1.25",
+      "description": "Simulated time distribution using NORMAL profile. CPU: Req=P95×1.1, Lim=MAX×1.25. Memory: Req=MAX, Lim=MAX×1.5",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -5404,7 +5404,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg by (workload) (\n  label_replace(\n    avg_over_time(\n      (\n        sum by (created_by_name) (\n          container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )\n        >= bool\n        (max_over_time(sum by (created_by_name) (\n          container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )[$__range:$__rate_interval]) * 1.25)\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 100",
+          "expr": "avg by (workload) (\n  label_replace(\n    avg_over_time(\n      (\n        sum by (created_by_name) (\n          container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )\n        >= bool\n        (max_over_time(sum by (created_by_name) (\n          container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n          * on(pod, namespace) group_left(created_by_name)\n        (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\"}))\n        )[$__range:$__rate_interval]) * 1.5)\n      )[$__range:$__rate_interval]\n    ),\n    \"workload\", \"$1\", \"created_by_name\", \"^(.+?)(?:-[a-z0-9]{8,10}|-\\\\d+)?$\"\n  )\n) * 100",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -5413,7 +5413,7 @@
           "refId": "mem_above_lim"
         }
       ],
-      "title": "🧪 Time Distribution by Resource Zone (Aggressive)",
+      "title": "🧪 Time Distribution by Resource Zone (Normal)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -5548,7 +5548,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated Limit/Request ratio using AGGRESSIVE profile. CPU: Req=P95×1.1, Lim=MAX×1.25. Memory: Req=MAX, Lim=MAX×1.25",
+      "description": "Simulated Limit/Request ratio using NORMAL profile. CPU: Req=P95×1.1, Lim=MAX×1.25. Memory: Req=MAX, Lim=MAX×1.5",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -5749,7 +5749,7 @@
           "refId": "mem_max"
         }
       ],
-      "title": "🧪 Limit/Request Ratio Analysis (Aggressive)",
+      "title": "🧪 Limit/Request Ratio Analysis (Normal)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -5875,7 +5875,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated CPU request/limit values using AGGRESSIVE profile, per-replica values, and differences from actual configuration. CPU: Req=P95×1.1, Lim=MAX×1.25",
+      "description": "Simulated CPU request/limit values using NORMAL profile, per-replica values, and differences from actual configuration. CPU: Req=P95×1.1, Lim=MAX×1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -6127,7 +6127,7 @@
           "refId": "cpu_lim_real"
         }
       ],
-      "title": "🧪 Simulated CPU Values (Aggressive)",
+      "title": "🧪 Simulated CPU Values (Normal)",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -6326,7 +6326,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Simulated Memory request/limit values using AGGRESSIVE profile, per-replica values, and differences from actual configuration. Memory: Req=MAX, Lim=MAX×1.25",
+      "description": "Simulated Memory request/limit values using NORMAL profile, per-replica values, and differences from actual configuration. Memory: Req=MAX, Lim=MAX×1.5",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -6563,7 +6563,7 @@
           "refId": "mem_lim_real"
         }
       ],
-      "title": "🧪 Simulated Memory Values (Aggressive)",
+      "title": "🧪 Simulated Memory Values (Normal)",
       "transformations": [
         {
           "id": "seriesToColumns",

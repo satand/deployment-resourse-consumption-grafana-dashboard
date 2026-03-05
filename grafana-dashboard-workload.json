@@ -1779,7 +1779,7 @@
       },
       "id": 200,
       "panels": [],
-      "title": "\ud83e\uddea Workload Normal Profile Simulation: $workload",
+      "title": "\ud83e\uddea Workload Aggressive Profile Simulation: $workload",
       "type": "row"
     },
     {
@@ -1787,7 +1787,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "CPU usage compared to current and simulated (Normal profile) request/limit values.\n\nNormal Profile Rules:\n- Simulated Request = P90\n- Simulated Limit = P99 \u00d7 1.5",
+      "description": "CPU usage compared to current and simulated (Aggressive profile) request/limit values.\n\nAggressive Profile Rules:\n- Simulated Request = P90\n- Simulated Limit = P99 \u00d7 1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1932,7 +1932,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Sim Limit (P99\u00d71.5)"
+              "options": "Sim Limit (P99\u00d71.25)"
             },
             "properties": [
               {
@@ -2036,13 +2036,13 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "quantile_over_time(0.99,\n  sum(\n    rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n    * on(pod, namespace) group_left()\n    (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n  )[$__range:$__rate_interval]\n) * 1000 * 1.5",
-          "legendFormat": "Sim Limit (P99\u00d71.5)",
+          "expr": "quantile_over_time(0.99,\n  sum(\n    rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval])\n    * on(pod, namespace) group_left()\n    (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n  )[$__range:$__rate_interval]\n) * 1000 * 1.25",
+          "legendFormat": "Sim Limit (P99\u00d71.25)",
           "range": true,
           "refId": "E"
         }
       ],
-      "title": "\ud83d\udd25 CPU with Normal Profile Simulation",
+      "title": "\ud83d\udd25 CPU with Aggressive Profile Simulation",
       "type": "timeseries",
       "links": [
         {
@@ -2057,7 +2057,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Memory usage compared to current and simulated (Normal profile) request/limit values.\n\nNormal Profile Rules:\n- Simulated Request = P95\n- Simulated Limit = Max \u00d7 1.2",
+      "description": "Memory usage compared to current and simulated (Aggressive profile) request/limit values.\n\nAggressive Profile Rules:\n- Simulated Request = P95\n- Simulated Limit = Max \u00d7 1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2202,7 +2202,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Sim Limit (Max\u00d71.2)"
+              "options": "Sim Limit (Max\u00d71.25)"
             },
             "properties": [
               {
@@ -2306,13 +2306,13 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max_over_time(\n  sum(\n    container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n    * on(pod, namespace) group_left()\n    (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n  )[$__range:$__rate_interval]\n) * 1.2",
-          "legendFormat": "Sim Limit (Max\u00d71.2)",
+          "expr": "max_over_time(\n  sum(\n    container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n    * on(pod, namespace) group_left()\n    (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n  )[$__range:$__rate_interval]\n) * 1.25",
+          "legendFormat": "Sim Limit (Max\u00d71.25)",
           "range": true,
           "refId": "E"
         }
       ],
-      "title": "\ud83d\udcbe Memory with Normal Profile Simulation",
+      "title": "\ud83d\udcbe Memory with Aggressive Profile Simulation",
       "type": "timeseries",
       "links": [
         {
@@ -2332,7 +2332,7 @@
       },
       "id": 203,
       "panels": [],
-      "title": "\ud83e\uddea Workload Aggressive Profile Simulation: $workload",
+      "title": "\ud83e\uddea Workload Normal Profile Simulation: $workload",
       "type": "row"
     },
     {
@@ -2340,7 +2340,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "CPU usage compared to current and simulated (Aggressive profile) request/limit values.\n\nAggressive Profile Rules:\n- Simulated Request = P95 \u00d7 1.1\n- Simulated Limit = Max \u00d7 1.25",
+      "description": "CPU usage compared to current and simulated (Normal profile) request/limit values.\n\nNormal Profile Rules:\n- Simulated Request = P95 \u00d7 1.1\n- Simulated Limit = Max \u00d7 1.25",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2595,7 +2595,7 @@
           "refId": "E"
         }
       ],
-      "title": "\ud83d\udd25 CPU with Aggressive Profile Simulation",
+      "title": "\ud83d\udd25 CPU with Normal Profile Simulation",
       "type": "timeseries",
       "links": [
         {
@@ -2610,7 +2610,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Memory usage compared to current and simulated (Aggressive profile) request/limit values.\n\nAggressive Profile Rules:\n- Simulated Request = Max\n- Simulated Limit = Max \u00d7 1.25",
+      "description": "Memory usage compared to current and simulated (Normal profile) request/limit values.\n\nNormal Profile Rules:\n- Simulated Request = Max\n- Simulated Limit = Max \u00d7 1.5",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2755,7 +2755,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Sim Limit (Max\u00d71.25)"
+              "options": "Sim Limit (Max\u00d71.5)"
             },
             "properties": [
               {
@@ -2859,13 +2859,13 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max_over_time(\n  sum(\n    container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n    * on(pod, namespace) group_left()\n    (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n  )[$__range:$__rate_interval]\n) * 1.25",
-          "legendFormat": "Sim Limit (Max\u00d71.25)",
+          "expr": "max_over_time(\n  sum(\n    container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}\n    * on(pod, namespace) group_left()\n    (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"}))\n  )[$__range:$__rate_interval]\n) * 1.5",
+          "legendFormat": "Sim Limit (Max\u00d71.5)",
           "range": true,
           "refId": "E"
         }
       ],
-      "title": "\ud83d\udcbe Memory with Aggressive Profile Simulation",
+      "title": "\ud83d\udcbe Memory with Normal Profile Simulation",
       "type": "timeseries",
       "links": [
         {
@@ -3119,7 +3119,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Current CPU usage as percentage of simulated limit (P99 \u00d7 1.5).",
+      "description": "Current CPU usage as percentage of simulated limit (P99 \u00d7 1.25).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3177,7 +3177,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(\n  sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval]) * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))\n  /\n  (quantile_over_time(0.99, sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval]) * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval]) * 1.5)\n) * 100",
+          "expr": "(\n  sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval]) * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))\n  /\n  (quantile_over_time(0.99, sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval]) * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval]) * 1.25)\n) * 100",
           "legendFormat": "CPU % of Sim Lim",
           "range": true,
           "refId": "A"
@@ -3277,7 +3277,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Current memory usage as percentage of simulated limit (Max \u00d7 1.2).",
+      "description": "Current memory usage as percentage of simulated limit (Max \u00d7 1.25).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3335,7 +3335,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(\n  sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))\n  /\n  (max_over_time(sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval]) * 1.2)\n) * 100",
+          "expr": "(\n  sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))\n  /\n  (max_over_time(sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval]) * 1.25)\n) * 100",
           "legendFormat": "Mem % of Sim Lim",
           "range": true,
           "refId": "A"
@@ -3356,7 +3356,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Ratio between simulated CPU limit (P99\u00d71.5) and request (P90).",
+      "description": "Ratio between simulated CPU limit (P99\u00d71.25) and request (P90).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3415,7 +3415,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(quantile_over_time(0.99, sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval]) * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval]) * 1.5)\n/\nquantile_over_time(0.90, sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval]) * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval])",
+          "expr": "(quantile_over_time(0.99, sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval]) * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval]) * 1.25)\n/\nquantile_over_time(0.90, sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", image!=\"\"}[$__rate_interval]) * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval])",
           "legendFormat": "CPU Sim Lim/Req",
           "range": true,
           "refId": "A"
@@ -3436,7 +3436,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Ratio between simulated memory limit (Max\u00d71.2) and request (P95).",
+      "description": "Ratio between simulated memory limit (Max\u00d71.25) and request (P95).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3495,7 +3495,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(max_over_time(sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval]) * 1.2)\n/\nquantile_over_time(0.95, sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval])",
+          "expr": "(max_over_time(sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval]) * 1.25)\n/\nquantile_over_time(0.95, sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval])",
           "legendFormat": "Mem Sim Lim/Req",
           "range": true,
           "refId": "A"
@@ -3595,7 +3595,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Current CPU usage as percentage of simulated limit (Max \u00d7 1.25).",
+      "description": "Current CPU usage as percentage of simulated limit (Max \u00d7 1.5).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3753,7 +3753,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Current memory usage as percentage of simulated limit (Max \u00d7 1.25).",
+      "description": "Current memory usage as percentage of simulated limit (Max \u00d7 1.5).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3811,7 +3811,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(\n  sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))\n  /\n  (max_over_time(sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval]) * 1.25)\n) * 100",
+          "expr": "(\n  sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))\n  /\n  (max_over_time(sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval]) * 1.5)\n) * 100",
           "legendFormat": "Mem % of Sim Lim",
           "range": true,
           "refId": "A"
@@ -3912,7 +3912,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Ratio between simulated memory limit (Max\u00d71.25) and request (Max). Always 1.25.",
+      "description": "Ratio between simulated memory limit (Max\u00d71.5) and request (Max). Always 1.25.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3971,7 +3971,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(max_over_time(sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval]) * 1.25)\n/\nmax_over_time(sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval])",
+          "expr": "(max_over_time(sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval]) * 1.5)\n/\nmax_over_time(sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"} * on(pod, namespace) group_left() (group by (pod, namespace, created_by_name, created_by_kind) (kube_pod_info{namespace=\"$namespace\", created_by_kind=~\"$workload_kinds\", created_by_name=~\"$workload(-[a-z0-9]{8,10}|-[0-9]+)?\"})))[$__range:$__rate_interval])",
           "legendFormat": "Mem Sim Lim/Req",
           "range": true,
           "refId": "A"

@@ -12,7 +12,7 @@ A comprehensive suite of Grafana dashboards for analyzing Kubernetes workload re
 - Resource utilization and risk analysis
 - Limit/Request ratio analysis
 - Time distribution by resource zone
-- **Simulation rows** for Normal and Aggressive optimization profiles
+- **Simulation rows** for Aggressive and Normal optimization profiles
 
 ### 🔍 Workload Details Dashboard (`grafana-dashboard-workload.json`)
 - **UID**: `workload-resource-workload`
@@ -20,7 +20,7 @@ A comprehensive suite of Grafana dashboards for analyzing Kubernetes workload re
 - Real-time CPU/Memory usage time series with request/limit lines
 - Gauge panels for utilization percentages and limit/request ratios
 - Per-pod breakdown for troubleshooting
-- **Simulation rows** with Normal and Aggressive profile recommendations
+- **Simulation rows** with Aggressive and Normal profile recommendations
 
 ## Documentation Dashboards
 
@@ -37,10 +37,22 @@ A comprehensive suite of Grafana dashboards for analyzing Kubernetes workload re
 
 ## Simulation Profiles
 
+Both dashboards include simulation rows that calculate hypothetical request/limit values based on observed usage, helping you rightsize workloads without guesswork.
+
 | Profile | CPU Request | CPU Limit | Memory Request | Memory Limit |
 |---------|-------------|-----------|----------------|--------------|
-| **Normal** | P90 | P99 × 1.5 | P95 | Max × 1.2 |
-| **Aggressive** | P95 × 1.1 | Max × 1.25 | Max | Max × 1.25 |
+| **Normal** | P95 × 1.1 | Max × 1.25 | Max | Max × 1.5 |
+| **Aggressive** | P90 | P99 × 1.25 | P95 | Max × 1.25 |
+
+- **Normal** — Safe default for most workloads. Requests are generous (P95+ for CPU, Max for Memory), giving the scheduler plenty of guaranteed capacity. Limits provide ample headroom, especially for memory (50% above max) to prevent OOM kills. Best for production services where stability matters more than cost.
+- **Aggressive** — Cost-optimized profile that sets lower requests (P90 for CPU, P95 for Memory), reclaiming unused reservations. Limits are tighter (25% above max), reducing cluster overhead. Best for non-critical or stable workloads where saving cluster capacity is a priority.
+
+| Aspect | Normal | Aggressive |
+|--------|--------|------------|
+| **Resource cost** | Higher — generous requests reserve more capacity | Lower — tighter requests free up cluster resources |
+| **Safety** | High — requests cover P95+ usage, limits well above Max | Lower — requests at P90, leaving less guaranteed capacity |
+| **Headroom** | Generous (CPU limit at Max×1.25, Memory limit at Max×1.5) | Tighter (CPU limit at P99×1.25, Memory limit at Max×1.25) |
+| **Best for** | Production, critical services, variable workloads | Cost-sensitive, stable, non-critical workloads |
 
 ## Management Script
 
